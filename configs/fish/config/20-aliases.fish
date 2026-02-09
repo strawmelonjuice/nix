@@ -1,0 +1,110 @@
+# -----------------------------------------------------
+# Aliases
+# -----------------------------------------------------
+
+# General aliases
+alias c 'clear'
+alias cls 'clear'
+alias nf 'hyfetch'
+alias pf 'hyfetch'
+alias hf 'hyfetch'
+
+alias ff 'fastfetch'
+alias ls 'eza --icons'
+alias la 'eza -a --icons'
+alias ll 'eza -al --icons'
+alias lt 'eza -a --tree --level=1 --icons'
+alias shutdown 'systemctl poweroff'
+alias v '$EDITOR'
+alias bat 'bat --ignored-suffix .tmpl'
+alias cat 'bat -p'
+alias wifi 'nmtui'
+alias zed 'ZED_ALLOW_EMULATED_GPU=1 SHELL=$(which fish) zeditor'
+
+# Update grub alias
+alias update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+alias to-dotfiles "cd ~/.dotfiles || cd ~/dotfiles"
+
+# Rebuild nix config
+alias rb 'to-dotfiles && jj status && sudo nixos-rebuild switch --flake .#(hostname)'
+
+# Zellij aliases and completion
+zellij setup --generate-completion fish | source
+alias ide 'zellij --layout ide'
+# IDE but without the editor.
+alias id-e 'zellij --layout id-e'
+alias strider 'zellij plugin --in-place -- zellij:strider'
+
+# Cargo-related aliases
+alias cargock 'cargo-clean-all --keep-days 21 ~ -i'
+
+# JJ-related aliases
+alias jj-todo 'jj new --no-edit --insert-after @ -m'
+alias jje 'jj edit'
+alias jjs 'jj show'
+alias jjn 'jj next --edit'
+alias jj-tug 'jj tug'
+alias jj-catchup 'jj catchup'
+# jj take and push
+alias jj-tp 'echo "JJ: Taking this! AND I\'LL PUSH!!!!" && jj tug && jj git push'
+
+# -----------------------------------------------------
+# Directory navigation and aliases
+# -----------------------------------------------------
+zoxide init fish --cmd zox | source
+
+function zap
+    if test -d .jj; or test -d .git
+        clear -x
+        set -l repo_type ""
+        if test -d .git -a -d .jj; set repo_type "JJ (git-colocated)"
+        else if test -d .jj; set repo_type "Jujutsu"
+        else; set repo_type "Git"
+        end
+
+        echo "📂 Opened $repo_type repository: $(pwd)"
+
+        if test -d .git; git fetch; end
+        # Show repository line counts
+        kc
+
+        if test -d .jj; jj status; else; git status; end
+
+        # Show repository filetree
+        eza --icons -L 2 -R --tree --git-ignore
+
+        # Dynamically tell user of flakes.
+        if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL
+            echo "❄️  Found flake.nix, run 'dev' to open Fish in a nix develop shell."
+        end
+    else
+        eza -a --icons
+    end
+end
+
+function dev --description "Start een Nix develop shell in Fish"
+    if set -q IN_NIX_SHELL
+            echo "⚠️  Already inside Nix shell!"
+            return 0
+    end
+    if test -f flake.nix; and type -q nix
+        nix develop --set-env-var SHELL $SHELL -c $SHELL
+    else if not type -q nix
+        echo "󱄅  Nix is not installed!"
+    else
+        echo "❌ No Flake.nix file in this directory"
+    end
+end
+
+# Wrap functionality around zoxide's (bang)
+function banger
+    zox $argv; and zap
+end
+
+function bangeri
+    zoxi $argv; and zap
+end
+
+alias cd 'banger'
+alias cdi 'bangeri'

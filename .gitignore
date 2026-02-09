@@ -1,0 +1,3 @@
+
+# Ignore hidden Mise configuration file, use mise.toml for public config
+.mise.toml

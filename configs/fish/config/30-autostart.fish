@@ -1,0 +1,94 @@
+# -----------------------------------------------------
+# Autostart
+# -----------------------------------------------------
+
+# Hyfetch
+if status is-interactive
+    if not set -q HYFETCH_DONE; and not set -q IN_NIX_SHELL
+    # set up (cat /proc/uptime | awk '{print $1}')
+    # set up (string split -r '.' $up)[1]
+    # if test $up -lt 300
+        # Alleen draaien als we niet in een subshell zitten en hyfetch nog niet is geweest
+
+            set -g HYFETCH_DONE 1
+    if test -f /etc/os-release; and grep -q '^VARIANT_ID=silverblue$' /etc/os-release
+        # Hyfetch incorrectly sees silverblue as normal Fedora
+        hyfetch --distro=silverblue
+    else
+        # On all other systems (Fedora Workstation, Ubuntu, macOS, etc.)
+        # or if the file doesn't exist, run the default.
+        hyfetch
+    end
+end
+end
+
+# Bitwarden session setup
+# Only run in interactive shells
+if type -q bw && status is-interactive
+    set BW_PASSWORD_FILE "$HOME/.bitwarden_password"
+    set BW_SESSION_FILE "$HOME/.cache/bw-session"
+
+    function bw_unlock_with_password_file
+        if test -f "$BW_PASSWORD_FILE"
+            set BW_SESSION "$(bw unlock --passwordfile "$BW_PASSWORD_FILE" --raw 2>/dev/null)"
+            if test -n "$BW_SESSION"
+                mkdir -p (dirname "$BW_SESSION_FILE")
+                echo "$BW_SESSION" >"$BW_SESSION_FILE"
+                chmod 600 "$BW_SESSION_FILE"
+                set -Ux BW_SESSION "$BW_SESSION"
+                return 0
+            else
+                rm -f "$BW_PASSWORD_FILE"
+                return 1
+            end
+        else
+            echo "Bitwarden password file not found. Set up automatic unlock? (y/N): "
+            read response
+            if test "$response" = y -o "$response" = Y
+                echo "Enter your Bitwarden master password: "
+                read -s -l password
+
+                set BW_SESSION "$(echo "$password" | bw unlock --raw 2>/dev/null)"
+                if test -n "$BW_SESSION"
+                    echo "$password" >"$BW_PASSWORD_FILE"
+                    chmod 600 "$BW_PASSWORD_FILE"
+
+                    mkdir -p (dirname "$BW_SESSION_FILE")
+                    echo "$BW_SESSION" >"$BW_SESSION_FILE"
+                    chmod 600 "$BW_SESSION_FILE"
+
+                    bw sync --session "$BW_SESSION" >/dev/null 2>&1
+
+                    set -Ux BW_SESSION "$BW_SESSION"
+                    echo "Password saved securely. Future shell sessions will unlock automatically."
+                    return 0
+                else
+                    echo "Invalid password. Bitwarden will remain locked."
+                    return 1
+                end
+            else
+                echo "Skipping Bitwarden setup."
+                return 1
+            end
+        end
+    end
+
+    if test -f "$BW_SESSION_FILE"
+        set BW_SESSION "$(cat "$BW_SESSION_FILE")"
+        if not bw status --session "$BW_SESSION" | grep -q '"status":"unlocked"'
+            rm -f "$BW_SESSION_FILE"
+            set -e BW_SESSION
+        else
+            set -Ux BW_SESSION "$BW_SESSION"
+        end
+    end
+
+    if test -z "$BW_SESSION"
+        set bw_status (bw status 2>/dev/null || echo '{"status":"unauthenticated"}')
+        if echo "$bw_status" | grep -q '"status":"locked"'
+            bw_unlock_with_password_file
+        else if echo "$bw_status" | grep -q '"status":"unauthenticated"'
+            echo "Bitwarden not logged in. Run 'bw login' first."
+        end
+    end
+end

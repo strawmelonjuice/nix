@@ -1,0 +1,55 @@
+{
+  description = "Mar's dotfiles for nix :3";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+  };
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      # Helper function to create system configs easily
+      mkSystem =
+        hostname: system:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs hostname; };
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.extraSpecialArgs = { inherit inputs hostname; };
+              home-manager.users.mar = {
+                imports = [ ./home/home.nix ];
+              };
+            }
+          ];
+        };
+    in
+    {
+      nixosConfigurations = {
+        # Add your devices here
+        fennekin = mkSystem "fennekin" "x86_64-linux";
+        samurott-nix = mkSystem "samurott-nix" "x86_64-linux";
+        Ponyta = mkSystem "Ponyta" "x86_64-linux";
+        # workstation = mkSystem "workstation" "x86_64-linux";
+      };
+    };
+}
