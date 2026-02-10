@@ -5,11 +5,11 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../all-hosts.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../all-hosts.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -18,7 +18,8 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.luks.devices."luks-fb4ec710-f4c0-4a6a-928a-ee3f2f302bee".device = "/dev/disk/by-uuid/fb4ec710-f4c0-4a6a-928a-ee3f2f302bee";
+  boot.initrd.luks.devices."luks-fb4ec710-f4c0-4a6a-928a-ee3f2f302bee".device =
+    "/dev/disk/by-uuid/fb4ec710-f4c0-4a6a-928a-ee3f2f302bee";
   networking.hostName = "Ponyta"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -47,10 +48,6 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
- 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -79,9 +76,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  
-
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -91,10 +85,33 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    grc 
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    grc
+    # School: Python and Dbus to run their network script
+    python312
+    python312Packages.dbus-python
+    python313Packages.pydbus
+    dbus
+    # School: VMware to run Windows software in a VM.
+    gnome-boxes
+    dnsmasq
+    phodav
   ];
+
+  virtualisation.libvirtd = {
+    enable = true;
+
+    # Enable TPM emulation (for Windows 11)
+    # qemu = {
+    #   swtpm.enable = true;
+    #   ovmf.packages = [ pkgs.OVMFFull.fd ];
+    # };
+  };
+
+  virtualisation.spiceUSBRedirection.enable = true;
+
+  # Allow VM management
+  users.groups.libvirtd.members = [ "mar" ];
+  users.groups.kvm.members = [ "mar" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
