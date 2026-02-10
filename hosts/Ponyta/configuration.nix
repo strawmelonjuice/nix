@@ -91,10 +91,9 @@
     python312Packages.dbus-python
     python313Packages.pydbus
     dbus
-    # School: VMware to run Windows software in a VM.
-    gnome-boxes
-    dnsmasq
-    phodav
+    # School: Run Windows software
+    wineWowPackages.stable
+    winetricks
   ];
 
   programs.steam = {
@@ -105,21 +104,6 @@
   };
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
-  virtualisation.libvirtd = {
-    enable = true;
-
-    # Enable TPM emulation (for Windows 11)
-    # qemu = {
-    #   swtpm.enable = true;
-    #   ovmf.packages = [ pkgs.OVMFFull.fd ];
-    # };
-  };
-
-  virtualisation.spiceUSBRedirection.enable = true;
-
-  # Allow VM management
-  users.groups.libvirtd.members = [ "mar" ];
-  users.groups.kvm.members = [ "mar" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
