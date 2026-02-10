@@ -1,4 +1,9 @@
-{ pkgs, lib, hostname, ... }:
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}:
 
 {
   dconf.settings = {
@@ -19,9 +24,19 @@
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
         "Fluffychat.desktop"
-      ] ++ (if hostname == "fennekin" then [
-        "com.github.xournalpp.xournalpp.desktop"
-      ] else []);
+      ]
+      ++ (
+        if hostname == "fennekin" then
+          [
+            "com.github.xournalpp.xournalpp.desktop"
+          ]
+        else if hostname == "Ponyta" then
+          [
+            "gnome-boxes.desktop"
+          ]
+        else
+          [ ]
+      );
     };
     "org/gnome/shell/extensions/dash-to-dock" = {
       always-center-icons = true;
