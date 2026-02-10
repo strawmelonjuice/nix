@@ -16,6 +16,7 @@
         pkgs.gnomeExtensions."night-theme-switcher".extensionUuid
         pkgs.gnomeExtensions."blur-my-shell".extensionUuid
         pkgs.gnomeExtensions."search-light".extensionUuid
+        pkgs.gnomeExtensions."all-in-one-clipboard".extensionUuid
       ];
     };
     "org/gnome/shell" = {
@@ -84,6 +85,7 @@
     gnomeExtensions.night-theme-switcher
     gnomeExtensions.appindicator
     gnomeExtensions.blur-my-shell
+    gnomeExtensions.all-in-one-clipboard
     gnomeExtensions.search-light
   ];
 }
