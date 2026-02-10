@@ -10,7 +10,6 @@
     ./hardware-configuration.nix
     ../all-hosts.nix
   ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -47,6 +46,8 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
+  # Default session gnome.
+  services.displayManager.defaultSession = "gnome";
 
   # Configure keymap in X11
   services.xserver.xkb = {

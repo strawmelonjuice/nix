@@ -7,7 +7,9 @@
 
 {
   dconf.settings = {
-
+    "org/gnome/desktop/applications/browser" = {
+      exec = "vivaldi-stable";
+    };
     "org/gnome/shell" = {
       disable-user-extensions = false;
       enabled-extensions = [
