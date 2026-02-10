@@ -8,10 +8,10 @@ layout {
           split_direction "vertical"
           pane size="80%" {
             // stacked true
-            pane borderless=true command="nvim"  focus=true close_on_exit=true
-            // The editor pane, but I won't set nvim as command, because that'll disable it from using LSP's
-            // I did now.
-            // pane borderless=true command="~/.config/zellij/scripts/ide.sh"  focus=true
+            pane borderless=true command="fish"  focus=true {
+            // The ide.sh script runs helix or nvim depending on $EDITOR, and once closed, closes the tab.
+                args "/home/mar/.config/zellij/scripts/ide.fish"
+            }
           }
 //          pane size="10%" {
 //                borderless true
@@ -35,5 +35,10 @@ keybinds {
   unbind "Ctrl q"
   shared {
     bind "Ctrl q" { CloseTab; SwitchToMode "Normal"; }
+  }
+  tab {
+    bind "n" { NewTab {
+    layout "/home/mar/.config/zellij/layouts/default.kdl"
+    }; SwitchToMode "locked"; }
   }
 }

@@ -63,5 +63,7 @@
     };
   };
 
-  xdg.configFile."nvim".source = ../../../configs/nvim;
+  xdg.configFile."nvim/lua".source = ../../../configs/nvim/lua;
+  xdg.configFile."nvim/init.lua".source = ../../../configs/nvim/init.lua;
+  xdg.configFile."nvim/lazyvim.json".source = ../../../configs/nvim/lazyvim.json;
 }
