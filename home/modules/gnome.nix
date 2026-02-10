@@ -33,7 +33,6 @@
           ]
         else if hostname == "Ponyta" then
           [
-            "org.gnome.Boxes.desktop"
           ]
         else
           [ ]
