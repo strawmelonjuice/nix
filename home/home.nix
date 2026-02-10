@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  hostname,
+  ...
+}:
 
 {
   imports = [
@@ -17,6 +22,9 @@
     ./modules/shell.nix
     ./modules/spotify.nix
     ./modules/wezterm.nix
+  ]
+  ++ [
+    ./host-specific/${hostname}.nix
   ];
 
   home.username = "mar";
@@ -46,7 +54,7 @@
   home.sessionVariables = {
     TERMINAL = "wezterm";
     PASSWORD_STORE_TYPE = "basic";
-    ZED_ALLOW_EMULATED_GPU=1;
-    SHELL="fish";
+    ZED_ALLOW_EMULATED_GPU = 1;
+    SHELL = "fish";
   };
 }
