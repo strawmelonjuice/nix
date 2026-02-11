@@ -19,6 +19,8 @@
       nixd
     ];
     userSettings = {
+      buffer_font_family = "Maple Mono NF";
+      ui_font_family = "Lotion";
       session = {
         trust_all_worktrees = true;
       };
