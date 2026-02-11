@@ -7,20 +7,27 @@
       "nix"
       "toml"
       "rust"
+      "lua"
       "gleam"
       "fish"
+      "catppuccin"
+      "catppuccin-icons"
+      "rose-pine-theme"
     ];
     extraPackages = with pkgs; [
       nil
       nixd
     ];
     userSettings = {
+      session = {
+        trust_all_worktrees = true;
+      };
+      base_keymap = "VSCode";
       theme = {
         mode = "system";
-        dark = "One Dark";
-        light = "One Light";
+        dark = "Catppuccin Mocha";
+        light = "Rosé Pine Dawn";
       };
-      hour_format = "hour24";
       # helix_mode = true;
     };
   };
