@@ -4,16 +4,32 @@
   programs.wezterm = {
     enable = true;
     extraConfig = ''
-      local wezterm = require('wezterm')
-      local config = wezterm.config_builder()
-      config.color_scheme = 'Atelier Heath Light (base16)'
-      config.enable_tab_bar = false
-      config.window_background_opacity = 0.8
-      config.font = wezterm.font('Maple Mono NF')
-      config.font_size = 10
-      config.window_close_confirmation = 'NeverPrompt'
-      -- and finally, return the configuration to wezterm
-      return config
+       local get_time_of_day = function()
+      	local hour = tonumber(os.date("%H"))
+      	if hour >= 6 and hour < 12 then
+          -- morning
+       		return "Atelier Heath Light (base16)"
+      	elseif hour >= 12 and hour < 18 then
+          -- afternoon
+       		return "Atelier Heath Light (base16)"
+      	elseif hour >= 18 and hour < 24 then
+          -- evening
+       		return "Geohot (Gogh)"
+      	else
+          -- night
+       		return "Geohot (Gogh)"
+      	end
+       end
+       local wezterm = require('wezterm')
+       local config = wezterm.config_builder()
+       config.color_scheme = get_time_of_day()
+       config.enable_tab_bar = false
+       config.window_background_opacity = 0.95
+       config.font = wezterm.font('Maple Mono NF')
+       config.font_size = 10
+       config.window_close_confirmation = 'NeverPrompt'
+       -- and finally, return the configuration to wezterm
+       return config
     '';
   };
 }
