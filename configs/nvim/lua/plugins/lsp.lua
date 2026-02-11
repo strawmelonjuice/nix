@@ -1,5 +1,44 @@
 return {
     {
+        "stevearc/conform.nvim",
+        opts = function()
+            local plugin = require("lazy.core.config").plugins["conform.nvim"]
+            ---@type conform.setupOpts
+            local opts = {
+                default_format_opts = {
+                    timeout_ms = 3000,
+                    async = false,
+                    quiet = false,
+                    lsp_format = "fallback",
+                },
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    fish = { "fish_indent" },
+                    sh = { "shfmt" },
+                    nix = { "nixfmt" },
+                },
+                -- The options you set here will be merged with the builtin formatters.
+                -- You can also define any custom formatters here.
+                ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
+                formatters = {
+                    injected = { options = { ignore_errors = true } },
+                    -- # Example of using dprint only when a dprint.json file is present
+                    -- dprint = {
+                    --   condition = function(ctx)
+                    --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
+                    --   end,
+                    -- },
+                    --
+                    -- # Example of using shfmt with extra args
+                    -- shfmt = {
+                    --   prepend_args = { "-i", "2", "-ci" },
+                    -- },
+                },
+            }
+            return opts
+        end
+    },
+    {
         "saecki/crates.nvim",
         tag = "stable",
         config = function()
@@ -29,6 +68,8 @@ return {
                 "lua",
                 "markdown",
                 "markdown_inline",
+                "nil",
+                "nixfmt"
             },
         },
         {
@@ -48,6 +89,12 @@ return {
                 -- capabilities = vim.tbl_deep_extend('force', {}, capabilities, require('cmp_nvim_lsp').default_capabilities()) -- Deze regel is niet meer nodig
 
                 local servers = {
+                    ['nil'] = {
+                        formatting = {
+                            command = { "nixfmt" },
+                        },
+
+                    },
                     lua_ls = {
                         settings = {
                             Lua = {
