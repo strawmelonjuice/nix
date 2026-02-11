@@ -51,6 +51,6 @@ sudo nixos-rebuild switch --flake .#$(hostname)
 
 | Name     | Kind               | About                                                     | Special                                                                       |
 | -------- | ------------------ | --------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| fennekin | Convertible laptop | My take-with-me and drawing laptop, has a nice stylus tew | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
-| fennekin | Laptop | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen. |
+| Fennekin | Convertible laptop | My take-with-me and drawing laptop, has a nice stylus tew | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
+| Ponyta | Laptop | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen. |
 | samurott-nix | Virtual Machine; Desktop PC | - | Ultrawide screen. |

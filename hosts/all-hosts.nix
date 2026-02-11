@@ -43,15 +43,14 @@
   programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   programs.niri.enable = true;
 
-
   nix.gc = {
-   automatic = true;
+    automatic = true;
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
   nix.settings.auto-optimise-store = true;
 
-# User account
+  # User account
   users.users.mar = {
     isNormalUser = true;
     description = "MLC Bloeiman";

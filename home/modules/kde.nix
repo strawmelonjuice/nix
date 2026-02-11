@@ -1,4 +1,9 @@
-{ pkgs, lib, hostname, ... }:
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}:
 
 # Please find this earlier next time
 # https://nix-community.github.io/plasma-manager/options.xhtml
@@ -62,9 +67,15 @@
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:obsidian.desktop"
                   "applications:Fluffychat.desktop"
-                ] ++ (if hostname == "fennekin" then [
-                  "applications:com.github.xournalpp.xournalpp.desktop"
-                ] else []);
+                ]
+                ++ (
+                  if hostname == "Fennekin" then
+                    [
+                      "applications:com.github.xournalpp.xournalpp.desktop"
+                    ]
+                  else
+                    [ ]
+                );
                 showOnlyLauncher = "false";
                 showTasksOnlyOnCurrentScreen = "false";
                 showTasksOnlyOnCurrentDesktop = "false";

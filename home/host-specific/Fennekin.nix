@@ -1,0 +1,8 @@
+{
+  ...
+}:
+{
+  imports = [
+    ./modules/touchscreen.nix
+  ];
+}

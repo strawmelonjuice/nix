@@ -29,7 +29,7 @@
         "Fluffychat.desktop"
       ]
       ++ (
-        if hostname == "fennekin" then
+        if hostname == "Fennekin" then
           [
             "com.github.xournalpp.xournalpp.desktop"
           ]

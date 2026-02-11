@@ -46,7 +46,7 @@
     {
       nixosConfigurations = {
         # Add your devices here
-        fennekin = mkSystem "fennekin" "x86_64-linux";
+        Fennekin = mkSystem "Fennekin" "x86_64-linux";
         samurott-nix = mkSystem "samurott-nix" "x86_64-linux";
         Ponyta = mkSystem "Ponyta" "x86_64-linux";
         # workstation = mkSystem "workstation" "x86_64-linux";
