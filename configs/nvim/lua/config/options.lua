@@ -1,7 +1,7 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Add any additional options here
 
--- // Set mapleader to ','
+-- // Set mapleader to space
 vim.cmd.let('mapleader = "<SPACE>"')
 
 vim.opt.relativenumber = true

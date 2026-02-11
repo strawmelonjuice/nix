@@ -4,10 +4,10 @@
   programs.git = {
     enable = true;
     settings = {
-        user.name = "MLC Bloeiman";
-        user.email = "mar@strawmelonjuice.com";
-      };
+      user.name = "MLC Bloeiman";
+      user.email = "mar@strawmelonjuice.com";
     };
+  };
   programs.jujutsu = {
     enable = true;
     package = pkgs.jujutsu;
@@ -58,6 +58,7 @@
 
   home.packages = with pkgs; [
     lazyjj
+    lazygit
     git
     difftastic
   ];

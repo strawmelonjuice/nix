@@ -1,12 +1,14 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    wakatime-cli
+  ];
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
 
-    # NIX-STYLE: Bundled binaries for your LazyVim config
     extraPackages = with pkgs; [
       lua-language-server
       stylua
@@ -31,7 +33,7 @@
     initLua = ''
       -- Prepend the symlinked directory to the Runtime Path
       vim.opt.rtp:prepend("${config.home.homeDirectory}/.config/nvim")
-      require("init")
+      require("config.lazy")
     '';
   };
   programs.helix = {
@@ -73,6 +75,5 @@
   };
 
   xdg.configFile."nvim/lua".source = ../../../configs/nvim/lua;
-  xdg.configFile."nvim/init.lua".source = ../../../configs/nvim/init.lua;
   xdg.configFile."nvim/lazyvim.json".source = ../../../configs/nvim/lazyvim.json;
 }

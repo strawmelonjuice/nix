@@ -50,5 +50,6 @@
     fishPlugins.hydro
     fzf
     fishPlugins.grc
+    xsel
   ];
 }
