@@ -9,6 +9,15 @@
     # NIX-STYLE: Bundled binaries for your LazyVim config
     extraPackages = with pkgs; [
       lua-language-server
+      stylua
+      gofumpt
+      gotools
+      markdown-toc
+      markdownlint-cli2
+      markdownlint-cli
+      prettier
+      biome
+      nixfmt
       nil
       ripgrep
       fd
