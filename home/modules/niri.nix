@@ -18,6 +18,7 @@
     brightnessctl
     blueman
     swww
+    killall
     wvkbd
     wlogout
     # I should make a proper input and a flake out of this but instead I'll be lazy and yeet the .so into my dotfiles.

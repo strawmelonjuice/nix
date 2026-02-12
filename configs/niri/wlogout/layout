@@ -6,7 +6,7 @@
 }
 {
     "label" : "logout",
-    "action" : "killall -9 Hyprland",
+    "action" : "killall -9 niri",
     "text" : "Exit",
     "keybind" : "e"
 }

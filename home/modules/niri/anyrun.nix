@@ -8,7 +8,7 @@
         fraction = 0.5;
       };
       y = {
-        fraction = 20.0;
+        fraction = 0.2;
       };
       width = {
         fraction = 0.5;
@@ -23,7 +23,7 @@
 
       plugins = [
         "${pkgs.anyrun}/lib/libapplications.so"
-        "${pkgs.anyrun}/lib/libsymbols.so"
+        # "${pkgs.anyrun}/lib/libsymbols.so"
       ];
     };
 

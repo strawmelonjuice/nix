@@ -270,6 +270,10 @@ spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swww" "img" "/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png"
 
+spawn-at-startup "blueman-tray"
+
+spawn-at-startup "anyrun" "daemon"
+
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
