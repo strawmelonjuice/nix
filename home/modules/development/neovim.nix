@@ -28,6 +28,7 @@
       tree-sitter
       lazygit
       lazyjj
+      nodejs
     ];
 
     initLua = ''
