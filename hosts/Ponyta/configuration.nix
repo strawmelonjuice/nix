@@ -47,7 +47,7 @@
     LC_TIME = "nl_NL.UTF-8";
   };
   # Default session gnome.
-  services.displayManager.defaultSession = "gnome";
+  services.displayManager.defaultSession = "niri";
 
   # Configure keymap in X11
   services.xserver.xkb = {
