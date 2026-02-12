@@ -7,7 +7,7 @@
 {
     "label" : "logout",
     "action" : "killall -9 niri",
-    "text" : "Exit",
+    "text" : "Logout",
     "keybind" : "e"
 }
 {
@@ -21,4 +21,16 @@
     "action" : "reboot",
     "text" : "Reboot",
     "keybind" : "r"
+}
+{
+    "label" : "hibernate",
+    "action" : "systemctl hibernate",
+    "text" : "Hibernate",
+    "keybind" : "h"
+}
+{
+    "label" : "suspend",
+    "action" : "systemctl suspend-then-hibernate",
+    "text" : "Sleep",
+    "keybind" : "z"
 }

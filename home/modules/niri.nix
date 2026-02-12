@@ -14,6 +14,8 @@
     waybar
     hyprlock
     waybar-mpris
+    mako
+    libnotify
     wireplumber
     brightnessctl
     blueman

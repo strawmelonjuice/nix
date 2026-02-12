@@ -14,6 +14,7 @@
       stylua
       gofumpt
       gotools
+      taplo
       markdown-toc
       markdownlint-cli2
       markdownlint-cli
