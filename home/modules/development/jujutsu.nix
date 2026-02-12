@@ -20,7 +20,7 @@
         "$left"
         "$right"
       ];
-      ui.editor = "hx";
+      ui.editor = "nvim";
       ui.streampager.wrapping = "none";
       ui.default-command = "status";
       aliases = {
