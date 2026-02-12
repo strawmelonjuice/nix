@@ -181,7 +181,7 @@ window#waybar.empty #window {
   padding: 4px;
   background-color: @backgroundlight;
   color: @textcolor1;
-  margin: 10px 20px 10px 10px;
+  margin: 10px 20px 10px 20px;
   border-radius: 5px;
   border: 0px;
   font-weight: bold;

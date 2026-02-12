@@ -1,0 +1,35 @@
+{
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    "height": 30, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 0, // Gaps between modules in pixels
+    // Choose the order of the modules
+    // Load Modules
+    "include": [
+        "~/.config/waybar/modules.jsonc"
+    ],
+    "modules-left": [
+        "sway/workspaces",
+        "sway/mode",
+        "sway/window",
+        "cffi/niri-taskbar"
+        // "wlr/taskbar"
+    ],
+    "modules-center": [
+        "custom/osktoggle",
+        "battery",
+        "clock",
+        "custom/exit"
+    ],
+    "modules-right": [
+    "custom/waybar-mpris",
+        "tray",
+        "mpd",
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "keyboard-state"
+    ]
+}

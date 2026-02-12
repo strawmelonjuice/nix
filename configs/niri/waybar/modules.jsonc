@@ -101,6 +101,23 @@
     "on-click": "~/.config/hypr/scripts/keyboard-relaunch.sh",
     "tooltip-format": "Toggle the on-screen keyboard (restarts the keyboard if needed.)",
   },
+  "custom/waybar-mpris": {
+    "return-type": "json",
+    "exec": "waybar-mpris --position --autofocus",
+    "on-click": "waybar-mpris --send toggle",
+    // This option will switch between players on right click.
+        "on-click-right": "waybar-mpris --send player-next",
+    // The options below will switch the selected player on scroll
+        // "on-scroll-up": "waybar-mpris --send player-next",
+        // "on-scroll-down": "waybar-mpris --send player-prev",
+    // The options below will go to next/previous track on scroll
+        // "on-scroll-up": "waybar-mpris --send next",
+        // "on-scroll-down": "waybar-mpris --send prev",
+    "escape": true,
+},
+    "cffi/niri-taskbar": {
+        "module_path": "/etc/profiles/per-user/mar/lib/libniri-taskbar.so",
+    },
   // Power Menu
   "custom/exit": {
     "format": "",
@@ -227,7 +244,7 @@
     "icon": false,
   },
   "cffi/niri-taskbar": {
-    "module_path": "/home/mar/.local/share/chezmoi/.dotfiles/deps/niri-taskbar/target/release/libniri_taskbar.so",
+    "module_path": "/etc/profiles/per-user/mar/lib/libniri-taskbar.so",
   },
   // Idle Inhibator
   "idle_inhibitor": {

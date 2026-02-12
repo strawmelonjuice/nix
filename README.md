@@ -46,6 +46,7 @@ sudo nixos-rebuild switch --flake .#$(hostname)
 | `home/*`    | Shared user environment and config                                                                   |
 | `configs/*` | Configuration files symlinked into their programs for when configuration is too advanced for `home/` |
 | `fonts/*`   | Fonts, imported by `home/modules/fonts.nix`                                                          |
+| `libs` | Bad habits. Libraries unavailable on nixpkgs and I was apparently too lazy to make an input out of them. |
 
 ## Hosts currently known
 
