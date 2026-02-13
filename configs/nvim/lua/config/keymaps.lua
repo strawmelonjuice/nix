@@ -2,7 +2,7 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- local map = vim.keymap.set
+local map = vim.keymap.set
 -- map("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
 -- expr = true,
 -- replace_keycodes = false,
