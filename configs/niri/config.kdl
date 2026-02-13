@@ -63,10 +63,10 @@ input {
     // focus-follows-mouse max-scroll-amount="0%"
 }
 
-spawn-at-startup "xwayland-satellite"
+// spawn-at-startup "xwayland-satellite"
 
 environment {
-    DISPLAY ":1"
+    // DISPLAY ":1"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
 // You can configure outputs by their name, which you can find

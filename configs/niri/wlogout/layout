@@ -6,7 +6,7 @@
 }
 {
     "label" : "logout",
-    "action" : "killall -9 niri",
+    "action" : "niri msg action quit",
     "text" : "Logout",
     "keybind" : "e"
 }
@@ -24,7 +24,7 @@
 }
 {
     "label" : "hibernate",
-    "action" : "systemctl hibernate",
+    "action" : "niri msg action open-overview && systemctl hibernate",
     "text" : "Hibernate",
     "keybind" : "h"
 }

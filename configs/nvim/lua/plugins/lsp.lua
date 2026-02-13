@@ -118,7 +118,6 @@ return {
 					nixfmt = {},
 					taplo = {},
 					biome = {},
-					golangci_lint = {},
 					ktlint = {},
 					sqlfluff = {},
 					markdown_toc = {},

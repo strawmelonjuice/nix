@@ -87,6 +87,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     grc
+    galaxy-buds-client
     # School: Python and Dbus to run their network script
     python312
     python312Packages.dbus-python

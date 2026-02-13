@@ -16,6 +16,7 @@
     waybar-mpris
     mako
     libnotify
+    xwayland-satellite
     wireplumber
     brightnessctl
     blueman
