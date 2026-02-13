@@ -120,8 +120,8 @@ return {
 					biome = {},
 					ktlint = {},
 					sqlfluff = {},
-					markdown_toc = {},
-					markdownlint_cli2 = {},
+					["markdown-toc"] = {},
+					["markdownlint-cli2"] = {},
 				}
 
 				require("mason").setup()

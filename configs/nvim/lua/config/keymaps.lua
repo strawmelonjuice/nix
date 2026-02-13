@@ -9,7 +9,7 @@
 -- })
 
 vim.g.copilot_no_tab_map = true
-map("n", "K", "<cmd>Lspsaga hover_doc<CR>")
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", {})
 -- Exit insert mode when using the bad habit of pressing the arrow keys, but still move
 -- I am actively making things hard for-- well, me probably
 vim.api.nvim_set_keymap("i", "<Up>", "<ESC>gk", {})
