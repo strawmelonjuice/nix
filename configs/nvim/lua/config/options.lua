@@ -9,9 +9,3 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
-
-vim.filetype.add({
-    extension = {
-        jsonc = "json",
-    },
-})

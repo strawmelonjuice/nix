@@ -10,26 +10,52 @@
     vimAlias = true;
 
     extraPackages = with pkgs; [
+      # Lua tools for the editor running on Lua
       lua-language-server
       stylua
-      gofumpt
-      gotools
+
+      # Taplo, TOML ls,linter and formatter
       taplo
-      markdown-toc
-      markdownlint-cli2
-      markdownlint-cli
-      prettier
-      biome
-      nixfmt
-      nil
-      ripgrep
-      fd
-      git
-      gcc
-      tree-sitter
-      lazygit
-      lazyjj
+
+      # Unzip is depended on for unzipping certain dependencies.
+      # I have decided not to be too opinionated about this today.
+      unzip
+
+      # AST-Grep
+      ast-grep
+
+      # Node is required as runtime for some LSP's, among them css-ls and tailwindcss-ls
       nodejs
+
+      # SQL linter-formatter
+      sqlfluff
+
+      # Markdown LSP and toc creator
+      markdown-oxide
+      markdown-toc
+
+      # Inclusivity linter
+      woke
+
+      # More generic web-oriented linter-formatters: Biome, Prettier
+      biome
+      prettier
+
+      # And duh
+      nil
+      nixfmt
+
+      # FD
+      fd
+
+      # TS
+      tree-sitter
+
+      # GCC
+      gcc
+
+      # RG
+      ripgrep
     ];
 
     initLua = ''
