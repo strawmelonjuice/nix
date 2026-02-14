@@ -34,7 +34,7 @@ input {
         // accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "two-finger"
-        // disabled-on-external-mouse
+        disabled-on-external-mouse
     }
 
     mouse {
@@ -63,7 +63,6 @@ input {
     // focus-follows-mouse max-scroll-amount="0%"
 }
 
-// spawn-at-startup "xwayland-satellite"
 
 environment {
     // DISPLAY ":1"
@@ -111,7 +110,7 @@ environment {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 16
+    gaps 15
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -262,19 +261,17 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 
-// This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
-// And wallpaper.
+spawn-at-startup "blueman-tray"
+spawn-at-startup "anyrun" "daemon"
+spawn-at-startup "mako"
+spawn-at-startup "spotify"
+
 // Make sure to run $ git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 // once.
 spawn-at-startup "swww-daemon"
 spawn-at-startup "swww" "img" "/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png"
 
-spawn-at-startup "blueman-tray"
-
-spawn-at-startup "anyrun" "daemon"
-
-spawn-at-startup "mako"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -349,7 +346,7 @@ window-rule {
 }
 
 binds {
-    Mod+Alt+R hotkey-overlay-title="Full reset/reload of config files; Runs chezmoi apply."  { spawn "~/.config/hypr/scripts/fullres.sh"; }
+    // Mod+Alt+R hotkey-overlay-title="Full reset/reload of config files; Runs chezmoi apply."  { spawn "~/.config/hypr/scripts/fullres.sh"; }
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
     // like wev.
