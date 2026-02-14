@@ -36,6 +36,8 @@ Update flake.nix: Include the new hostname in the nixosConfigurations block.
 jj
 # Apply based on current hostname
 sudo nixos-rebuild switch --flake .#$(hostname)
+# Now you won't have sudo anymore, so make sure doas works!
+doas git config --global --add safe.directory /home/mar/.dotfiles
 ```
 
 ## Structure
