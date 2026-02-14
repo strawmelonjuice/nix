@@ -51,5 +51,6 @@
     fzf
     fishPlugins.grc
     xsel
+    jq
   ];
 }

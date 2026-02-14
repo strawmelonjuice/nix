@@ -94,7 +94,7 @@
     python313Packages.pydbus
     dbus
     # School: Run Windows software
-    wineWowPackages.stable
+    wineWow64Packages.stable
     winetricks
   ];
 
