@@ -58,4 +58,50 @@
     source = ../../configs/niri/hypr;
     recursive = true;
   };
+  xdg.configFile."mako/config".text = ''
+    # General
+    font=Atkinson Hyperlegible Next 12
+    width=350
+    height=150
+    padding=15
+    margin=10
+    anchor=top-right
+
+    # Colors
+    background-color=#e06666
+    # Text matched to @textcolor1 (#000000)
+    text-color=#000000
+
+    # Border styling
+    # Matched to @bordercolor (#f4cccc)
+    border-color=#f4cccc
+    border-size=2
+    # Matched to #window border-radius (12px)
+    border-radius=12
+
+    # Icons
+    icons=1
+    max-icon-size=48
+    progress-color=#9b4457
+
+    # Options
+    default-timeout=5000
+    ignore-timeout=0
+
+    # Urgency overrides
+    [urgency=low]
+    background-color=#f4cccc
+    border-color=#e06666
+    default-timeout=2000
+    text-color=#000000
+
+    [urgency=high]
+    background-color=#fa8071
+    border-color=#ffffff
+    text-color=#000000
+    border-size=3
+
+    [urgency=critical]
+    default-timeout=0
+  '';
 }

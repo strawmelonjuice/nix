@@ -27,8 +27,6 @@
       ];
     };
 
-    # Inline comments are supported for language injection into
-    # multi-line strings with Treesitter! (Depends on your editor)
     extraCss = /* css */ ''
       * {
         all: unset;
@@ -107,12 +105,5 @@
       }
     '';
 
-    extraConfigFiles."some-plugin.ron".text = ''
-      Config(
-        // for any other plugin
-        // this file will be put in ~/.config/anyrun/some-plugin.ron
-        // refer to docs of xdg.configFile for available options
-      )
-    '';
   };
 }

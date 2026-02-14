@@ -1,20 +1,5 @@
 {
   // Workspaces
-  "hyprland/workspaces": {
-    "on-click": "activate",
-    "active-only": false,
-    "all-outputs": true,
-    "format": "{icon}",
-    "format-icons": {
-      "1": "1 ",
-      "2": "2 ",
-      "3": "3 ",
-      "4": "4 #",
-    },
-    "persistent-workspaces": {
-      "*": 4,
-    },
-  },
   "sway/workspaces": {
     "on-click": "activate",
     "active-only": false,
@@ -71,6 +56,7 @@
     "separate-outputs": true,
   },
   "cffi/niri-taskbar": {
+    "module_path": "/etc/profiles/per-user/mar/lib/libniri-taskbar.so",
     "rewrite": {
       "(.*) - Discord": "# Discord: $1",
       "Element \\| (.*)": "# Element: $1",
@@ -98,18 +84,16 @@
     "exec": "waybar-mpris --position --autofocus",
     "on-click": "waybar-mpris --send toggle",
     // This option will switch between players on right click.
-        "on-click-right": "waybar-mpris --send player-next",
+    "on-click-right": "waybar-mpris --send player-next",
     // The options below will switch the selected player on scroll
-        // "on-scroll-up": "waybar-mpris --send player-next",
-        // "on-scroll-down": "waybar-mpris --send player-prev",
+    // "on-scroll-up": "waybar-mpris --send player-next",
+    // "on-scroll-down": "waybar-mpris --send player-prev",
     // The options below will go to next/previous track on scroll
-        // "on-scroll-up": "waybar-mpris --send next",
-        // "on-scroll-down": "waybar-mpris --send prev",
+    // "on-scroll-up": "waybar-mpris --send next",
+    // "on-scroll-down": "waybar-mpris --send prev",
     "escape": true,
-},
-    "cffi/niri-taskbar": {
-        "module_path": "/etc/profiles/per-user/mar/lib/libniri-taskbar.so",
-    },
+  },
+
   // Power Menu
   "custom/exit": {
     "format": "",
@@ -232,9 +216,7 @@
     "interval": 60,
     "icon": false,
   },
-  "cffi/niri-taskbar": {
-    "module_path": "/etc/profiles/per-user/mar/lib/libniri-taskbar.so",
-  },
+
   // Idle Inhibator
   "idle_inhibitor": {
     "format": "{icon}",

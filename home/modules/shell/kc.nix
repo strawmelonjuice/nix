@@ -12,7 +12,6 @@ let
       hash = "sha256-JAPv8gshFlscVsnvglA4QaVSqf/76tMtrqrM/70Eu6g=";
     };
 
-    # We gebruiken hier weer de automatische methode, die is het veiligst voor paden
     cargoLock = {
       lockFile = "${src}/Cargo.lock";
     };
@@ -20,12 +19,9 @@ let
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = [ pkgs.dbus ];
 
-    # Schakel de tests en de automatische post-build hooks van de maker uit
     doCheck = false;
     dontCargoInstallPostBuildHook = true;
 
-    # Omdat de automatische installatie faalde door de scripts van de maker,
-    # doen we alleen de kopieerslag zelf, maar op een 'luie' manier.
     installPhase = ''
       mkdir -p $out/bin
       find . -name kc -type f -executable -exec cp {} $out/bin/kc \;
