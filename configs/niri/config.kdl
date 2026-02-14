@@ -18,7 +18,7 @@ input {
         }
 
         // Enable numlock on startup, omitting this setting disables it.
-        numlock
+        // numlock
     }
 
     // Next sections include libinput settings.
@@ -266,6 +266,7 @@ spawn-at-startup "blueman-tray"
 spawn-at-startup "anyrun" "daemon"
 spawn-at-startup "mako"
 spawn-at-startup "spotify"
+spawn-at-startup "discord"
 
 // Make sure to run $ git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 // once.
@@ -313,16 +314,14 @@ window-rule {
     default-column-width {}
 }
 
-// Open the Firefox picture-in-picture player as floating by default.
+//Spotify Picture-in-Picture
 window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"Chromium-browser"# title="(.*) • (.*)"
     open-floating true
 }
+// Browser Picture-in-Picture
 window-rule {
- match app-id=r#"vivaldi$"# title="^Picture-in-Picture$"
+ match title="^Picture-in-Picture$"
     open-floating true
     }
 
