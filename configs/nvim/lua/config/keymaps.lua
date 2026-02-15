@@ -45,9 +45,7 @@ map("n", "<Space>r", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
-map("n", "<Space>o", function()
-	Snacks.picker.oldfiles()
-end, { desc = "Oldfiles" })
+map("n", "<Space>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 
 map("n", "<Space>e", function()
 	Snacks.explorer({ layout = { layout = { position = "right" } } })
