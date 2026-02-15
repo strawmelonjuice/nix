@@ -7,6 +7,10 @@
   programs.fish = {
     enable = true;
   };
+  programs.direnv = {
+    silent = true;
+    enable = true;
+  };
   programs.hyfetch = {
     enable = true;
     settings = {

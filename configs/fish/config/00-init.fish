@@ -45,19 +45,4 @@ if status is-interactive; and set -q SSH_CONNECTION
     eval (zellij setup --generate-auto-start fish | string collect)
 end
 
-# Aliases
-alias c clear
-alias cls clear
-alias nf hyfetch
-alias pf hyfetch
-alias ff fastfetch
-alias hf hyfetch
-alias ls 'eza --icons'
-alias la 'eza -a --icons'
-alias ll 'eza -al --icons'
-alias lt 'eza -a --tree --level=1 --icons'
-alias shutdown 'systemctl poweroff'
-alias v '$EDITOR'
-alias cat bat
-alias wifi nmtui
-alias yay paru
+direnv hook fish | source

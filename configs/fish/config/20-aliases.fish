@@ -84,7 +84,7 @@ function zap
         eza --icons -L 2 -R --tree --git-ignore
 
         # Dynamically tell user of flakes.
-        if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL
+        if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL; and not test -f .envrc
             echo "❄️  Found flake.nix, run 'dev' to open Fish in a nix develop shell."
         end
     else
@@ -92,7 +92,11 @@ function zap
     end
 end
 
-function dev --description "Start een Nix develop shell in Fish"
+function dev
+    if test -f .envrc
+        echo "⚠️  .envrc found, direnv should be used here."
+        return 0
+    end
     if set -q IN_NIX_SHELL
         echo "⚠️  Already inside Nix shell!"
         return 0
