@@ -1,10 +1,7 @@
 
 layout {
-   pane size=1 borderless=true {
-        plugin location="tab-bar"
-    }
     pane split_direction="horizontal" size="100%" {
-        pane size="90%" {
+        pane size="75%" {
           split_direction "vertical"
           pane size="80%" {
             // stacked true
@@ -23,11 +20,11 @@ layout {
             split_direction "vertical"
              pane size="60%";
              children
-             pane
+             // pane
         }
     }
     pane borderless=true size=1 {
-        plugin location="zellij:status-bar"
+        plugin location="zellij:compact-bar"
     }
 }
 
