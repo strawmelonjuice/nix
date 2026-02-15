@@ -5,7 +5,7 @@
 @define-color workspacesbackground3 rgba(250, 128, 113, 0.3);
 @define-color bordercolor #f4cccc;
 @define-color textcolor1 #000000;
-@define-color textcolor2  #000000;
+@define-color textcolor2 #000000;
 @define-color textcolor3 #f4cccc;
 @define-color iconcolor #9b4457;
 
@@ -14,23 +14,23 @@
  * ----------------------------------------------------- */
 
 * {
-    font-family:
-        Atkinson Hyperlegible Next,
-        "Font Awesome 6 Free",
-        FontAwesome,
-        Ubuntu,
-        Arial,
-        sans-serif;
-    border: none;
-    border-radius: 0px;
+  font-family:
+    Atkinson Hyperlegible Next,
+    "Font Awesome 6 Free",
+    FontAwesome,
+    Ubuntu,
+    Arial,
+    sans-serif;
+  border: none;
+  border-radius: 0px;
 }
 
 window#waybar {
-    background-color: transparent;
-    /* border-bottom: 3px groove rgb(255,204,255); */
-    /* color: #FFFFFF; */
-    transition-property: background-color;
-    transition-duration: 0.5s;
+  background-color: transparent;
+  /* border-bottom: 3px groove rgb(255,204,255); */
+  /* color: #FFFFFF; */
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
 
 /* -----------------------------------------------------
@@ -38,41 +38,41 @@ window#waybar {
  * ----------------------------------------------------- */
 
 #workspaces {
-    margin: 5px 6px 6px 3px;
-    padding: 0px 1px;
-    border-radius: 5px;
-    background-color: @workspacesbackground3;
-    border: 0px;
-    font-weight: bold;
-    font-style: normal;
-    font-size: 12px;
-    color: @textcolor1;
+  margin: 5px 6px 6px 3px;
+  padding: 0px 1px;
+  border-radius: 5px;
+  background-color: @workspacesbackground3;
+  border: 0px;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 12px;
+  color: @textcolor1;
 }
 
 #workspaces button {
-    padding: 0px 5px;
-    margin: 4px 3px;
-    border-radius: 5px;
-    border: 0px;
-    color: @textcolor1;
-    transition: all 0.3s ease-in-out;
-    background: @workspacesbackground1;
+  padding: 0px 5px;
+  margin: 4px 3px;
+  border-radius: 5px;
+  border: 0px;
+  color: @textcolor1;
+  transition: all 0.3s ease-in-out;
+  background: @workspacesbackground1;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 5px;
-    min-width: 40px;
-    transition: all 1s ease-in-out;
-    border: 2px rgb(255, 77, 77) solid;
+  color: @textcolor1;
+  background: @workspacesbackground2;
+  border-radius: 5px;
+  min-width: 40px;
+  transition: all 1s ease-in-out;
+  border: 2px rgb(255, 77, 77) solid;
 }
 
 #workspaces button:hover {
-    color: @textcolor1;
-    background: @workspacesbackground2;
-    border-radius: 6px;
+  color: @textcolor1;
+  background: @workspacesbackground2;
+  border-radius: 6px;
 }
 
 /* -----------------------------------------------------
@@ -80,15 +80,15 @@ window#waybar {
  * ----------------------------------------------------- */
 
 tooltip {
-    border-radius: 10px;
-    background-color: @backgroundlight;
-    opacity: 0.8;
-    padding: 20px;
-    margin: 0px;
+  border-radius: 10px;
+  background-color: @backgroundlight;
+  opacity: 0.8;
+  padding: 20px;
+  margin: 0px;
 }
 
 tooltip label {
-    color: @textcolor2;
+  color: @textcolor2;
 }
 
 /* -----------------------------------------------------
@@ -96,57 +96,59 @@ tooltip label {
  * ----------------------------------------------------- */
 
 #window {
-    background: @backgroundlight;
-    margin: 10px 15px 10px 0px;
-    padding: 2px 10px 0px 10px;
-    border-radius: 12px;
-    color: @textcolor2;
-    font-size: 16px;
-    font-weight: normal;
+  background: @backgroundlight;
+  margin: 10px 15px 10px 0px;
+  padding: 2px 10px 0px 10px;
+  border-radius: 12px;
+  color: @textcolor2;
+  font-size: 16px;
+  font-weight: normal;
 }
 
 window#waybar.empty #window {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 /* -----------------------------------------------------
  * Taskbar
  * ----------------------------------------------------- */
-#taskbar,
-.niri-taskbar {
-    background: @backgroundlight;
-    margin: 10px 15px 10px 18px;
-    padding: 0px;
-    border-radius: 5px;
-    font-weight: normal;
-    font-style: normal;
-    border: 3px dotted @backgroundlight;
+.niri-taskbar,
+#taskbar {
+  background: @backgroundlight;
+  margin: 10px 15px 10px 18px;
+  padding: 0px;
+  min-width: 90px;
+  border-radius: 5px;
+  font-weight: normal;
+  font-style: normal;
+  border: 3px dotted @backgroundlight;
 }
+
 #taskbar button,
 .niri-taskbar button {
-    margin: 3px;
-    border-radius: 5px;
-    padding: 1px 1px 1px 1px;
-    border: 1px transparent;
+  margin: 3px;
+  border-radius: 5px;
+  padding: 1px 1px 1px 1px;
+  border: 1px transparent;
 }
 
 #taskbar button.unread,
-.niri-taskbar button {
-    border: 2px dotted @textcolor3;
-    border-radius: 5px;
-    padding: 2px 2px 2px 2px;
+.niri-taskbar button.unread {
+  border: 2px dotted @textcolor3;
+  border-radius: 5px;
+  padding: 2px 2px 2px 2px;
 }
 
 /* -----------------------------------------------------
  * Modules
  * ----------------------------------------------------- */
 
-.modules-left > widget:first-child > #workspaces {
-    margin-left: 0;
+.modules-left>widget:first-child>#workspaces {
+  margin-left: 0;
 }
 
-.modules-right > widget:last-child > #workspaces {
-    margin-right: 0;
+.modules-right>widget:last-child>#workspaces {
+  margin-right: 0;
 }
 
 /* -----------------------------------------------------
@@ -160,12 +162,12 @@ window#waybar.empty #window {
 #battery,
 #custom-appmenu,
 #clock {
-    margin-right: 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: @iconcolor;
-    padding: 4px 10px 2px 10px;
-    font-size: 16px;
+  margin-right: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: @iconcolor;
+  padding: 4px 10px 2px 10px;
+  font-size: 16px;
 }
 
 #custom-quicklink1,
@@ -178,10 +180,10 @@ window#waybar.empty #window {
 #custom-quicklink8,
 #custom-quicklink9,
 #custom-quicklink10 {
-    padding: 0px;
-    margin-right: 7px;
-    font-size: 20px;
-    color: @iconcolor;
+  padding: 0px;
+  margin-right: 7px;
+  font-size: 20px;
+  color: @iconcolor;
 }
 
 /* -----------------------------------------------------
@@ -189,30 +191,30 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #custom-osktoggle {
-    border-radius: 5px;
-    font-size: 20px;
-    padding: 4px;
-    background-color: @backgroundlight;
-    color: @textcolor1;
-    margin: 10px 20px 10px 20px;
-    border-radius: 5px;
-    border: 0px;
-    font-weight: bold;
-    font-style: normal;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 4px;
+  background-color: @backgroundlight;
+  color: @textcolor1;
+  margin: 10px 20px 10px 20px;
+  border-radius: 5px;
+  border: 0px;
+  font-weight: bold;
+  font-style: normal;
 }
 
 .playing {
-    border-radius: 5px;
-    font-size: 12px;
-    padding: 4px;
-    background-color: @backgroundlight;
-    opacity: 0.8;
-    color: @textcolor1;
-    margin: 10px 20px 10px 20px;
-    border-radius: 5px;
-    border: 0px;
-    font-weight: bold;
-    font-style: normal;
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 4px;
+  background-color: @backgroundlight;
+  opacity: 0.8;
+  color: @textcolor1;
+  margin: 10px 20px 10px 20px;
+  border-radius: 5px;
+  border: 0px;
+  font-weight: bold;
+  font-style: normal;
 }
 
 /* -----------------------------------------------------
@@ -220,14 +222,14 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #custom-exit {
-    margin: 10px 20px 10px 10px;
-    padding: 5px 10px 5px 10px;
-    /* Add a little extra padding to the right. to make it look more centered. */
-    padding-right: 15px;
-    font-size: 20px;
-    color: @iconcolor;
-    border-radius: 5px;
-    background-color: @backgroundlight;
+  margin: 10px 20px 10px 10px;
+  padding: 5px 10px 5px 10px;
+  /* Add a little extra padding to the right. to make it look more centered. */
+  padding-right: 15px;
+  font-size: 20px;
+  color: @iconcolor;
+  border-radius: 5px;
+  background-color: @backgroundlight;
 }
 
 /* -----------------------------------------------------
@@ -238,35 +240,37 @@ window#waybar.empty #window {
 #memory,
 #cpu,
 #language {
-    margin: 10px;
-    padding: 0px;
-    font-size: 14px;
-    color: #000000;
-    border-radius: 5px;
-    background-color: @backgroundlight;
+  margin: 10px;
+  padding: 0px;
+  font-size: 14px;
+  color: #000000;
+  border-radius: 5px;
+  background-color: @backgroundlight;
 }
+
 /* glue cpu and memory together */
 #cpu {
-    margin-right: 0px;
-    border-radius: 5px 0px 0px 5px;
-    padding: 0px 10px 0px 10px;
+  margin-right: 0px;
+  border-radius: 5px 0px 0px 5px;
+  padding: 0px 10px 0px 10px;
 }
+
 #memory {
-    margin-left: 0px;
-    border-radius: 0px 5px 5px 0px;
-    padding: 0px 10px 0px 10px;
+  margin-left: 0px;
+  border-radius: 0px 5px 5px 0px;
+  padding: 0px 10px 0px 10px;
 }
 
 #keyboard-state {
-    background-color: @backgroundlight;
-    font-size: 12px;
-    color: @textcolor2;
-    border-radius: 5px;
-    margin: 10px 10px 10px 0px;
+  background-color: @backgroundlight;
+  font-size: 12px;
+  color: @textcolor2;
+  border-radius: 5px;
+  margin: 10px 10px 10px 0px;
 }
 
 #language {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 /* -----------------------------------------------------
@@ -274,11 +278,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #clock {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor1;
-    border-radius: 5px;
-    margin: 10px 7px 10px 0px;
+  background-color: @backgroundlight;
+  font-size: 16px;
+  color: @textcolor1;
+  border-radius: 5px;
+  margin: 10px 7px 10px 0px;
 }
 
 /* -----------------------------------------------------
@@ -286,16 +290,16 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #pulseaudio {
-    font-size: 16px;
-    border-radius: 5px;
-    margin: 10px 10px 10px 0px;
-    background-color: #e06666;
-    color: #000000;
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 10px 10px 10px 0px;
+  background-color: #e06666;
+  color: #000000;
 }
 
 #pulseaudio.muted {
-    color: #ffa07a;
-    background-color: #fadfb0;
+  color: #ffa07a;
+  background-color: #fadfb0;
 }
 
 /* -----------------------------------------------------
@@ -303,21 +307,21 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #network {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 5px;
-    margin: 10px 10px 10px 0px;
+  background-color: @backgroundlight;
+  font-size: 16px;
+  color: @textcolor2;
+  border-radius: 5px;
+  margin: 10px 10px 10px 0px;
 }
 
 #network.ethernet {
-    background-color: @backgroundlight;
-    color: @textcolor2;
+  background-color: @backgroundlight;
+  color: @textcolor2;
 }
 
 #network.wifi {
-    background-color: @backgroundlight;
-    color: @textcolor2;
+  background-color: @backgroundlight;
+  color: @textcolor2;
 }
 
 /* -----------------------------------------------------
@@ -327,17 +331,17 @@ window#waybar.empty #window {
 #bluetooth,
 #bluetooth.on,
 #bluetooth.connected {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border-radius: 5px;
-    margin: 10px 15px 10px 0px;
+  background-color: @backgroundlight;
+  font-size: 16px;
+  color: @textcolor2;
+  border-radius: 5px;
+  margin: 10px 15px 10px 0px;
 }
 
 #bluetooth.off {
-    background-color: transparent;
-    padding: 0px;
-    margin: 0px;
+  background-color: transparent;
+  padding: 0px;
+  margin: 0px;
 }
 
 /* -----------------------------------------------------
@@ -345,50 +349,50 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #battery {
-    background-color: @backgroundlight;
-    font-size: 16px;
-    color: @textcolor2;
-    border: 2px rgb(255, 77, 77) dotted;
-    border-radius: 5px;
-    margin: 10px 15px 10px 0px;
+  background-color: @backgroundlight;
+  font-size: 16px;
+  color: @textcolor2;
+  border: 2px rgb(255, 77, 77) dotted;
+  border-radius: 5px;
+  margin: 10px 15px 10px 0px;
 }
 
 #battery.charging,
 #battery.plugged {
-    color: @textcolor2;
-    background-color: @backgroundlight;
+  color: @textcolor2;
+  background-color: @backgroundlight;
 }
 
 @keyframes blink {
-    to {
-        background-color: @backgroundlight;
-        color: @textcolor2;
-    }
+  to {
+    background-color: @backgroundlight;
+    color: @textcolor2;
+  }
 }
 
 #battery.warning:not(.charging) {
-    background-color: #f1c40f;
-    color: @textcolor3;
+  background-color: #f1c40f;
+  color: @textcolor3;
 }
 
 #battery.full {
-    color: @textcolor3;
-    background-color: #2ecc71;
+  color: @textcolor3;
+  background-color: #2ecc71;
 }
 
 #battery.good:not(.charging) {
-    background-color: #3498db;
-    color: @textcolor3;
+  background-color: #3498db;
+  color: @textcolor3;
 }
 
 #battery.critical:not(.charging) {
-    color: #ffa07a;
-    background-color: #fadfb0;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: #ffa07a;
+  background-color: #fadfb0;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 /* -----------------------------------------------------
@@ -396,20 +400,20 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #tray {
-    background-color: rgba(250, 128, 113, 0.3);
-    border-radius: 5px;
-    border: 2px rgb(255, 77, 77) dotted;
-    padding: 4px;
-    margin: 10px 15px 10px 0px;
+  background-color: rgba(250, 128, 113, 0.3);
+  border-radius: 5px;
+  border: 2px rgb(255, 77, 77) dotted;
+  padding: 4px;
+  margin: 10px 15px 10px 0px;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+#tray>.passive {
+  -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+#tray>.needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: #eb4d4b;
 }
 
 /* -----------------------------------------------------
@@ -417,18 +421,18 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 label:focus {
-    background-color: #000000;
+  background-color: #000000;
 }
 
 #backlight {
-    background-color: #90b1b1;
+  background-color: #90b1b1;
 }
 
 #network {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 #network.disconnected {
-    color: #ffa07a;
-    background-color: #fadfb0;
+  color: #ffa07a;
+  background-color: #fadfb0;
 }
