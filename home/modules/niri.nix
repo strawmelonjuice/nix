@@ -103,5 +103,11 @@
 
     [urgency=critical]
     default-timeout=0
+
+    # "Command is done" override
+    [app-name=wezterm]
+    background-color=#9b4457
+    default-timeout=2000
+    ignore-timeout=1
   '';
 }
