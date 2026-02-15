@@ -24,13 +24,13 @@
 }
 {
     "label" : "hibernate",
-    "action" : "niri msg action open-overview && systemctl hibernate",
+    "action" : "niri msg action open-overview; niri msg action spawn -- hyprlock && systemctl hibernate",
     "text" : "Hibernate",
     "keybind" : "h"
 }
 {
     "label" : "suspend",
-    "action" : "systemctl suspend-then-hibernate",
+    "action" : "niri msg action spawn -- hyprlock && systemctl suspend-then-hibernate",
     "text" : "Sleep",
     "keybind" : "z"
 }
