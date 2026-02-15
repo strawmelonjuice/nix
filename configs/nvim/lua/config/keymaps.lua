@@ -18,51 +18,48 @@ vim.api.nvim_set_keymap("i", "<Up>", "<ESC>gk", {})
 
 ---@diagnostic disable-next-line: assign-type-mismatch
 map("n", "<Space>f", function()
-    Snacks.picker.files({ cwd = true })
+	Snacks.picker.files({ cwd = true })
 end, { desc = "Open file picker (cwd)" })
 
-
 map("n", "<Space>g", function()
-    Snacks.picker.grep()
+	Snacks.picker.grep()
 end, { desc = "Grep" })
 
-
 map("n", "<Space>b", function()
-    Snacks.picker.buffers()
+	Snacks.picker.buffers()
 end, { desc = "Open buffer picker" })
 
-
 map("n", "<Space>s", function()
-    Snacks.picker.lsp_symbols()
+	Snacks.picker.lsp_symbols()
 end, { desc = "Open symbol picker" })
 
-
 map("n", "<Space>S", function()
-    Snacks.picker.lsp_symbols({ cwd = true })
+	Snacks.picker.lsp_symbols({ cwd = true })
 end, { desc = "Open symbol picker (cwd)" })
 
-
 map("n", "<Space>?", function()
-    Snacks.picker.commands()
+	Snacks.picker.commands()
 end, { desc = "Open command picker" })
 
-
 map("n", "<Space>r", function()
-    Snacks.picker.resume()
+	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
 map("n", "<Space>o", function()
-    Snacks.picker.oldfiles()
+	Snacks.picker.oldfiles()
 end, { desc = "Oldfiles" })
 
 map("n", "<Space>e", function()
-    Snacks.explorer({ layout = { layout = { position = "right" } } })
+	Snacks.explorer({ layout = { layout = { position = "right" } } })
 end, { desc = "Explorer" })
 
 map("n", "<Space><Space>", function()
-    Snacks.picker.resume()
+	Snacks.picker.resume()
 end, { desc = "Resume last search" })
-map("n", "<Space>c", "<cmd>normal gcc<CR>", { desc = "Comment line" })
+
+map("n", "<Space>cr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
+map("n", "<Space>cc", "<cmd>normal gcc<CR>", { desc = "Comment line" })
+
 map("n", "<Space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<Space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
 

@@ -109,5 +109,9 @@
     background-color=#9b4457
     default-timeout=2000
     ignore-timeout=1
+    [app-name=ibus]
+    invisible=1
+    default-timeout=2000
+    ignore-timeout=1
   '';
 }
