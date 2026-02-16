@@ -85,7 +85,8 @@ function zap
 
         # Dynamically tell user of flakes.
         if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL; and not test -f .envrc
-            echo "❄️  Found flake.nix, run 'dev' to open Fish in a nix develop shell."
+            echo "❄️\tFound flake.nix, run 'create-envrc' to create a .envrc file here to load this flake automatically."
+            echo "\tOr alternatively, run 'dev' to open Fish in a nix develop shell."
         end
     else
         eza -a --icons
@@ -93,16 +94,33 @@ function zap
 end
 
 function dev
-    if test -f .envrc
-        echo "⚠️  .envrc found, direnv should be used here."
-        return 0
-    end
     if set -q IN_NIX_SHELL
         echo "⚠️  Already inside Nix shell!"
         return 0
     end
+    if test -f .envrc
+        echo "⚠️  .envrc found, direnv will be used."
+        direnv allow
+        return 0
+    end
     if test -f flake.nix; and type -q nix
         nix develop --set-env-var SHELL $SHELL -c $SHELL
+    else if not type -q nix
+        echo "󱄅  Nix is not installed!"
+    else
+        echo "❌ No Flake.nix file in this directory"
+    end
+end
+
+function create-envrc
+    if test -f .envrc
+        echo "⚠️  .envrc already here, can't safely insert."
+        return 0
+    end
+    if test -f flake.nix; and type -q nix
+        echo "if nix flake show &> /dev/null; then
+          use flake
+        fi" > ./.envrc
     else if not type -q nix
         echo "󱄅  Nix is not installed!"
     else
