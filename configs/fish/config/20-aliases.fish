@@ -85,8 +85,8 @@ function zap
 
         # Dynamically tell user of flakes.
         if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL; and not test -f .envrc
-            echo "❄️\tFound flake.nix, run 'create-envrc' to create a .envrc file here to load this flake automatically."
-            echo "\tOr alternatively, run 'dev' to open Fish in a nix develop shell."
+            echo -e "❄️\tFound flake.nix, run 'create-envrc' to create a .envrc file here to load this flake automatically."
+            echo -e "\tOr alternatively, run 'dev' to open Fish in a nix develop shell."
         end
     else
         eza -a --icons
