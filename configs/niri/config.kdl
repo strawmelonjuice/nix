@@ -267,6 +267,7 @@ spawn-at-startup "anyrun" "daemon"
 spawn-at-startup "mako"
 spawn-at-startup "spotify"
 spawn-at-startup "discord"
+spawn-at-startup "beeper"
 
 // Make sure to run $ git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 // once.
