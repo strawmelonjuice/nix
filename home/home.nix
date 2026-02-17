@@ -32,9 +32,9 @@
   home.stateVersion = "24.11"; # Ensure this matches your NixOS version
 
   home.packages = with pkgs; [
+    coreutils
     # GUI Apps
     vivaldi
-
     #gnomeExtensions.gesture-improvements
     gnomeExtensions.appindicator
     git
@@ -63,4 +63,37 @@
     ZED_ALLOW_EMULATED_GPU = 1;
     SHELL = "fish";
   };
+
+  systemd.user.services.wallpaper-switcher = {
+    Unit.Description = "Swap wallpaper based on time";
+    Service = {
+      ExecStart = pkgs.writeShellScript "swap-wall" ''
+        if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
+          git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
+        fi
+        HOUR=$(date +%H)
+        if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
+          # Night time: 19:00 to 07:59
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png /home/mar/.config/current_wallpaper.png
+          noctalia-shell ipc call darkMode setDark
+        else
+            # Day time
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png /home/mar/.config/current_wallpaper.png
+          noctalia-shell ipc call darkMode setLight
+        fi
+        noctalia-shell ipc call wallpaper set /home/mar/.config/current_wallpaper.png ""
+      '';
+    };
+  };
+
+  # Run every hour
+  systemd.user.timers.wallpaper-switcher = {
+    Unit.Description = "Hourly wallpaper check";
+    Timer = {
+      OnCalendar = "hourly";
+      Persistent = true;
+    };
+    Install.WantedBy = [ "timers.target" ];
+  };
+
 }

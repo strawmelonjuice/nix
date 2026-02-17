@@ -27,7 +27,7 @@ alias update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias to-dotfiles "cd ~/.dotfiles || cd ~/dotfiles"
 
 # Rebuild nix config
-alias rb 'to-dotfiles && jj status && doas nixos-rebuild switch --flake .#(hostname)'
+alias rb 'to-dotfiles && jj status && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname)'
 
 # Zellij aliases and completion
 zellij setup --generate-completion fish | source
@@ -117,13 +117,14 @@ function create-envrc
         echo "⚠️  .envrc already here, can't safely insert."
         return 0
     end
-    if test -f flake.nix; and type -q nix and; type -q direnv
+    if test -f flake.nix; and type -q nix and
+        type -q direnv
         if not test -f .gitignore; or not grep -q "^\.direnv/" .gitignore
-            echo -e "\n# Ignore direnv cache\n.direnv/" >> .gitignore
+            echo -e "\n# Ignore direnv cache\n.direnv/" >>.gitignore
         end
         echo "if nix flake show &> /dev/null; then
           use flake
-        fi" > ./.envrc
+        fi" >./.envrc
         direnv allow
     else if not type -q direnv
         echo "󱄅  Direnv is not installed!"

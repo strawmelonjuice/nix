@@ -20,6 +20,28 @@
         "type": "github"
       }
     },
+    "matugen": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1771356781,
+        "narHash": "sha256-ox3rbY1tGxFoqO3lzS8JLVLThT9XHXpkFJDEQwKHhpM=",
+        "owner": "InioX",
+        "repo": "matugen",
+        "rev": "61ed3549445f3864682fad11a24722c9d0c62516",
+        "type": "github"
+      },
+      "original": {
+        "owner": "InioX",
+        "ref": "main",
+        "repo": "matugen",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1771008912,
@@ -33,6 +55,26 @@
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771360217,
+        "narHash": "sha256-cqX+ugGQBFHkHVcCKek28+qbX+RgX/a8W+wJC+rDYJc=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "9ae8f17ffe342fa381fbf48a5ad58b73c84e9d2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
         "type": "github"
       }
     },
@@ -62,8 +104,25 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "matugen": "matugen",
         "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia",
         "plasma-manager": "plasma-manager"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1689347949,
+        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default-linux",
+        "type": "github"
       }
     }
   },

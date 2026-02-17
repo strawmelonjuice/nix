@@ -12,6 +12,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    matugen = {
+      url = "github:/InioX/matugen/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -28,8 +36,8 @@
           inherit system;
           specialArgs = { inherit inputs hostname; };
           modules = [
+            inputs.noctalia.nixosModules.default
             ./hosts/${hostname}/configuration.nix
-
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -37,7 +45,9 @@
 
               home-manager.extraSpecialArgs = { inherit inputs hostname; };
               home-manager.users.mar = {
-                imports = [ ./home/home.nix ];
+                imports = [
+                  ./home/home.nix
+                ];
               };
             }
           ];
@@ -45,11 +55,9 @@
     in
     {
       nixosConfigurations = {
-        # Add your devices here
         Fennekin = mkSystem "Fennekin" "x86_64-linux";
         samurott-nix = mkSystem "samurott-nix" "x86_64-linux";
         Ponyta = mkSystem "Ponyta" "x86_64-linux";
-        # workstation = mkSystem "workstation" "x86_64-linux";
       };
     };
 }

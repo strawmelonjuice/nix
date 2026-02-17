@@ -3,38 +3,42 @@
 {
   imports = [
     ./niri/anyrun.nix
+    ./niri/noctalia.nix
   ];
   home.packages = with pkgs; [
     niri
     kdePackages.krunner
     pavucontrol
     btop
-    htop
+    # htop
     fuzzel
-    waybar
     hyprlock
-    waybar-mpris
-    mako
+    # mako
     libnotify
     xwayland-satellite
     wireplumber
+    kdePackages.kdeconnect-kde
     brightnessctl
+    wl-clipboard
+    cliphist
     playerctl
     blueman
-    swww
+    # swww
     killall
     wvkbd
     wlogout
+    # waybar
+    # waybar-mpris
     # I should make a proper input and a flake out of this but instead I'll be lazy and yeet the .so into my dotfiles.
-    (
-      if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
-        (runCommand "libniri-taskbar" { } ''
-          mkdir -p $out/lib
-          cp -r ${../../libs}/linux-x64/libniri-taskbar.so $out/lib/libniri-taskbar.so
-        '')
-      else
-        cowsay
-    )
+    # (
+    #   if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then
+    #     (runCommand "libniri-taskbar" { } ''
+    #       mkdir -p $out/lib
+    #       cp -r ${../../libs}/linux-x64/libniri-taskbar.so $out/lib/libniri-taskbar.so
+    #     '')
+    #   else
+    #     cowsay
+    # )
   ];
   xdg.configFile."niri/config.kdl" = {
     source = ../../configs/niri/config.kdl;
