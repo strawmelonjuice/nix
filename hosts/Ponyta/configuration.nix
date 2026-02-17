@@ -46,7 +46,7 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
-  # Default session gnome.
+  # Default session niri.
   services.displayManager.defaultSession = "niri";
 
   # Configure keymap in X11

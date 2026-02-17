@@ -51,6 +51,9 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
+  # Default session niri.
+  services.displayManager.defaultSession = "niri";
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
