@@ -19,6 +19,7 @@
     xwayland-satellite
     wireplumber
     brightnessctl
+    playerctl
     blueman
     swww
     killall
