@@ -481,15 +481,16 @@ binds {
     // To avoid scrolling through workspaces really fast, you can use
     // the cooldown-ms property. The bind will be rate-limited to this value.
     // You can set a cooldown on any bind, but it's most useful for the wheel.
-    Mod+WheelScrollRight     cooldown-ms=150 { focus-workspace-down; }
-    Mod+WheelScrollLeft        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Ctrl+WheelScrollDown     cooldown-ms=150 { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
-    Mod+Shift+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Shift+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+    //TODO Make this somewhat make more sense
+    Mod+WheelScrollRight     cooldown-ms=150 { focus-column-right; }
+    Mod+WheelScrollLeft        cooldown-ms=150 { focus-column-left; }
+    Mod+Ctrl+WheelScrollDown     cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp        cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
 
-    Mod+WheelScrollDown      { focus-column-right; }
-    Mod+WheelScrollUp       { focus-column-left; }
+    Mod+Shift+WheelScrollDown      { focus-column-right; }
+    Mod+Shift+WheelScrollUp       { focus-column-left; }
     Mod+Ctrl+WheelScrollRight { move-column-right; }
     Mod+Ctrl+WheelScrollLeft  { move-column-left; }
 
@@ -553,6 +554,11 @@ binds {
 
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
+    // Half
+    Mod+H { set-column-width "50%"; }
+    // K: Dutch "kwart" (quarter), i.e. 25%
+    Mod+K { set-column-width "25%"; }
+
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
