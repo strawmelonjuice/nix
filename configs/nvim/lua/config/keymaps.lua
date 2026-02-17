@@ -1,8 +1,8 @@
+local map = vim.keymap.set
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- local map = vim.keymap.set
 -- map("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
 -- expr = true,
 -- replace_keycodes = false,
@@ -18,41 +18,41 @@ vim.api.nvim_set_keymap("i", "<Up>", "<ESC>gk", {})
 
 ---@diagnostic disable-next-line: assign-type-mismatch
 map("n", "<Space>f", function()
-    Snacks.picker.files({ cwd = true })
+	Snacks.picker.files({ cwd = true })
 end, { desc = "Open file picker (cwd)" })
 
 map("n", "<Space>g", function()
-    Snacks.picker.grep()
+	Snacks.picker.grep()
 end, { desc = "Grep" })
 
 map("n", "<Space>b", function()
-    Snacks.picker.buffers()
+	Snacks.picker.buffers()
 end, { desc = "Open buffer picker" })
 
 map("n", "<Space>s", function()
-    Snacks.picker.lsp_symbols()
+	Snacks.picker.lsp_symbols()
 end, { desc = "Open symbol picker" })
 
 map("n", "<Space>S", function()
-    Snacks.picker.lsp_symbols({ cwd = true })
+	Snacks.picker.lsp_symbols({ cwd = true })
 end, { desc = "Open symbol picker (cwd)" })
 
 map("n", "<Space>?", function()
-    Snacks.picker.commands()
+	Snacks.picker.commands()
 end, { desc = "Open command picker" })
 
 map("n", "<Space>r", function()
-    Snacks.picker.resume()
+	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
 map("n", "<Space>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 
 map("n", "<Space>e", function()
-    Snacks.explorer({ layout = { layout = { position = "right" } } })
+	Snacks.explorer({ layout = { layout = { position = "right" } } })
 end, { desc = "Explorer" })
 
 map("n", "<Space><Space>", function()
-    Snacks.picker.resume()
+	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
 map("n", "<Space>cr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
