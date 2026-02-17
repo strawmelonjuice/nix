@@ -14,8 +14,10 @@
     ./hardware-configuration.nix
     ../all-hosts.nix
   ];
+  # boot.kernelPackages = pkgs.linuxPackages; # Switch to LTS?
   boot.extraModulePackages = [
-    config.boot.kernelPackages.rtl8821au # Archer T2U
+    # Currently marked as broken so I guess no wifi for me then
+    # config.boot.kernelPackages.rtl8821au # Archer T2U
   ];
   # Rotation sensor
   hardware.sensor.iio.enable = true;
@@ -24,7 +26,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   networking.hostName = "Fennekin"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
-
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
