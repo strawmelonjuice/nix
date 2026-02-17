@@ -26,6 +26,12 @@
        config.enable_tab_bar = false
        config.window_background_opacity = 0.95
        config.font = wezterm.font('Maple Mono NF')
+       config.window_padding = {
+          left = 1,
+          right = 1,
+          top = 0,
+          bottom = 0,
+       }
        config.font_size = 10
        config.window_close_confirmation = 'NeverPrompt'
        -- and finally, return the configuration to wezterm
