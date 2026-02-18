@@ -14,10 +14,10 @@
        		return "Atelier Heath Light (base16)"
       	elseif hour >= 18 and hour < 24 then
           -- evening
-       		return "Geohot (Gogh)"
+       		return "tokyonight_night"
       	else
           -- night
-       		return "Geohot (Gogh)"
+       		return "tokyonight_night"
       	end
        end
        local wezterm = require('wezterm')
