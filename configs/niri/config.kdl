@@ -159,7 +159,7 @@ layout {
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        // off
+        off
 
         // How many logical pixels the ring extends out from the windows.
         width 4
@@ -195,11 +195,11 @@ layout {
     border {
         // The settings are the same as for the focus ring.
         // If you enable the border, you probably want to disable the focus ring.
-        off
+        // off
 
         width 4
-        active-color "#ffc87f"
-        inactive-color "#505050"
+        active-color "#e06666"
+        inactive-color "#6f4da7"
 
         // Color of the border around windows that request your attention.
         urgent-color "#9b0000"
@@ -354,7 +354,7 @@ window-rule {
 }
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 20
     clip-to-geometry true
 }
 
@@ -386,7 +386,7 @@ binds {
     Mod+D hotkey-overlay-title="Launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+Shift+D hotkey-overlay-title="Open (k)runner (backup runner)" { spawn "krunner"; }
     Alt+Space hotkey-overlay-title="Open Krun" { spawn "krunner"; }
-    Mod+X hotkey-overlay-title="Clipboard" { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Mod+V hotkey-overlay-title="Clipboard" { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
     Mod+Period hotkey-overlay-title="Emoji" { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
@@ -603,8 +603,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+X       { toggle-window-floating; }
+    Mod+Shift+X { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
     // Windows in this column will appear as vertical tabs,
