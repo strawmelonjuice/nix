@@ -12,6 +12,21 @@
   ];
 
   config = {
+    services.gnome-keyring = {
+      enable = true;
+      components = [
+        "pkcs11"
+        "secrets"
+        "ssh"
+      ];
+    };
+
+    # This helps Wayland apps talk to the system portals
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+      config.common.default = [ "gnome" ];
+    };
     programs.noctalia-shell = {
       enable = true;
       systemd.enable = false;
@@ -302,4 +317,5 @@
       "mOnHover" = "#000000";
     };
   };
+
 }

@@ -19,6 +19,7 @@
   environment.systemPackages = with pkgs; [
     podman-compose
     podman-tui
+    polkit_gnome
   ];
 
   programs.nix-ld.enable = true;
@@ -42,7 +43,8 @@
   services.desktopManager.plasma6.enable = true;
   programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   programs.niri.enable = true;
-
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.mar.enableGnomeKeyring = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -65,14 +67,14 @@
     ];
   };
 
-  security.doas.enable = true; 
-  security.sudo.enable = false; 
+  security.doas.enable = true;
+  security.sudo.enable = false;
   security.doas.extraRules = [
-{ users = ["mar"]; 
-keepEnv = true;
-noPass = true;
-}
-];
-
+    {
+      users = [ "mar" ];
+      keepEnv = true;
+      noPass = true;
+    }
+  ];
 
 }

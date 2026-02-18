@@ -265,7 +265,7 @@ layout {
 
 // spawn-at-startup "waybar"
 spawn-at-startup "noctalia-shell"
-spawn-at-startup "blueman-tray"
+// spawn-at-startup "blueman-tray"
 // spawn-at-startup "anyrun" "daemon"
 // spawn-at-startup "mako"
 spawn-at-startup "spotify"
@@ -274,6 +274,8 @@ spawn-at-startup "ibus-daemon" "-rxrd"
 spawn-at-startup "beeper"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
+spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "NIXOS_OZONE_WL"
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 
 // Make sure to run $ git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 // once.
