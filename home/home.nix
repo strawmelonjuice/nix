@@ -74,14 +74,15 @@
         HOUR=$(date +%H)
         if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
           # Night time: 19:00 to 07:59
-          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png /home/mar/.config/current_wallpaper.png
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png ""
           noctalia-shell ipc call darkMode setDark
         else
             # Day time
-          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png /home/mar/.config/current_wallpaper.png
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png ""
           noctalia-shell ipc call darkMode setLight
         fi
-        noctalia-shell ipc call wallpaper set /home/mar/.config/current_wallpaper.png ""
       '';
     };
   };
