@@ -12,6 +12,14 @@
   ];
 
   config = {
+    home.packages = [
+      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+      pkgs.rbw
+      pkgs.curl
+      pkgs.wtype
+      pkgs.pinentry-tty
+    ];
+
     services.gnome-keyring = {
       enable = true;
       components = [
@@ -21,7 +29,6 @@
       ];
     };
 
-    # This helps Wayland apps talk to the system portals
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
@@ -60,7 +67,12 @@
               }
             ];
             center = [
-
+              {
+                id = "Action";
+                icon = "";
+                on_click = "/home/mar/.config/niri/scripts/osk.sh";
+                tooltip = "Toggle On-Screen Keyboard";
+              }
               {
                 id = "Clock";
               }
@@ -99,6 +111,12 @@
             ];
           };
         };
+        quicksettings.buttons = [
+          {
+            id = "plugin:osk-toggle";
+            enabled = true;
+          }
+        ];
         controlCenter = {
           position = "close_to_bar_button";
           diskPath = "/";
@@ -219,6 +237,11 @@
             name = "Official Noctalia Plugins";
             url = "https://github.com/noctalia-dev/noctalia-plugins";
           }
+          {
+            enabled = true;
+            name = "Rukh Debug unofficial noctalia plugin repository";
+            url = "https://github.com/rukh-debug/noctalia-unofficial-plugins";
+          }
         ];
         states = {
           catwalk = {
@@ -233,72 +256,24 @@
             enabled = true;
             sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
           };
+          bitwarden-rbw-noctalia-launcher = {
+            enabled = true;
+            sourceUrl = "https://github.com/rukh-debug/noctalia-unofficial-plugins";
+
+          };
         };
         version = 2;
       };
 
     };
 
-    home.packages = [
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
     home.activation.setupNoctaliaDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p ${config.xdg.configHome}/gtk-4.0
       mkdir -p ${config.xdg.configHome}/gtk-3.0
       touch ${config.xdg.configHome}/gtk-4.0/gtk.css
       touch ${config.xdg.configHome}/gtk-3.0/gtk.css
     '';
-    xdg.configFile."noctalia/style.css".text = ''
-      /* Noctalia Bar Custom Styling */
-      @define-color backgroundlight #e06666;
-      @define-color backgrounddark #f4cccc;
-      @define-color textcolor1 #000000;
-      @define-color iconcolor #9b4457;
-
-      * {
-        font-family: "Atkinson Hyperlegible Next", sans-serif;
-      }
-
-      .bar {
-        background-color: transparent;
-        border-radius: 0px;
-      }
-
-      /* Styling individual widgets to match your Waybar "Buttons" */
-      .bar-widget {
-        background-color: @backgroundlight;
-        color: @textcolor1;
-        margin: 5px 4px;
-        padding: 2px 10px;
-        border-radius: 5px;
-        border: 2px solid transparent;
-      }
-
-      /* Workspace indicators */
-      .workspace-button {
-        background-color: #f4cccc;
-        color: #000000;
-        border-radius: 5px;
-        margin: 0 3px;
-      }
-
-      .workspace-button.active {
-        background-color: #fa8071;
-        border: 2px solid #ff4d47;
-      }
-
-      /* Matches your Hardware Group / Clock style */
-      .clock, .cpu, .memory, .network, .pulseaudio {
-        background-color: @backgroundlight;
-        color: @textcolor1;
-        border-radius: 5px;
-        margin: 5px 2px;
-      }
-
-
-
-    '';
-    home.file.".config/noctalia/colors.json".text = builtins.toJSON {
+    xdg.configFile."noctalia/colors.json".text = builtins.toJSON {
       "mSurface" = "#e06666";
       "mOnSurface" = "#000000";
       "mPrimary" = "#f4cccc";

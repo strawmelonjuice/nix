@@ -11,7 +11,6 @@
     pavucontrol
     btop
     # htop
-    fuzzel
     hyprlock
     # mako
     libnotify
@@ -23,10 +22,11 @@
     cliphist
     playerctl
     blueman
-    # swww
     killall
     wvkbd
     wlogout
+    # swww
+    # fuzzel
     # waybar
     # waybar-mpris
     # I should make a proper input and a flake out of this but instead I'll be lazy and yeet the .so into my dotfiles.
@@ -42,6 +42,21 @@
   ];
   xdg.configFile."niri/config.kdl" = {
     source = ../../configs/niri/config.kdl;
+  };
+  xdg.configFile."niri/scripts/osk.sh" = {
+    text = ''
+      #!/run/current-system/sw/bin/bash
+      # Relaunch the touch keyboard if it crashed
+
+      line=$(ps -C wvkbd-mobintl --no-headers)
+      if [ -z "$line" ]; then
+        wvkbd-mobintl -L 300
+      else
+        echo $line >/dev/null
+        # Its running, so send it a signal to toggle it up
+        kill -34 $(ps -C wvkbd-mobintl)
+      fi
+    '';
   };
   xdg.configFile."fuzzel/fuzzel.ini" = {
     source = ../../configs/niri/fuzzel.ini;
@@ -59,64 +74,44 @@
     source = ../../configs/niri/wlogout;
     recursive = true;
   };
-  xdg.configFile."hypr" = {
-    source = ../../configs/niri/hypr;
-    recursive = true;
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      background = [
+        {
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 10;
+        }
+      ];
+      input-field = {
+        size = "300,300";
+        outline_thickness = 3;
+        dots_size = 0.33; # Scale of input-field height, 0.2 - 0.8
+        dots_spacing = 0.15; # Scale of dots' absolute size, 0.0 - 1.0
+        dots_center = true;
+        dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
+        outer_color = "rgb(151515)";
+        inner_color = "rgb(FFFFFF)";
+        font_color = "rgb(10, 10, 10)";
+        fade_on_empty = false;
+        fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
+        placeholder_text = "<i>  </i>"; # Text rendered in the input box when it's empty.
+        hide_input = true;
+        rounding = -1; # -1 means complete rounding (circle/oval)
+        check_color = "rgb(204, 136, 34)";
+        fail_color = "rgb(204, 34, 34)"; # if authentication failed, changes outer_color and fail message color
+        fail_text = ""; # can be set to empty
+        fail_transition = 300; # transition time in ms between normal outer_color and fail_color
+        capslock_color = -1;
+        numlock_color = -1;
+        bothlock_color = -1; # when both locks are active. -1 means don't change outer color (same for above)
+        invert_numlock = false; # change color if numlock is off
+        swap_font_color = false; # see below
+        position = "0, -20";
+        halign = "center";
+        valign = "center";
+      };
+    };
   };
-  xdg.configFile."mako/config".text = ''
-    # General
-    font=Atkinson Hyperlegible Next 12
-    width=350
-    height=150
-    padding=15
-    margin=10
-    anchor=top-right
-
-    # Colors
-    background-color=#e06666
-    # Text matched to @textcolor1 (#000000)
-    text-color=#000000
-
-    # Border styling
-    # Matched to @bordercolor (#f4cccc)
-    border-color=#f4cccc
-    border-size=2
-    # Matched to #window border-radius (12px)
-    border-radius=12
-
-    # Icons
-    icons=1
-    max-icon-size=48
-    progress-color=#9b4457
-
-    # Options
-    default-timeout=5000
-    ignore-timeout=0
-
-    # Urgency overrides
-    [urgency=low]
-    background-color=#f4cccc
-    border-color=#e06666
-    default-timeout=2000
-    text-color=#000000
-
-    [urgency=high]
-    background-color=#fa8071
-    border-color=#ffffff
-    text-color=#000000
-    border-size=3
-
-    [urgency=critical]
-    default-timeout=0
-
-    # "Command is done" override
-    [app-name=wezterm]
-    background-color=#9b4457
-    default-timeout=2000
-    ignore-timeout=1
-    [app-name=ibus]
-    invisible=1
-    default-timeout=2000
-    ignore-timeout=1
-  '';
 }

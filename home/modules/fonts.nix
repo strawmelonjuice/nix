@@ -9,7 +9,8 @@
     font-awesome
     maple-mono.NF
     nerd-fonts.lilex
-
+    nerd-fonts.symbols-only
+    font-awesome
     (runCommand "lotion-fonts" { } ''
       mkdir -p $out/share/fonts/truetype/lotion
       cp -r ${../../fonts}/Lotion*.ttf $out/share/fonts/truetype/lotion/
