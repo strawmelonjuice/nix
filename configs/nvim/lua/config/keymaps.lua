@@ -55,6 +55,8 @@ map("n", "<Space><Space>", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
+map("n", "<Space>a", "<cmd>Lspsaga code_action<CR>", { desc = "LSP code action" })
+
 map("n", "<Space>cr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
 map("n", "<Space>cc", "<cmd>normal gcc<CR>", { desc = "Comment line" })
 
