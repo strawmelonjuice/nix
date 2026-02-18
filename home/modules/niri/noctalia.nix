@@ -40,7 +40,7 @@
       settings = {
         wallpaper = {
           enabled = true;
-          path = "/home/mar/.cache/current_wallpaper.png";
+          path = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
         };
         bar = {
           position = "top";

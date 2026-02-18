@@ -32,7 +32,7 @@
           top = 0,
           bottom = 0,
        }
-       config.font_size = 10
+       config.font_size = 9
        config.window_close_confirmation = 'NeverPrompt'
        -- and finally, return the configuration to wezterm
        return config
