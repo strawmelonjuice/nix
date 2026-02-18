@@ -264,6 +264,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // spawn-at-startup "waybar"
+spawn-at-startup "bash" "/home/mar/.config/niri/scripts/show-osktoggle-if-fennekin.sh"
 spawn-at-startup "noctalia-shell"
 // spawn-at-startup "blueman-tray"
 // spawn-at-startup "anyrun" "daemon"
@@ -276,6 +277,7 @@ spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "NIXOS_OZONE_WL"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
+
 
 // Make sure to run $ git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 // once.
@@ -321,6 +323,11 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+}
+window-rule {
+    match title="waybar"
+    open-floating true
+    default-column-width { proportion 0.1; }
 }
 
 //Spotify Picture-in-Picture
