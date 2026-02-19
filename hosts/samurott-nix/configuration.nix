@@ -73,8 +73,8 @@
   };
   environment.systemPackages = with pkgs; [
     grc
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
+    # Big screen: May run JetBrains.
+    jetbrains.rust-rover
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).

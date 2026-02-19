@@ -96,6 +96,8 @@
     # School: Run Windows software
     wineWow64Packages.stable
     winetricks
+    # Big screen: May run JetBrains.
+    jetbrains.rust-rover
   ];
 
   programs.steam = {

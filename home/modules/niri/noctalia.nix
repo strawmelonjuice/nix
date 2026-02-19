@@ -68,12 +68,6 @@
             ];
             center = [
               {
-                id = "Action";
-                icon = "";
-                on_click = "/home/mar/.config/niri/scripts/osk.sh";
-                tooltip = "Toggle On-Screen Keyboard";
-              }
-              {
                 id = "Clock";
               }
               {
@@ -106,22 +100,8 @@
                 id = "Brightness";
               }
               {
-                id = "ControlCenter";
+                id = "PowerProfile";
               }
-            ];
-          };
-        };
-        quicksettings.buttons = [
-          {
-            id = "plugin:osk-toggle";
-            enabled = true;
-          }
-        ];
-        controlCenter = {
-          position = "close_to_bar_button";
-          diskPath = "/";
-          shortcuts = {
-            left = [
               {
                 id = "Network";
               }
@@ -129,54 +109,12 @@
                 id = "Bluetooth";
               }
               {
-                id = "WallpaperSelector";
-              }
-              {
-                id = "NoctaliaPerformance";
-              }
-            ];
-            right = [
-              {
-                id = "Notifications";
-              }
-              {
-                id = "PowerProfile";
-              }
-              {
-                id = "KeepAwake";
-              }
-              {
                 id = "NightLight";
               }
             ];
           };
-          cards = [
-            {
-              enabled = false;
-              id = "profile-card";
-            }
-            {
-              enabled = true;
-              id = "shortcuts-card";
-            }
-            {
-              enabled = true;
-              id = "audio-card";
-            }
-            {
-              enabled = false;
-              id = "brightness-card";
-            }
-            {
-              enabled = true;
-              id = "weather-card";
-            }
-            {
-              enabled = true;
-              id = "media-sysmon-card";
-            }
-          ];
         };
+        controlCenter.enabled = false;
         dock.enabled = false;
         appLauncher = {
           enableClipboardHistory = true;

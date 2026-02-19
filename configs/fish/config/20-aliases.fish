@@ -30,7 +30,7 @@ alias to-dotfiles "cd ~/.dotfiles || cd ~/dotfiles"
 alias rb 'to-dotfiles && jj status && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname)'
 
 # Zellij aliases and completion
-zellij setup --generate-completion fish | source
+# zellij setup --generate-completion fish | source
 alias ide 'zellij --layout ide'
 # IDE but without the editor.
 alias id-e 'zellij --layout id-e'
