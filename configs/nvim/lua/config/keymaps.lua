@@ -18,14 +18,20 @@ vim.api.nvim_set_keymap("i", "<Up>", "<ESC>gk", {})
 
 ---@diagnostic disable-next-line: assign-type-mismatch
 map("n", "<Space>f", function()
-	Snacks.picker.files({ cwd = true })
-end, { desc = "Open file picker (cwd)" })
+	Snacks.picker.files()
+end, { desc = "Open file picker" })
 
 map("n", "<Space>/", function()
 	Snacks.picker.grep()
 end, { desc = "Project grep" })
 
-map("n", "<Space>d", "<cmd>Trouble diagnostics<CR>", { desc = "Diagnostics" })
+map("n", "<Space>d", function()
+	Snacks.picker.diagnostics_buffer()
+end, { desc = "Buffer diagnostics" })
+
+map("n", "<Space>D", function()
+	Snacks.picker.diagnostics()
+end, { desc = "Project diagnostics" })
 
 map("n", "<Space>b", function()
 	Snacks.picker.buffers()
@@ -36,8 +42,8 @@ map("n", "<Space>s", function()
 end, { desc = "Open symbol picker" })
 
 map("n", "<Space>S", function()
-	Snacks.picker.lsp_symbols({ cwd = true })
-end, { desc = "Open symbol picker (cwd)" })
+	Snacks.picker.lsp_workspace_symbols()
+end, { desc = "Open project symbol picker" })
 
 map("n", "<Space>?", function()
 	Snacks.picker.commands()
