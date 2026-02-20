@@ -8,10 +8,10 @@
       	local hour = tonumber(os.date("%H"))
       	if hour >= 6 and hour < 12 then
           -- morning
-       		return "Atelier Heath Light (base16)"
+       		return "Rosé Pine Dawn (Gogh)"
       	elseif hour >= 12 and hour < 18 then
           -- afternoon
-       		return "Atelier Heath Light (base16)"
+       		return "Rosé Pine Dawn (Gogh)"
       	elseif hour >= 18 and hour < 24 then
           -- evening
        		return "tokyonight_night"
