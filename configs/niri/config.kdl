@@ -70,12 +70,10 @@ environment {
     XMODIFIERS "@im=ibus"
     ELECTRON_OZONE_PLATFORM_HINT "auto"
 }
-// You can configure outputs by their name, which you can find
-// by running `niri msg outputs` while inside a niri instance.
-// The built-in laptop monitor is usually called "eDP-1".
-// Find more information on the wiki:
-// https://github.com/YaLTeR/niri/wiki/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
+output "Virtual-2" {
+  // samurott-nix's second screen is on the left.
+  position x=-30000 y=0
+}
 /-output "eDP-1" {
     // Uncomment this line to disable this output.
     // off

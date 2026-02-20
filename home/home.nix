@@ -11,7 +11,6 @@
     inputs.plasma-manager.homeModules.plasma-manager
 
     # Modules
-    ./modules/conversation.nix
     ./modules/development.nix
     ./modules/fonts.nix
     ./modules/games.nix
@@ -20,7 +19,6 @@
     ./modules/librewolf.nix
     ./modules/niri.nix
     ./modules/shell.nix
-    ./modules/spotify.nix
     ./modules/wezterm.nix
   ]
   ++ [
