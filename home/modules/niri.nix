@@ -19,6 +19,7 @@
       wireplumber
       kdePackages.kdeconnect-kde
       brightnessctl
+      xclip
       wl-clipboard
       cliphist
       playerctl
