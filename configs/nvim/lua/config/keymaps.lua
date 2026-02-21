@@ -1,21 +1,18 @@
 local map = vim.keymap.set
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+local wk = require("which-key")
 
--- map("i", "<C-J>", 'copilot#Accept("\\<CR>")', {
--- expr = true,
--- replace_keycodes = false,
--- })
+-- Misc.        --------------------------------------------------------------------------------------------------------------------------------------------------
 
--- vim.g.copilot_no_tab_map = true
-map("n", "K", "<cmd>Lspsaga hover_doc<CR>", {})
--- Exit insert mode when using the bad habit of pressing the arrow keys, but still move
--- I am actively making things hard for-- well, me probably
-vim.api.nvim_set_keymap("i", "<Up>", "<ESC>gk", {})
--- vim.api.nvim_set_keymap("i", "<Left>", "<ESC>h", {})
--- vim.api.nvim_set_keymap("i", "<Right>", "<ESC>l", {})
+-- Control-S save
+map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
+map("v", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
+map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 
+-- Splitting
+map("n", "<Space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
+map("n", "<Space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
+
+-- Pickers      --------------------------------------------------------------------------------------------------------------------------------------------------
 ---@diagnostic disable-next-line: assign-type-mismatch
 map("n", "<Space>f", function()
 	Snacks.picker.files()
@@ -63,21 +60,29 @@ map("n", "<Space><Space>", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
-map("n", "<Space>a", "<cmd>Lspsaga code_action<CR>", { desc = "LSP code action" })
+-- LSP          --------------------------------------------------------------------------------------------------------------------------------------------------
+-- LSP group
+wk.add({
+	{ "<Space>c", group = "LSP ->", mode = { "n", "v" } },
+})
+-- Hover info
+map("n", "<C-k>", vim.lsp.buf.hover, {})
+map("i", "<C-k>", vim.lsp.buf.hover, {})
+map("v", "<C-k>", vim.lsp.buf.hover, {})
+map("n", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
+map("v", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
 
-map("n", "<Space>cr", "<cmd>Lspsaga rename<CR>", { desc = "Rename symbol (LSP)" })
-map("n", "<Space>cc", "<cmd>normal gcc<CR>", { desc = "Comment line" })
+-- Code action
+map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
+map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
+-- Rename
+map("n", "<Space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
 
-map("n", "<Space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
-map("n", "<Space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
-
-map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save file" })
-
-map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
-
+-- Movement     --------------------------------------------------------------------------------------------------------------------------------------------------
 map("i", "<down>", "<esc>gj", { desc = "Move down and exit insert" })
 map("i", "<up>", "<esc>gk", { desc = "Move up and exit insert" })
 
+-- Selections   --------------------------------------------------------------------------------------------------------------------------------------------------
 map("n", "x", "V", { desc = "Select line" })
 map("v", "x", "j", { desc = "Extend selection down" })
 map("v", "X", "k", { desc = "Extend selection up" })
