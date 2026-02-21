@@ -40,14 +40,10 @@ alias strider 'zellij plugin --in-place -- zellij:strider'
 alias cargock 'cargo-clean-all --keep-days 21 ~ -i'
 
 # JJ-related aliases
-alias jj-todo 'jj new --no-edit --insert-after @ -m'
 alias jje 'jj edit'
+alias jjd 'jj describe @'
 alias jjs 'jj show'
 alias jjn 'jj next --edit'
-alias jj-tug 'jj tug'
-alias jj-catchup 'jj catchup'
-# jj take and push
-alias jj-tp 'echo "JJ: Taking this! AND I\'LL PUSH!!!!" && jj tug && jj git push'
 
 # -----------------------------------------------------
 # Directory navigation and aliases
@@ -75,7 +71,8 @@ function zap
         kc
 
         if test -d .jj
-            jj status
+            jj log -Tbuiltin_log_compact_full_description -r'ancestors(bookmarks() & @-, 5) & ~@' --reversed --no-pager --limit 5
+            jj show --summary
         else
             git status
         end
