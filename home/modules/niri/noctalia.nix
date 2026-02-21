@@ -58,40 +58,51 @@
             left = [
               {
                 id = "Workspace";
+                # showApplications = true;
+                showLabelsOnlyWhenOccupied = false;
+                hideUnoccupied = true;
+                iconScale = 0.8;
               }
-              # {
-              #   id = "Launcher";
-              # }
               {
                 id = "ActiveWindow";
+                maxWidth = 260;
               }
             ];
             center = [
               {
                 id = "Clock";
-              }
-              {
-                id = "plugin:kde-connect";
+                formatHorizontal = "HH:mm\\ndddd, MMMM dd";
+                formatVertical = "HH:mm";
+                tooltipFormat = "";
               }
             ];
             right = [
-              {
-                id = "MediaMini";
-              }
               {
                 id = "Tray";
               }
               {
                 id = "NotificationHistory";
+                showUnreadBadge = false;
+                hideWhenZeroUnread = true;
               }
-              # {
-              #   id = "SystemMonitor";
-              # }
+              {
+                id = "MediaMini";
+              }
+              {
+                id = "CustomButton";
+                icon = "keyboard";
+                leftClickExec = "bash -c '/home/mar/.config/niri/scripts/osk.sh'";
+                generalTooltipText = "Toggle the on-screen keyboard (restarts the keyboard if needed.)";
+                showIcon = true;
+              }
+              {
+                id = "plugin:kde-connect";
+              }
               {
                 id = "plugin:catwalk";
               }
               {
-                id = "Battery";
+                id = "Spacer";
               }
               {
                 id = "Volume";
@@ -100,7 +111,18 @@
                 id = "Brightness";
               }
               {
-                id = "PowerProfile";
+                id = "NightLight";
+              }
+              {
+                id = "Spacer";
+              }
+              {
+                alwaysShowPercentage = false;
+                id = "Battery";
+                warningThreshold = 30;
+                displayMode = "graphic";
+                showPowerProfiles = true;
+                showNoctaliaPerformance = true;
               }
               {
                 id = "Network";
@@ -109,7 +131,18 @@
                 id = "Bluetooth";
               }
               {
-                id = "NightLight";
+                id = "Spacer";
+              }
+              {
+                id = "LockKeys";
+                hideWhenOff = true;
+              }
+              {
+                id = "CustomButton";
+                icon = "power";
+                leftClickExec = "wlogout";
+                generalTooltipText = "Power off options";
+                showIcon = true;
               }
             ];
           };

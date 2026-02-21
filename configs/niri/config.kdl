@@ -257,7 +257,6 @@ layout {
 // See the binds section below for more spawn examples.
 
 // spawn-at-startup "waybar"
-spawn-at-startup "bash" "/home/mar/.config/niri/scripts/show-osktoggle-if-fennekin.sh"
 spawn-at-startup "noctalia-shell"
 // spawn-at-startup "blueman-tray"
 // spawn-at-startup "anyrun" "daemon"
