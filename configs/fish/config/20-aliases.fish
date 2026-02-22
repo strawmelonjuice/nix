@@ -66,6 +66,8 @@ function zap
 
         if test -d .git
             git fetch
+        else
+            jj git fetch
         end
         # Show repository line counts
         kc
@@ -78,7 +80,7 @@ function zap
         end
 
         # Show repository filetree
-        eza --icons -L 2 -R --tree --git-ignore
+        # eza --icons -L 2 -R --tree --git-ignore # Disabled. Output gets too long.
 
         # Dynamically tell user of flakes.
         if test -f flake.nix; and type -q nix; and not set -q IN_NIX_SHELL; and not test -f .envrc
