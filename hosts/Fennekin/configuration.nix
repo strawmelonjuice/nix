@@ -3,7 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  config,
   pkgs,
   ...
 }:
@@ -14,7 +13,6 @@
     ./hardware-configuration.nix
     ../all-hosts.nix
   ];
-  # boot.kernelPackages = pkgs.linuxPackages; # Switch to LTS?
   boot.extraModulePackages = [
     # Currently marked as broken so I guess no wifi for me then
     # config.boot.kernelPackages.rtl8821au # Archer T2U
