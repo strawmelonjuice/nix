@@ -76,6 +76,7 @@
               {
                 id = "ActiveWindow";
                 maxWidth = 260;
+                showIcon = false;
               }
             ];
             center = [
@@ -162,23 +163,55 @@
         appLauncher = {
           enableClipboardHistory = true;
         };
+        notifications = {
+          enabled = true;
+          enableMarkdown = true;
+          density = "default";
+          monitors = [ ];
+          location = "bottom_right";
+          overlayLayer = true;
+          backgroundOpacity = 1;
+          respectExpireTimeout = false;
+          lowUrgencyDuration = 3;
+          normalUrgencyDuration = 8;
+          criticalUrgencyDuration = 15;
+          clearDismissed = true;
+          saveToHistory = {
+            low = true;
+            normal = true;
+            critical = true;
+          };
+          sounds = {
+            enabled = false;
+            volume = 0.5;
+            separateSounds = false;
+            criticalSoundFile = "";
+            normalSoundFile = "";
+            lowSoundFile = "";
+            excludedApps = "discord,firefox,chrome,chromium,edge";
+          };
+          enableMediaToast = false;
+          enableKeyboardLayoutToast = true;
+          enableBatteryToast = true;
+        };
         ui = {
           fontDefault = "Atkinson Hyperlegible Next 12";
-          location = {
-            name = "Eindhoven";
-            weatherEnabled = true;
-            weatherShowEffects = true;
-            useFahrenheit = false;
-            use12hourFormat = false;
-            showWeekNumberInCalendar = false;
-            showCalendarEvents = true;
-            showCalendarWeather = true;
-            analogClockInCalendar = false;
-            firstDayOfWeek = -1;
-            hideWeatherTimezone = false;
-            hideWeatherCityName = false;
-          };
 
+
+        };
+        location = {
+          name = "Eindhoven";
+          weatherEnabled = true;
+          weatherShowEffects = true;
+          useFahrenheit = false;
+          use12hourFormat = false;
+          showWeekNumberInCalendar = false;
+          showCalendarEvents = true;
+          showCalendarWeather = true;
+          analogClockInCalendar = false;
+          firstDayOfWeek = -1;
+          hideWeatherTimezone = false;
+          hideWeatherCityName = false;
         };
         nightLight = {
           enabled = true;
