@@ -21,7 +21,6 @@
     wl-clipboard
     cliphist
     playerctl
-    blueman
     killall
     wvkbd
     wlogout

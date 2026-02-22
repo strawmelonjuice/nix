@@ -3,8 +3,13 @@
   pkgs,
   ...
 }:
-# Not complete. Fennekin is currently best reference.
 {
+
+  environment.variables = {
+    GTK_IM_MODULE = lib.mkForce null;
+    QT_IM_MODULE = lib.mkForce null;
+  };
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
