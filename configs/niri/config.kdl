@@ -306,9 +306,17 @@ animations {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+workspace "" {
+    }
+workspace "🎧" {
 
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
+}
+
+workspace "💬" {
+
+}
+
+
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.
@@ -322,27 +330,36 @@ window-rule {
     default-column-width { proportion 0.1; }
 }
 
-//Spotify Picture-in-Picture
 window-rule {
+  open-floating true
+  // Browser/Spotify Picture-in-Picture
     match app-id=r#"Chromium-browser"# title="(.*) • (.*)"
-    open-floating true
-}
-// Browser Picture-in-Picture
-window-rule {
  match title="^Picture-in-Picture$"
-    open-floating true
-    }
+ // Calculator and characters
 
-// Example: block out two password managers from screen capture.
-// (This example rule is commented out with a "/-" in front.)
-/-window-rule {
+  match app-id="org.gnome.Characters"
+  match app-id="org.gnome.Calculator"
+    }
+window-rule {
+  open-on-workspace "🎧"
+  match app-id="Spotify"
+  match app-id="org.gnome.Music"
+}
+
+window-rule {
+  open-on-workspace "💬"
+  match app-id="discord"
+  match app-id="BeeperTexts"
+  match app-id="thunderbird"
+  match app-id="fluffychat"
+}
+
+
+window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
 
     block-out-from "screen-capture"
-
-    // Use this instead if you want them visible on third-party screenshot tools.
-    // block-out-from "screencast"
 }
 
 window-rule {

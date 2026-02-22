@@ -3,6 +3,10 @@ local wk = require("which-key")
 
 -- Misc.        --------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Visual VCS managers group
+wk.add({
+	{ "<Space>v", group = "Visual VCS", mode = { "n" } },
+})
 -- Control-S save
 map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
 map("v", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })

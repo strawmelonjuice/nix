@@ -57,9 +57,19 @@
           widgets = {
             left = [
               {
+                id = "CustomButton";
+                icon = "square-arrow-up";
+                leftClickExec = "niri msg action toggle-overview";
+                generalTooltipText = "Toggle overview";
+                showIcon = true;
+              }
+              {
                 id = "Workspace";
-                # showApplications = true;
-                showLabelsOnlyWhenOccupied = false;
+                showApplications = true;
+                pillSize = 0.6;
+                labelMode = "name";
+                showLabelsOnlyWhenOccupied = true;
+                characterCount = 5;
                 hideUnoccupied = true;
                 iconScale = 0.8;
               }

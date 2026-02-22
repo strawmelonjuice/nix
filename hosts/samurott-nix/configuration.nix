@@ -53,6 +53,9 @@
     variant = "altgr-intl";
   };
 
+  # Default session niri.
+  services.displayManager.defaultSession = "niri";
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -87,7 +90,9 @@
   nixpkgs.config.allowUnfree = true;
 
   # enable vmware tools
-  virtualisation.vmware.guest.enable = true;
+  virtualisation.vmware.guest = {
+    enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
