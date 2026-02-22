@@ -168,7 +168,7 @@
           enableMarkdown = true;
           density = "default";
           monitors = [ ];
-          location = "bottom_right";
+          location = "top_center";
           overlayLayer = true;
           backgroundOpacity = 1;
           respectExpireTimeout = false;
@@ -181,22 +181,25 @@
             normal = true;
             critical = true;
           };
-          sounds = {
-            enabled = false;
-            volume = 0.5;
-            separateSounds = false;
-            criticalSoundFile = "";
-            normalSoundFile = "";
-            lowSoundFile = "";
-            excludedApps = "discord,firefox,chrome,chromium,edge";
-          };
           enableMediaToast = false;
           enableKeyboardLayoutToast = true;
           enableBatteryToast = true;
         };
+        osd = {
+          enabled = true;
+          location = "top_center";
+          autoHideMs = 2000;
+          overlayLayer = true;
+          backgroundOpacity = 1;
+          enabledTypes = [
+            0
+            1
+            2
+          ];
+          monitors = [ ];
+        };
         ui = {
           fontDefault = "Atkinson Hyperlegible Next 12";
-
 
         };
         location = {
