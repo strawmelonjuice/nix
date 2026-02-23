@@ -13,6 +13,7 @@
       "catppuccin"
       "catppuccin-icons"
       "rose-pine-theme"
+      "zed-just"
     ];
     extraPackages = with pkgs; [
       nil

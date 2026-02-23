@@ -6,26 +6,31 @@
     enable = true;
     profiles = {
       default = {
-        extensions = with pkgs; [
-          vscode-extensions.bbenoist.nix
-          vscode-extensions.tamasfe.even-better-toml
-          vscode-extensions.rust-lang.rust-analyzer
-          vscode-extensions.gleam.gleam
-          vscode-extensions.catppuccin.catppuccin-vsc
-          vscode-extensions.catppuccin.catppuccin-vsc-icons
-          vscode-extensions.mvllow.rose-pine
-          vscode-extensions.jjk.jjk
-          vscode-extensions.mkhl.direnv
+        extensions = with pkgs.vscode-extensions; [
+          bbenoist.nix
+          tamasfe.even-better-toml
+          rust-lang.rust-analyzer
+          gleam.gleam
+          catppuccin.catppuccin-vsc
+          catppuccin.catppuccin-vsc-icons
+          mvllow.rose-pine
+          jjk.jjk
+          nefrob.vscode-just-syntax
+          mkhl.direnv
         ];
         userSettings = {
           editor.fontFamily = "'Maple Mono NF', 'Droid Sans Mono', monospace";
-          window.autoDetectColorScheme = true;
-          workbench.preferredDarkColorTheme = "Catppuccin Mocha";
-          workbench.preferredLightColorTheme = "Rosé Pine Dawn";
-          workbench.iconTheme = "rose-pine-icons";
-          workbench.sideBar.location = "right";
+          window = {
+            autoDetectColorScheme = true;
+            newWindowProfile = "Default";
+          };
+          workbench = {
+            preferredDarkColorTheme = "Catppuccin Mocha";
+            preferredLightColorTheme = "Rosé Pine Dawn";
+            iconTheme = "rose-pine-icons";
+            sideBar.location = "right";
+          };
           security.workspace.trust.enabled = false;
-          window.newWindowProfile= "Default";
         };
       };
     };
