@@ -5,6 +5,7 @@
     ./development/jujutsu.nix
     ./development/neovim.nix
     ./development/zed.nix
+    ./development/vscodium.nix
   ];
   programs.mise = {
     enable = true;

@@ -30,6 +30,7 @@
         dark = "Catppuccin Mocha";
         light = "Rosé Pine Dawn";
       };
+      icon_theme = "Catppuccin Macchiato";
       # helix_mode = true;
     };
   };
