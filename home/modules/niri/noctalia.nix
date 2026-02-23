@@ -59,8 +59,8 @@
               {
                 id = "CustomButton";
                 icon = "square-arrow-up";
-                leftClickExec = "niri msg action toggle-overview";
-                generalTooltipText = "Toggle overview";
+                leftClickExec = "bash -c '/home/mar/.config/niri/scripts/overview-runner.sh'";
+                generalTooltipText = "Toggle overview, double-tap to toggle runner.";
                 showIcon = true;
               }
               {

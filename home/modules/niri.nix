@@ -61,6 +61,19 @@
     '';
     executable = true;
   };
+  xdg.configFile."niri/scripts/overview-runner.sh" = {
+    text = ''
+      #!/run/current-system/sw/bin/bash
+      overviewstatus="$(niri msg overview-state)"
+      if [[ $overviewstatus == *"is close"* ]]; then
+        niri msg action open-overview
+      else
+        niri msg action close-overview
+        noctalia-shell ipc call launcher toggle
+      fi
+    '';
+    executable = true;
+  };
 
   xdg.configFile."wlogout" = {
     source = ../../configs/niri/wlogout;
