@@ -9,7 +9,6 @@ alias nf hyfetch
 alias pf hyfetch
 alias hf hyfetch
 
-alias ff fastfetch
 alias ls 'eza --icons'
 alias la 'eza -a --icons'
 alias ll 'eza -al --icons'

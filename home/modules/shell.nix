@@ -21,7 +21,7 @@
       color_align = {
         mode = "horizontal";
       };
-      backend = "fastfetch";
+      backend = "macchina";
       pride_month_disable = false;
     };
 
@@ -45,7 +45,7 @@
     zoxide
     starship
     hyfetch
-    fastfetch
+    macchina
     zellij
     fish
     fishPlugins.done
