@@ -4,16 +4,18 @@
   programs.zed-editor = {
     enable = true;
     extensions = [
-      "nix"
-      "toml"
-      "rust"
-      "lua"
-      "gleam"
-      "fish"
+      "html"
       "catppuccin"
+      "toml"
       "catppuccin-icons"
+      "lua"
+      "nix"
       "rose-pine-theme"
+      "gleam"
       "zed-just"
+      "discord-presence"
+      "fish"
+      "kdl"
     ];
     extraPackages = with pkgs; [
       nil
