@@ -9,13 +9,15 @@
     niri
     wev
     kdePackages.krunner
+    kdePackages.kdeconnect-kde
+    gnome-console
+    gnome-keyring
     pavucontrol
     btop
     hyprlock
     libnotify
     xwayland-satellite
     wireplumber
-    kdePackages.kdeconnect-kde
     brightnessctl
     xclip
     wl-clipboard

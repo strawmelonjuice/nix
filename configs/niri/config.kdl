@@ -162,6 +162,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
+    Mod+Shift+Return hotkey-overlay-title="Open a Terminal: Gnome Console" { spawn "kgx"; }
     Mod+B hotkey-overlay-title="Open Vivaldi" { spawn "vivaldi"; }
     Mod+Shift+B hotkey-overlay-title="Bitwarden plugin" { spawn "noctalia-shell" "ipc" "call" "plugin:bitwarden-rbw-launcher" "open" ""; }
     Mod+D hotkey-overlay-title="Launcher" { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
