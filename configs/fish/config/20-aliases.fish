@@ -3,46 +3,16 @@
 # -----------------------------------------------------
 
 # General aliases
-alias c clear
 alias cls clear
-alias nf hyfetch
-alias pf hyfetch
-alias hf hyfetch
-
 alias ls 'eza --icons'
 alias la 'eza -a --icons'
 alias ll 'eza -al --icons'
 alias lt 'eza -a --tree --level=1 --icons'
-alias shutdown 'systemctl poweroff'
 alias v '$EDITOR'
-alias bat 'bat --ignored-suffix .tmpl'
 alias cat 'bat -p'
-alias wifi nmtui
 alias zed 'ZED_ALLOW_EMULATED_GPU=1 SHELL=$(which fish) zeditor'
-
-# Update grub alias
-alias update-grub 'sudo grub-mkconfig -o /boot/grub/grub.cfg'
-
 alias to-dotfiles "cd ~/.dotfiles || cd ~/dotfiles"
-
-# Rebuild nix config
-alias rb 'to-dotfiles && jj status && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname)'
-
-# Zellij aliases and completion
-# zellij setup --generate-completion fish | source
-alias ide 'zellij --layout ide'
-# IDE but without the editor.
-alias id-e 'zellij --layout id-e'
 alias strider 'zellij plugin --in-place -- zellij:strider'
-
-# Cargo-related aliases
-alias cargock 'cargo-clean-all --keep-days 21 ~ -i'
-
-# JJ-related aliases
-alias jje 'jj edit'
-alias jjd 'jj describe @'
-alias jjs 'jj show'
-alias jjn 'jj next --edit'
 
 # -----------------------------------------------------
 # Directory navigation and aliases
@@ -144,3 +114,19 @@ end
 
 alias cd banger
 alias cdi bangeri
+
+# abbreviations
+abbr nsn 'nix shell nixpkgs#'
+abbr shutdown 'systemctl poweroff'
+# Rebuild nix config
+abbr rb 'to-dotfiles && jj status && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname) && niri validate'
+# Zellij aliases and completion
+# zellij setup --generate-completion fish | source
+abbr ide 'zellij --layout ide'
+# JJ-related abbreviations
+abbr jje 'jj edit'
+abbr jjd 'jj describe @'
+abbr jjs 'jj show'
+abbr jjn 'jj next --edit'
+# Cargo-related abbreviations
+abbr cargock 'cargo-clean-all --keep-days 21 ~ -i'
