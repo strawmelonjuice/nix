@@ -40,6 +40,7 @@
       settings = {
         wallpaper = {
           enabled = true;
+          overviewEnabled = true;
           path = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
         };
         bar = {
