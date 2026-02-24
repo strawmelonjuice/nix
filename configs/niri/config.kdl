@@ -91,7 +91,7 @@ spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
 spawn-at-startup "dbus-update-activation-environment" "--systemd" "DISPLAY" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "NIXOS_OZONE_WL"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets"
 
-spawn-at-startup "niri" "msg" "action" "focus-workspace" "1"
+spawn-at-startup "sh" "-c" "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"
 
 prefer-no-csd
 
