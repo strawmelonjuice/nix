@@ -25,7 +25,7 @@
        config.color_scheme = get_time_of_day()
        config.enable_tab_bar = false
        config.window_background_opacity = 1.0
-       config.font = wezterm.font('Maple Mono NF')
+       config.font = wezterm.font('Hermit')
        config.window_padding = {
           left = 5,
           right = 5,

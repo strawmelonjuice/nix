@@ -19,7 +19,7 @@
           mkhl.direnv
         ];
         userSettings = {
-          editor.fontFamily = "'Maple Mono NF', 'Droid Sans Mono', monospace";
+          editor.fontFamily = "'Hermit', 'Droid Sans Mono', monospace";
           window = {
             autoDetectColorScheme = true;
             newWindowProfile = "Default";
