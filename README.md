@@ -4,7 +4,7 @@ Cloning the `nix` branch using `jj` from the Strawmelonjuice forge:
 
 ```bash
 # Temporary pre-install these required packages
-nix shell nixpkgs#git nixpkgs#jj --extra-experimental-features nix-command --extra-experimental-features flakes
+nix shell nixpkgs#git nixpkgs#jujutsu --extra-experimental-features nix-command --extra-experimental-features flakes
 
 # Clone the dotfiles
 jj git clone https://forge.strawmelonjuice.com/strawmelonjuice/nix.git -b main --no-colocate ~/.dotfiles
