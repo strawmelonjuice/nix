@@ -17,26 +17,23 @@ jj git remote set-url origin ssh://git@forge.strawmelonjuice.com/strawmelonjuice
 jj git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 ```
 
-2. Initialize a new Host
-   If this is a brand new device (e.g., `workstation`):
-
-Create the folder: `mkdir -p hosts/$(hostname)`
-
-Copy the installer configs: `cp /etc/nixos/*.nix ./hosts/$(hostname)/`
-
-Update flake.nix: Include the new hostname in the nixosConfigurations block.
+2. Initialize a new Host if this is a brand new device:
+```bash
+mkdir -p hosts/$(hostname) # Create the folder
+cp /etc/nixos/*.nix ./hosts/$(hostname)/ # Copy installer configs
+nano ./flake.nix # Include the new hostname in the nixosConfigurations block.
+nano ./hosts/$(hostname)/configuration.nix # You may want to tweak this, or maybe import `../all-hosts.nix`!
+```
+Otherwise make sure the hostname matches the one before and continue to 3!
 
 3. Deploy
-   Nix uses your system's hostname to determine which configuration to apply.
-
 ```Bash
+jj # Capture new files so the flake can see them
+sudo nixos-rebuild switch --flake .#$(hostname) # Apply based on current hostname
 
-# Track new files so the flake can see them
-jj
-# Apply based on current hostname
-sudo nixos-rebuild switch --flake .#$(hostname)
-# Now you won't have sudo anymore, so make sure doas works!
-doas git config --global --add safe.directory /home/mar/.dotfiles
+# If you included all-hosts.nix, you now won't have sudo anymore, so make sure doas works!
+
+doas git config --global --add safe.directory /home/mar/.dotfiles # Safelist dotfiles for root, so doas can be used to rebuild!
 ```
 
 ## Structure
