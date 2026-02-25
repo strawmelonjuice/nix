@@ -14,7 +14,7 @@ cd ~/.dotfiles
 jj git remote set-url origin ssh://git@forge.strawmelonjuice.com/strawmelonjuice/nix.git
 
 # Clone wallpapers.
-git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
+jj git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 ```
 
 2. Initialize a new Host
