@@ -85,6 +85,7 @@ spawn-at-startup "noctalia-shell"
 spawn-at-startup "spotify"
 spawn-at-startup "discord"
 spawn-at-startup "beeper"
+spawn-at-startup "teams-for-linux"
 spawn-at-startup "thunderbird"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
 spawn-at-startup "wl-paste" "--type" "image" "--watch" "cliphist" "store"
@@ -128,17 +129,20 @@ window-rule {
 }
 
 window-rule {
+  // Media players
   open-on-workspace "🎧"
   match app-id="Spotify"
   match app-id="org.gnome.Music"
 }
 
 window-rule {
+  // Communication apps
   open-on-workspace "💬"
   match app-id="discord"
   match app-id="BeeperTexts"
   match app-id="thunderbird"
   match app-id="fluffychat"
+  match app-id="teams-for-linux"
 }
 
 

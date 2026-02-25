@@ -117,9 +117,10 @@ alias cdi bangeri
 
 # abbreviations
 abbr nsn 'nix shell nixpkgs#'
+abbr nixpkgs 'nix search nixpkgs'
 abbr shutdown 'systemctl poweroff'
 # Rebuild nix config
-abbr rb 'to-dotfiles && jj status && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname) && niri validate'
+abbr rb 'to-dotfiles && jj file track . && doas env PATH=$PATH nixos-rebuild switch --flake .#(hostname) && niri validate'
 # Zellij aliases and completion
 # zellij setup --generate-completion fish | source
 abbr ide 'zellij --layout ide'
