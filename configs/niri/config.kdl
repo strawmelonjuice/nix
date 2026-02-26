@@ -193,6 +193,7 @@ binds {
     Mod+O repeat=false { toggle-overview; }
 
     Mod+Q { close-window; }
+    Ctrl+Q { close-window; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-or-workspace-down; }

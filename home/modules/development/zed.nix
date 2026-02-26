@@ -22,6 +22,15 @@
       nixd
     ];
     userSettings = {
+
+      # Force all panels to the right dock
+      collaboration_panel.dock = "right";
+      outline_panel.dock = "right";
+      git_panel.dock = "right";
+      project_panel.dock = "right";
+      notification_panel.dock = "right";
+      agent.dock = "right";
+
       buffer_font_family = "Hermit";
       ui_font_family = "Lotion";
       session = {
