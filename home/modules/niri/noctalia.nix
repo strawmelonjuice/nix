@@ -51,7 +51,7 @@
             right = 15;
           };
           capsuleOpacity = 1;
-          backgroundOpacity = 0.2;
+          backgroundOpacity = 0.3;
           useSeparateOpacity = true;
           floating = true;
           density = "default";
@@ -292,22 +292,22 @@
       touch ${config.xdg.configHome}/gtk-3.0/gtk.css
     '';
     xdg.configFile."noctalia/colors.json".text = builtins.toJSON {
-      "mSurface" = "#e06666";
-      "mOnSurface" = "#000000";
-      "mPrimary" = "#f4cccc";
-      "mOnPrimary" = "#000000";
-      "mSecondary" = "#fa8071";
-      "mOutline" = "#ff4d47";
+      "mSurface" = "#fdf3f4";
+      "mOnSurface" = "#4a4442";
+      "mPrimary" = "#7ab0a1";
+      "mOnPrimary" = "#ffffff";
+      "mSecondary" = "#bfa399";
+      "mOutline" = "#8c7b75";
 
-      "mSurfaceVariant" = "#e06666";
-      "mOnSurfaceVariant" = "#000000";
-      "mTertiary" = "#f4cccc";
-      "mOnTertiary" = "#000000";
-      "mError" = "#ff0000";
+      "mSurfaceVariant" = "#ffedef";
+      "mOnSurfaceVariant" = "#4a4442";
+      "mTertiary" = "#e8a0a5";
+      "mOnTertiary" = "#ffffff";
+      "mError" = "#cf6679";
       "mOnError" = "#ffffff";
       "mShadow" = "#000000";
-      "mHover" = "#f4cccc";
-      "mOnHover" = "#000000";
+      "mHover" = "#88bfae";
+      "mOnHover" = "#ffffff";
     };
   };
 
