@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   hostname,
   ...
 }:
@@ -9,6 +10,9 @@
 # https://nix-community.github.io/plasma-manager/options.xhtml
 
 {
+  imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
+  ];
   home.activation = {
     removePlasmaCache = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       $DRY_RUN_CMD rm -rf $VERBOSE_ARG ~/.cache/plasmashell*

@@ -45,7 +45,7 @@
   # Enable the GNOME Desktop Environment, Niri and KDE. I like to be able to switch whenever.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
   programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   programs.niri.enable = true;
   services.gnome.gnome-keyring.enable = true;
