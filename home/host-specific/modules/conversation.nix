@@ -2,10 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    beeper
     fluffychat
-    # Not agreeing with installing...
+    # Until I set up bridging between discord and @mar:strawmelonjuice.com
     discord
-    # But alas, as beeper is being a bad girl and I'm not bothered to fix it.
   ];
 }

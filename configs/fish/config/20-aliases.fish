@@ -127,6 +127,7 @@ abbr ide 'zellij --layout ide'
 # JJ-related abbreviations
 abbr jje 'jj edit'
 abbr jjd 'jj describe @'
+abbr jjda 'jj describe @ -m "$(date)"'
 abbr jjs 'jj show'
 abbr jjn 'jj next --edit'
 # Cargo-related abbreviations

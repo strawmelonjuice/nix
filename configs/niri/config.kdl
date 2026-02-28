@@ -84,7 +84,6 @@ layout {
 spawn-at-startup "noctalia-shell"
 spawn-at-startup "spotify"
 spawn-at-startup "discord"
-spawn-at-startup "beeper"
 spawn-at-startup "teams-for-linux"
 spawn-at-startup "thunderbird"
 spawn-at-startup "wl-paste" "--type" "text" "--watch" "cliphist" "store"
