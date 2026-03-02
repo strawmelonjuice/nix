@@ -1,5 +1,27 @@
 {
   "nodes": {
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1772424169,
+        "narHash": "sha256-mhv7yclJj+qCagNv0WOuob5yQNV1aTqKcJLfBMUqsVA=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "701de032cc247a1c309a34f0ed646e824efd7ac6",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -17,28 +39,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "matugen": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1771753666,
-        "narHash": "sha256-wcCldF0k4SYb8s+wWq8GsaQ9zHv84VjpuDx3FXI5YJM=",
-        "owner": "InioX",
-        "repo": "matugen",
-        "rev": "31c28564d88377d373d6ac9a0dc2526053ca1833",
-        "type": "github"
-      },
-      "original": {
-        "owner": "InioX",
-        "ref": "main",
-        "repo": "matugen",
         "type": "github"
       }
     },
@@ -103,26 +103,11 @@
     },
     "root": {
       "inputs": {
+        "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
-        "matugen": "matugen",
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
         "plasma-manager": "plasma-manager"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1689347949,
-        "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
-        "owner": "nix-systems",
-        "repo": "default-linux",
-        "rev": "31732fcf5e8fea42e59c2488ad31a0e651500f68",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default-linux",
-        "type": "github"
       }
     }
   },
