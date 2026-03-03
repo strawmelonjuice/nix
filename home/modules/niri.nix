@@ -68,7 +68,6 @@
     executable = true;
   };
 
-
   programs.niri = {
     enable = true;
     package = pkgs.niri;
@@ -129,7 +128,7 @@
         focus-ring.enable = false;
         border = {
           enable = true;
-          width = 4;
+          width = 6;
           active.color = "#85aaa0";
           inactive.color = "#4a4442";
           urgent.color = "#1e8b44";

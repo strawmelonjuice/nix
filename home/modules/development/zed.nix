@@ -24,12 +24,13 @@
     userSettings = {
 
       # Force all panels to the right dock
-      collaboration_panel.dock = "right";
       outline_panel.dock = "right";
-      git_panel.dock = "right";
       project_panel.dock = "right";
       notification_panel.dock = "right";
-      agent.dock = "right";
+      # And hide some.
+      collaboration_panel.button = false;
+      agent.button = false;
+      git_panel.button = false;
 
       buffer_font_family = "Hermit";
       ui_font_family = "Lotion";
