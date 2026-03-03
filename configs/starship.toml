@@ -1,4 +1,4 @@
-# This config could just go in home manager, but unfortunately it is massive, and earlier attempts broke harshly..
+# This config could just go in home manager, but unfortunately earlier attempts broke harshly..
 
 
 format = """
