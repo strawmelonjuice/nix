@@ -239,14 +239,13 @@
 
           ];
           block-out-from = "screen-capture";
-          open-focused = true;
           open-floating = true;
           opacity = 0.95;
           default-column-width = {
-            fixed = 480;
+            fixed = 100;
           };
           default-window-height = {
-            fixed = 270;
+            fixed = 100;
           };
 
         }
