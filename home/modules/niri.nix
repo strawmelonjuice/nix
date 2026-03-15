@@ -259,6 +259,7 @@
         {
           matches = [
             { app-id = "discord"; }
+            { app-id = "vivaldi-app.cinny.in__-Default"; }
             { app-id = "org.kde.kdeconnect.app"; }
             { app-id = "thunderbird"; }
             { app-id = "fluffychat"; }
@@ -308,6 +309,13 @@
             "--app=chrome-extension://kghbmcgihmefcbjlfiafjcigdcbmecbf/globalSearch.html?searchString=&initiallyUnlocked="
           ];
           hotkey-overlay.title = "HeyLogin Quick Access";
+        };
+        "Mod+Alt+C" = {
+          action.spawn = [
+            "vivaldi"
+            "--app=https://app.cinny.in"
+          ];
+          hotkey-overlay.title = "Cinny";
         };
         "Mod+D" = {
           action.spawn = [
