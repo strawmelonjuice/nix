@@ -13,5 +13,7 @@
     # School: Uses Teams for direct communications.
     # 'teams' exists but only for Darwin...
     teams-for-linux # does exist...
+    # Well I think this one makes sense.
+    libreoffice-fresh
   ];
 }
