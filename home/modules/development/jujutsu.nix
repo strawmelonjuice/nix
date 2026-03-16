@@ -30,6 +30,7 @@
         streampager.wrapping = "none";
         movement.edit = true;
         default-command = "status";
+        show-cryptographic-signatures = true;
       };
       aliases = {
         # Moves bookmarks from the previous commit to your current one

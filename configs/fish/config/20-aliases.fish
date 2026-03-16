@@ -124,9 +124,20 @@ abbr rb 'to-dotfiles && jj file track . && doas env PATH=$PATH nixos-rebuild swi
 # Zellij aliases and completion
 # zellij setup --generate-completion fish | source
 abbr ide 'zellij --layout ide'
-# JJ-related abbreviations
+# JJ-related abbreviations and aliases
 abbr jje 'jj edit'
-abbr jjd 'jj describe @'
+# ===================================================== --> Please do not break
+alias jjd 'jj desc @ -m " 
+
+
+Signed-off-by: $(git config user.name) <$(git config user.email)>" && jj desc @ && jj sign -r @'
+# ===================================================== --> Please do not break
+function jjdm
+    jj desc @ -m "$argv
+
+
+Signed-off-by: $(git config user.name) <$(git config user.email)>" && jj sign -r @
+end
 abbr jjda 'jj describe @ -m "$(date)"'
 abbr jjs 'jj show'
 abbr jjn 'jj next --edit'
