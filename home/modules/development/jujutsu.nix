@@ -14,6 +14,11 @@
     settings = {
       user.name = "MLC Bloeiman";
       user.email = "mar@strawmelonjuice.com";
+      signing = {
+        backend = "gpg";
+        behaviour = "own";
+        gpg.key = "9FFA7AE8896DD236";
+      };
       ui.diff-formatter = [
         "difft"
         "--color=always"

@@ -27,6 +27,19 @@
 
   };
 
+ 
+services.gpg-agent = {
+  enable = true;
+  pinentryPackage = pkgs.pinentry-qt; 
+  
+  defaultCacheTtl = 28800;
+  maxCacheTtl = 28800;
+}; 
+home.file.".ssh/config_shared" = {
+  source = ../../configs/ssh-config;
+};
+
+
   xdg.configFile."fish" = {
     source = ../../configs/fish;
     recursive = true;

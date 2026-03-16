@@ -47,7 +47,9 @@
   };
 
   environment.systemPackages = with pkgs; [
+    pinentry-qt
     git
+    gnupg
     jj
     podman-compose
     podman-tui
