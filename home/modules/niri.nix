@@ -95,6 +95,9 @@
         }
       ];
 
+      hotkey-overlay = {
+        skip-at-startup = true;
+      };
       environment = {
         GTK_IM_MODULE = "ibus";
         QT_IM_MODULE = "ibus";
