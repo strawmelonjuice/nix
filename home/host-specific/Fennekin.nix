@@ -5,6 +5,6 @@
   imports = [
     ./modules/touchscreen.nix
     ./modules/conversation.nix
-    ./modules/spotify.nix
+    ./modules/music-streaming.nix
   ];
 }

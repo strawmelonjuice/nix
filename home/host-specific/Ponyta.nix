@@ -5,7 +5,7 @@
   imports = [
     ./modules/steam.nix
     ./modules/conversation.nix
-    ./modules/spotify.nix
+    ./modules/music-streaming.nix
     ./modules/school.nix
   ];
 }

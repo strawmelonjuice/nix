@@ -154,7 +154,8 @@
       # Startup spawns!
       spawn-at-startup = [
         { command = [ "noctalia-shell" ]; }
-        { command = [ "spotify" ]; }
+        # { command = [ "spotify" ]; }
+        { command = [ "strawberry" ]; }
         { command = [ "discord" ]; }
         { command = [ "teams-for-linux" ]; }
         { command = [ "thunderbird" ]; }
@@ -255,6 +256,7 @@
         {
           matches = [
             { app-id = "Spotify"; }
+            { app-id = "org.strawberrymusicplayer.strawberry"; }
             { app-id = "org.gnome.Music"; }
           ];
           open-on-workspace = "🎧";
