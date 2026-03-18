@@ -46,13 +46,13 @@ Host github.com
 # ---- Strawmelonservices/marpi5-1 ------
 Host strawmelonservices
     HostName marpi5-1.taild5b3d4.ts.net
-        User mar
+        User root
         Port 22
         IdentityFile ~/.ssh/hetzner # Heheh, hetzner is not where she's hosted btw.
 Host strawmelonservices-temp
     RequestTTY yes
     RemoteCommand watch -n 1 "vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state"
     HostName marpi5-1.taild5b3d4.ts.net
-        User mar
+        User root
         Port 22
         IdentityFile ~/.ssh/hetzner
