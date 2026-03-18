@@ -61,6 +61,7 @@ function zap
     end
 end
 
+
 function dev
     if set -q IN_NIX_SHELL
         echo "⚠️  Already inside Nix shell!"
@@ -127,7 +128,7 @@ abbr ide 'zellij --layout ide'
 # JJ-related abbreviations and aliases
 abbr jje 'jj edit'
 # ===================================================== --> Please do not break
-alias jjd 'jj desc @ -m " 
+alias jjd 'jj desc @ -m "
 
 
 Signed-off-by: $(git config user.name) <$(git config user.email)>" && jj desc @ && jj sign -r @'

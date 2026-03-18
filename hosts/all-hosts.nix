@@ -30,9 +30,13 @@
       };
     };
   };
-  environment.variables = {
-    GTK_IM_MODULE = lib.mkForce null;
-    QT_IM_MODULE = lib.mkForce null;
+  environment = {
+
+    pathsToLink = [ "/share/zsh" ];
+    variables = {
+      GTK_IM_MODULE = lib.mkForce null;
+      QT_IM_MODULE = lib.mkForce null;
+    };
   };
 
   nix.settings.experimental-features = [
@@ -65,8 +69,8 @@
 
   services.tailscale.enable = true;
 
-  # Enable fish
-  programs.fish.enable = true;
+  # Enable zsh
+  programs.zsh.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -90,7 +94,7 @@
   users.users.mar = {
     isNormalUser = true;
     description = "MLC Bloeiman";
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
       "wheel"

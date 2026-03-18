@@ -80,7 +80,20 @@ map("v", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
 map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 -- Rename
-map("n", "<Space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
+map("n", "<space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
+
+-- Stolen from Ollie
+map("n", "<space>cs", function()
+	-- get current line(string) and row(int) in the buffer
+	local line = vim.trim(vim.api.nvim_get_current_line())
+	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+
+	-- make "-----------" seperator line at consitent length
+	local seperator = string.rep("-", 80 - string.len(line))
+
+	-- write line with seperator to current buffer at current cursor position
+	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
+end, { desc = "set [S]eperator" })
 
 -- Movement     --------------------------------------------------------------------------------------------------------------------------------------------------
 map("i", "<down>", "<esc>gj", { desc = "Move down and exit insert" })

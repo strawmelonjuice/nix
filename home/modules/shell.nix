@@ -3,6 +3,7 @@
 {
   imports = [
     ./shell/kc.nix
+    ./shell/zsh.nix
   ];
   programs.fish = {
     enable = true;

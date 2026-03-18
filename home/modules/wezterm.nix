@@ -11,7 +11,7 @@
        		return "Rosé Pine Dawn (Gogh)"
       	elseif hour >= 12 and hour < 18 then
           -- afternoon
-       		return "Rosé Pine Dawn (Gogh)"
+       		return "Breadog (Gogh)"
       	elseif hour >= 18 and hour < 24 then
           -- evening
        		return "tokyonight_night"

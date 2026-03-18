@@ -9,6 +9,8 @@
   ];
   programs.mise = {
     enable = true;
+    enableZshIntegration = false;
+    enableFishIntegration = false;
   };
   home.packages = with pkgs; [
     # Mise is being faded out in favor of just due to growing friction between me and Mise's style
