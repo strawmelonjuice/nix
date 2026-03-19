@@ -51,6 +51,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    yubioath-flutter
     pinentry-qt
     git
     gnupg
