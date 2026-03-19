@@ -106,10 +106,14 @@
       };
 
       # samurott-nix's second screen is on the left.
-      outputs."Virtual-2".position = {
-        x = -30000;
-        y = 0;
+      outputs."Hewlett Packard HP E202 3CQ7450ZT4" = {
+        position = {
+          x = -30000;
+          y = 0;
+        };
+        transform.rotation = 90;
       };
+      outputs."Microstep MSI MP341CQ 0x00000316".variable-refresh-rate = true;
 
       layout = {
         empty-workspace-above-first = true;
