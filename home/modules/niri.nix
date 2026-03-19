@@ -112,7 +112,8 @@
       };
 
       layout = {
-        gaps = 15;
+        empty-workspace-above-first = true;
+        gaps = 10;
         center-focused-column = "never";
         always-center-single-column = true;
 
@@ -204,12 +205,9 @@
       screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
       workspaces = {
-        # First three workspaces permanent and unnamed
-        "1" = { };
-        "2" = { };
-        "3" = { };
-        # Then two permanent dedicated ones
+        # Dedicated to conversation
         "💬" = { };
+        # Dedicated to music listening
         "🎧" = { };
       };
 
