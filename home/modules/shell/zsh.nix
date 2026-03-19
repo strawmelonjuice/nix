@@ -65,6 +65,9 @@
     initContent =
       let
         zshConfigEarlyInit = lib.mkOrder 500 ''
+          # Have to have ssh-agent running now for yubikey sk-ed25519
+          eval $(ssh-agent)
+          clear
           hyfetch
         '';
         zshConfig = lib.mkOrder 1000 ''
