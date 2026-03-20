@@ -33,6 +33,12 @@
         show-cryptographic-signatures = true;
       };
       aliases = {
+        # Always using the git backend to clone so why not.
+        clone = [
+          "git"
+          "clone"
+        ];
+
         # Moves bookmarks from the previous commit to your current one
         tug = [
           "bookmark"
