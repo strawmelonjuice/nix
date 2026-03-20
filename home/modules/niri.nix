@@ -210,9 +210,13 @@
 
       workspaces = {
         # Dedicated to conversation
-        "💬" = { };
+        "5" = {
+          name = "💬";
+        };
         # Dedicated to music listening
-        "🎧" = { };
+        "6" = {
+          name = "🎧";
+        };
       };
 
       window-rules = [
