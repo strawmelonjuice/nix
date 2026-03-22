@@ -102,6 +102,17 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true; # see the note above
 
+  fileSystems."/DATA" = {
+    device = "/dev/disk/by-partuuid/37f557ce-7444-4fe7-9822-3fefe4c3cab0";
+    fsType = "auto";
+    options = [
+      "users"
+      "nofail"
+      "exec"
+      "x-gvfs-name=DATA"
+      "x-gvfs-show"
+    ];
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
