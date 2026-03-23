@@ -103,9 +103,9 @@
                 id = "Tray";
               }
 
-              {
-                id = "MediaMini";
-              }
+              # {
+              #   id = "MediaMini";
+              # }
               {
                 id = "CustomButton";
                 icon = "keyboard";
@@ -233,6 +233,52 @@
           qt = true;
           niri = true;
         };
+        desktopWidgets = {
+          enabled = true;
+          overviewEnabled = false;
+          gridSnap = false;
+          gridSnapScale = false;
+          monitorWidgets = [
+            {
+              name = "eDP-1";
+              widgets = [
+                {
+                  clockColor = "none";
+                  clockStyle = "minimal";
+                  customFont = "";
+                  "format" = "HH:mm\\nd MMMM yyyy";
+                  "id" = "Clock";
+                  "roundedCorners" = true;
+                  "showBackground" = true;
+                  "useCustomFont" = false;
+                  "x" = 50;
+                  "y" = 50;
+                }
+                {
+                  "id" = "Weather";
+                  "roundedCorners" = true;
+                  "scale" = 0.9338744674156018;
+                  "showBackground" = true;
+                  "x" = 212;
+                  "y" = 50;
+                }
+                {
+                  "hideMode" = "visible";
+                  "id" = "MediaPlayer";
+                  "roundedCorners" = true;
+                  "showAlbumArt" = true;
+                  "showBackground" = true;
+                  "showButtons" = true;
+                  "showVisualizer" = true;
+                  "visualizerType" = "linear";
+                  "x" = 50;
+                  "y" = 140;
+                }
+              ];
+            }
+          ];
+        };
+
         sessionMenu = {
           enable = false;
         };
