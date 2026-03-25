@@ -102,15 +102,15 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.open = true; # see the note above
 
-  fileSystems."/DATA" = {
-    device = "/dev/disk/by-partuuid/37f557ce-7444-4fe7-9822-3fefe4c3cab0";
-    fsType = "auto";
+  fileSystems."/mnt/b1b88f6d-d942-470f-97b5-dd422265e59b" = {
+    device = "/dev/disk/by-partuuid/b1b88f6d-d942-470f-97b5-dd422265e59b";
+    fsType = "ext4";
     options = [
       "users"
       "nofail"
       "exec"
-      "x-gvfs-name=DATA"
-      "x-gvfs-show"
+      "x-gvfs-name=space"
+      # "x-gvfs-show"
     ];
   };
   # Some programs need SUID wrappers, can be configured further or are
