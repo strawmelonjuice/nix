@@ -240,6 +240,46 @@
           gridSnapScale = false;
           monitorWidgets = [
             {
+              # Side screen for Samurott
+              name = "DP-2";
+              widgets = [
+                {
+                  clockColor = "none";
+                  clockStyle = "digital";
+                  customFont = "";
+                  "format" = "HH:mm\\nd MMMM yyyy";
+                  "id" = "Clock";
+                  "roundedCorners" = true;
+                  "showBackground" = true;
+                  "useCustomFont" = false;
+                  "x" = 50;
+                  "y" = 50;
+                }
+                {
+                  "id" = "Weather";
+                  "roundedCorners" = true;
+                  "scale" = 0.9338744674156018;
+                  "showBackground" = true;
+                  "x" = 212;
+                  "y" = 50;
+                }
+                {
+                  "hideMode" = "visible";
+                  "id" = "MediaPlayer";
+                  "roundedCorners" = true;
+                  "showAlbumArt" = true;
+                  "showBackground" = true;
+                  "showButtons" = true;
+                  "showVisualizer" = true;
+                  "visualizerType" = "linear";
+                  "x" = 445;
+                  "y" = 50;
+                }
+              ];
+            }
+
+            {
+              # Laptop screen on both Ponyta and Fennekin.
               name = "eDP-1";
               widgets = [
                 {
