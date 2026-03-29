@@ -103,9 +103,10 @@
   hardware.nvidia.open = true; # see the note above
 
   fileSystems."/mnt/b1b88f6d-d942-470f-97b5-dd422265e59b" = {
-    device = "/dev/disk/by-partuuid/b1b88f6d-d942-470f-97b5-dd422265e59b";
-    fsType = "ext4";
+    device = "/dev/disk/by-id/ata-ST2000DM008-2UB102_WFL8TYW7-part1";
+    fsType = "ntfs";
     options = [
+      "default"
       "users"
       "nofail"
       "exec"
