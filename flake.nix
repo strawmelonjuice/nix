@@ -30,6 +30,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+
   };
   outputs =
     {
@@ -39,6 +41,7 @@
       ...
     }@inputs:
     let
+
       # Helper function to create system configs easily
       mkSystem =
         hostname: system:

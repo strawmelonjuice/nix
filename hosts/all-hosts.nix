@@ -76,14 +76,25 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment, Niri and KDE. I like to be able to switch whenever.
+  # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-  # services.desktopManager.plasma6.enable = true;
   programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   programs.niri.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.mar.enableGnomeKeyring = true;
+
+  services.desktopManager.cosmic.enable = true;
+  services.system76-scheduler.enable = true;
+  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  environment.sessionVariables.XDG_CURRENT_DESKTOP = "cosmic";
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-edit
+    cosmic-store
+  ];
+  # services.desktopManager.plasma6.enable = true;
+
+  # Keep nix store to a reasonable size
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -110,7 +121,10 @@
   security.sudo.enable = false;
   security.doas.extraRules = [
     {
-      users = [ "mar" ];
+      users = [
+        "mar"
+        "root"
+      ];
       keepEnv = true;
       noPass = true;
     }

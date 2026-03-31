@@ -6,6 +6,7 @@
 
 {
   imports = [
+    ./modules/cosmic.nix
     ./modules/development.nix
     ./modules/fonts.nix
     ./modules/games.nix

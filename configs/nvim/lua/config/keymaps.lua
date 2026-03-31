@@ -89,7 +89,7 @@ map("n", "<space>cs", function()
 	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
 	-- make "-----------" seperator line at consitent length
-	local seperator = string.rep("-", 80 - string.len(line))
+	local seperator = string.rep("-", 120 - string.len(line))
 
 	-- write line with seperator to current buffer at current cursor position
 	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })

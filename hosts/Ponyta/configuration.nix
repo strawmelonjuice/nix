@@ -46,8 +46,8 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
-  # Default session niri.
-  services.displayManager.defaultSession = "niri";
+  # Default session ~~niri~~ Cosmic
+  services.displayManager.defaultSession = "cosmic";
 
   # Configure keymap in X11
   services.xserver.xkb = {

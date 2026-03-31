@@ -44,10 +44,13 @@
       always-center-icons = true;
       apply-custom-theme = true;
       background-opacity = 0.80000000000000004;
+      custom-theme-shrink = true;
+      isolate-workspaces = true;
       dash-max-icon-size = 48;
       dock-fixed = false;
       dock-position = "BOTTOM";
-      extend-height = true;
+      # Means extend width in my case btw
+      extend-height = false;
       height-fraction = 0.90000000000000002;
       icon-size-fixed = false;
       scroll-action = "switch-workspace";
@@ -55,8 +58,9 @@
       show-thrash = false;
     };
     "org/gnome/desktop/background" = {
-      picture-uri = "file:///home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png";
-      picture-uri-dark = "file:///home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png";
+      picture-uri = "file:///home/mar/.local/share/wallpapers/current_wallpaper.png";
+      # Hoping my systemd service works for gnome too
+      picture-uri-dark = "file:///home/mar/.local/share/wallpapers/current_wallpaper.png";
       picture-options = "zoom"; # "zoom", "centered", "scaled", etc.
     };
     "org/gnome/desktop/screensaver" = {
