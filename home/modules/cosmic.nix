@@ -2339,7 +2339,21 @@
         Terminal: "wezterm start --cwd .",
     }
   '';
-
+  xdg.configFile."cosmic/com.system76.CosmicSettings.Shortcuts/v1/custom".text = ''
+      {
+        (
+            modifiers: [
+                Super,
+            ],
+            key: "Return",
+        ): System(Terminal),
+        (
+            modifiers: [
+                Super,
+            ],
+        ): System(Launcher),
+    }
+  '';
   # com.system76.CosmicSettings.WindowRules --------------------------------------------------------------------------------
 
   # com.system76.CosmicBackground ------------------------------------------------------------------------------------------
