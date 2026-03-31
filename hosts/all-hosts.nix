@@ -77,7 +77,8 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
-  services.displayManager.gdm.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+  # services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
   programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   programs.niri.enable = true;
