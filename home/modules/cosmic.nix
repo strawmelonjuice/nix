@@ -2665,6 +2665,13 @@
                   Super,
               ],
           ): System(Launcher),
+          (
+            modifiers: [
+                Super,
+                Shift,
+            ],
+            key: "s",
+          ): System(Screenshot),
       }
     '';
   };
