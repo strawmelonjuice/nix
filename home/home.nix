@@ -49,6 +49,7 @@
       "application/x-extension-shtml" = "vivaldi-stable.desktop";
       "application/x-extension-xhtml" = "vivaldi-stable.desktop";
       "application/x-extension-xht" = "vivaldi-stable.desktop";
+      "x-scheme-handler/obsidian" = "obsidian.desktop";
     };
   };
 
@@ -63,6 +64,7 @@
     Unit.Description = "Swap wallpaper based on time";
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
+        mkdir -p /home/mar/.local/share/wallpapers/slideshow
         if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
           git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
         fi
@@ -70,11 +72,19 @@
         if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
           # Night time: 19:00 to 07:59
           ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          # Fake slideshow!
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/1.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/2.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/3.png
           noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png ""
           noctalia-shell ipc call darkMode setDark
         else
             # Day time
           ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          # Here too
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/1.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/2.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/3.png
           noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png ""
           noctalia-shell ipc call darkMode setLight
         fi
