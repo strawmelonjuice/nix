@@ -11,9 +11,9 @@ local get_time_of_day = function()
 	local hour = tonumber(os.date("%H"))
 	if hour >= 6 and hour < 12 then
 		return "morning"
-	elseif hour >= 12 and hour < 18 then
+	elseif hour >= 12 and hour < 19 then
 		return "afternoon"
-	elseif hour >= 18 and hour < 24 then
+	elseif hour >= 19 and hour < 24 then
 		return "evening"
 	else
 		return "night"

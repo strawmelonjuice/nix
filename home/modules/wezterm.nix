@@ -9,10 +9,10 @@
       	if hour >= 6 and hour < 12 then
           -- morning
        		return "Rosé Pine Dawn (Gogh)"
-      	elseif hour >= 12 and hour < 18 then
+      	elseif hour >= 12 and hour < 19 then
           -- afternoon
        		return "Breadog (Gogh)"
-      	elseif hour >= 18 and hour < 24 then
+      	elseif hour >= 19 and hour < 24 then
           -- evening
        		return "tokyonight_night"
       	else
