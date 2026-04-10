@@ -25,6 +25,12 @@ Host knot.nuv.sh
   User git
   IdentityFile ~/.ssh/id_ed25519
 
+Host knot.ollie.earth
+  Port 2222
+  User git
+  IdentityFile ~/.ssh/id_ed25519
+
+
 Host git.nuv.sh
   Port 222
   User git
