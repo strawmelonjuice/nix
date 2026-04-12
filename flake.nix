@@ -31,7 +31,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
   };
   outputs =
     {
@@ -70,7 +69,7 @@
       nixosConfigurations = {
         Fennekin = mkSystem "Fennekin" "x86_64-linux";
         samurott-nix = mkSystem "samurott-nix" "x86_64-linux";
-	Samurott = mkSystem "Samurott" "x86_64-linux";
+        Samurott = mkSystem "Samurott" "x86_64-linux";
         Ponyta = mkSystem "Ponyta" "x86_64-linux";
       };
     };

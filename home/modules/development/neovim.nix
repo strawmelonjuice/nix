@@ -8,6 +8,8 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    withPython3 = false;
+    withRuby = false;
 
     extraPackages = with pkgs; [
       # Lua tools for the editor running on Lua

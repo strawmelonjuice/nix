@@ -2804,7 +2804,7 @@
     text = ''
       (
           workspace_mode: OutputBound,
-          workspace_layout: Horizontal,
+          workspace_layout: Vertical,
           action_on_typing: OpenLauncher,
       )
     '';

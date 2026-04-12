@@ -124,8 +124,11 @@
 
       };
     };
-
   };
+  xdg.configFile."jujutsu/ignore".text = ''
+    .envrc
+    .direnv
+  '';
 
   home.packages = with pkgs; [
     lazyjj

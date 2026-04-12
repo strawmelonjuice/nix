@@ -57,7 +57,7 @@
     TERMINAL = "wezterm";
     PASSWORD_STORE_TYPE = "basic";
     ZED_ALLOW_EMULATED_GPU = 1;
-    SHELL = "fish";
+    SHELL = "zsh";
   };
 
   systemd.user.services.wallpaper-switcher = {

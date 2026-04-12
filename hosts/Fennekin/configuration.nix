@@ -28,6 +28,8 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  # Use latest kernel.
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # Enable networking
   networking.networkmanager.enable = true;
 
