@@ -4,6 +4,7 @@
   imports = [
     ./development/jujutsu.nix
     ./development/neovim.nix
+    #   ./development/emacs.nix
     ./development/zed.nix
     ./development/vscodium.nix
   ];

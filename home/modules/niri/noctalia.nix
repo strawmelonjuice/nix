@@ -53,7 +53,7 @@
           backgroundOpacity = 0.3;
           useSeparateOpacity = true;
           floating = true;
-          density = "default";
+          density = "mini";
           widgets = {
             left = [
               {
@@ -200,8 +200,18 @@
           monitors = [ ];
         };
         ui = {
-          fontDefault = "Atkinson Hyperlegible Next 12";
-
+          fontDefault = "Hermit Light";
+          fontFixed = "Hermit";
+          fontDefaultScale = 0.9;
+          fontFixedScale = 1;
+          tooltipsEnabled = true;
+          scrollbarAlwaysVisible = true;
+          boxBorderEnabled = false;
+          panelBackgroundOpacity = 0.93;
+          translucentWidgets = false;
+          panelsAttachedToBar = true;
+          settingsPanelMode = "attached";
+          settingsPanelSideBarCardStyle = false;
         };
         location = {
           name = "Eindhoven";
