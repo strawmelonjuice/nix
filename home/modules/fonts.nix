@@ -4,7 +4,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    noto-fonts-color-emoji
+    twemoji-color-font
     font-awesome
     # maple-mono.NF
     hermit
