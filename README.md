@@ -48,8 +48,8 @@ doas git config --global --add safe.directory /home/mar/.dotfiles # Safelist dot
 
 ## Hosts currently known
 
-| Name     | Kind               | About                                                     | Special                                                                       |
-| -------- | ------------------ | --------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Fennekin | Convertible laptop | My take-with-me and drawing laptop, has a nice stylus tew | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
-| Ponyta | Laptop | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen. |
-| samurott-nix | Virtual Machine; Desktop PC | - | Ultrawide screen. |
+| Name     | Kind               | About                                                                 | Special                                                                       |
+| -------- | ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Fennekin | Convertible laptop | My take-with-me and drawing laptop, has a nice stylus tew             | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
+| Ponyta   | Laptop             | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen.                                      |
+| Samurott | Desktop PC         | -                                                                     | Ultrawide screen, dual boots windows for games.                               |
