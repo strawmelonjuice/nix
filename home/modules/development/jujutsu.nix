@@ -126,8 +126,14 @@
     };
   };
   xdg.configFile."jujutsu/ignore".text = ''
+    # Environment variables
+    .env
     .envrc
+    # direnv cache.
     .direnv
+    # Editor configs
+    .vscode
+    .idea
   '';
 
   home.packages = with pkgs; [

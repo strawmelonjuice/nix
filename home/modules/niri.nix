@@ -460,6 +460,15 @@
         "Mod+Shift+Up".action.move-window-up-or-to-workspace-up = [ ];
         "Mod+Shift+Right".action.move-column-right = [ ];
 
+        "Mod+L".action.focus-column-right = [ ];
+        "Mod+J".action.focus-window-or-workspace-down = [ ];
+        "Mod+K".action.focus-window-or-workspace-up = [ ];
+        "Mod+H".action.focus-column-left = [ ];
+        "Mod+Shift+H".action.move-column-left = [ ];
+        "Mod+Shift+J".action.move-window-down-or-to-workspace-down = [ ];
+        "Mod+Shift+K".action.move-window-up-or-to-workspace-up = [ ];
+        "Mod+Shift+L".action.move-column-right = [ ];
+
         "Mod+Home".action.focus-column-first = [ ];
         "Mod+End".action.focus-column-last = [ ];
         "Mod+Ctrl+Home".action.move-column-to-first = [ ];
@@ -552,9 +561,9 @@
         "Mod+Shift+R".action.switch-preset-window-height = [ ];
 
         # Half
-        "Mod+H".action.set-column-width = "50%";
+        "Mod+Alt+H".action.set-column-width = "50%";
         # K: Dutch "kwart" (quarter), i.e. 25%
-        "Mod+K".action.set-column-width = "25%";
+        "Mod+Alt+K".action.set-column-width = "25%";
 
         "Mod+Ctrl+R".action.reset-window-height = [ ];
         "Mod+F".action.maximize-column = [ ];
@@ -588,8 +597,8 @@
           allow-inhibiting = false;
         };
 
-        "Ctrl+Alt+Delete".action.spawn = "wlogout";
-        "Super+L" = {
+        "Super+Shift+Escape".action.spawn = "wlogout";
+        "Super+Escape" = {
           action.spawn = [
             "sh"
             "-c"
