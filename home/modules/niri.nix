@@ -585,20 +585,20 @@
         "Mod+Shift+X".action.switch-focus-between-floating-and-tiling = [ ];
         "Mod+W".action.toggle-column-tabbed-display = [ ];
 
-        "Super+Shift+S".action.screenshot = [ ];
-        "Super+Ctrl+Shift+S".action.screenshot-screen = [ ];
-        "Super+Alt+Shift+S".action.screenshot-window = [ ];
+        "Mod+Shift+S".action.screenshot = [ ];
+        "Mod+Ctrl+Shift+S".action.screenshot-screen = [ ];
+        "Mod+Alt+Shift+S".action.screenshot-window = [ ];
         "Print".action.screenshot = [ ];
         "Ctrl+Print".action.screenshot-screen = [ ];
         "Alt+Print".action.screenshot-window = [ ];
 
-        "Mod+Escape" = {
+        "Mod+Ctrl+Escape" = {
           action.toggle-keyboard-shortcuts-inhibit = [ ];
           allow-inhibiting = false;
         };
 
-        "Super+Shift+Escape".action.spawn = "wlogout";
-        "Super+Escape" = {
+        "Mod+Shift+Escape".action.spawn = "wlogout";
+        "Mod+Escape" = {
           action.spawn = [
             "sh"
             "-c"
