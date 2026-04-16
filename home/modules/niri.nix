@@ -203,6 +203,8 @@
         }
         { command = [ "kdeconnectd" ]; }
         { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
+        # This should make sure Fluffychat doesn't break my key store every damn time 😭
+        { sh = "hostname | gnome-keyring-daemon --replace --unlock"; }
       ];
 
       prefer-no-csd = true;
