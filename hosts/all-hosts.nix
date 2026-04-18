@@ -115,6 +115,7 @@
     packages = with pkgs; [
       thunderbird
       obsidian
+      moonlight-qt
     ];
   };
   security.pam.services.hyprlock = { };

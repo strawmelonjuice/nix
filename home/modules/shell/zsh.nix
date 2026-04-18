@@ -44,6 +44,12 @@
       nano = "nvim";
       shutdown = "systemctl poweroff";
       ide = "zellij --layout ide";
+      # Connect to Sunshine on Samurott using Moonlight. What the fudge.
+      # gotta do moonlight pair Samurott first tho and approve on samurott:47990 on the tailnet.
+      # moonlight-embedded
+      #       rsamurott = "moonlight stream Samurott -app Desktop -1080";
+      # moonlight-qt
+      rsamurott = "ssh Samurott niri output DP-1 mode 1920x1080@60; moonlight --1080 stream Samurott Desktop";
       # JJ-related
       jje = "jj edit";
       jjd = "jj desc @";

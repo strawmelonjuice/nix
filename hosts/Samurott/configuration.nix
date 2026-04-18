@@ -13,6 +13,10 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "uinput" ];
+  services.udev.extraRules = ''
+    KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"
+  '';
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -82,6 +86,27 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Remote login over sunshine ?!
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-gtk
+    ];
+    config = {
+      common = {
+        default = [
+          "wlr"
+          "gtk"
+        ];
+      };
+    };
+  };
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
