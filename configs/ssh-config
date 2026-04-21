@@ -49,6 +49,10 @@ Host github.com
 
 # Servers ==================================================================================================
 
+Host tilde.town
+    User strawmelonjuice
+    IdentityFile ~/.ssh/id_ed25519
+
 # ---- Strawmelonservices/marpi5-1 ------
 Host strawmelonservices
     HostName marpi5-1.taild5b3d4.ts.net
