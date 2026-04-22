@@ -87,6 +87,7 @@
         	end
         end
         map("e", {"CTRL|SHIFT", "LEADER" }, namePicker)
+        map("r", "LEADER", namePicker)
         map("m", "CTRL|SHIFT", colorPicker)
         map("o",  "LEADER" , openUrl)
         config.leader = {

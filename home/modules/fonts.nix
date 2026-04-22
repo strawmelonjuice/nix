@@ -4,8 +4,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    twemoji-color-font
-    font-awesome
+    joypixels
     # maple-mono.NF
     hermit
     nerd-fonts.lilex

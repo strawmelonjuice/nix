@@ -16,12 +16,13 @@
         ;
     })
   ];
-
   nix.package = pkgs.lixPackageSets.stable.lix;
 
   nixpkgs.config = {
     permittedInsecurePackages = [
     ];
+
+    joypixels.acceptLicense = true;
 
     allowUnfree = true;
     packageOverrides = pkgs: {

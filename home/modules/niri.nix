@@ -212,12 +212,12 @@
 
       workspaces = {
         # Dedicated to conversation
-        "5" = {
-          name = "💬";
+        "2" = {
+          name = "";
         };
         # Dedicated to music listening
-        "6" = {
-          name = "🎧";
+        "3" = {
+          name = "";
         };
       };
 
@@ -267,18 +267,19 @@
             { app-id = "org.strawberrymusicplayer.strawberry"; }
             { app-id = "org.gnome.Music"; }
           ];
-          open-on-workspace = "🎧";
+          open-on-workspace = "";
         }
         {
           matches = [
+            { app-id = "app.cinny.in"; }
             { app-id = "discord"; }
-            { app-id = "vivaldi-app.cinny.in__-Default"; }
+            { app-id = "pliiebkcmokkgndfalahlmimanmbjlab"; }
             { app-id = "org.kde.kdeconnect.app"; }
             { app-id = "thunderbird"; }
             { app-id = "fluffychat"; }
             { app-id = "teams-for-linux"; }
           ];
-          open-on-workspace = "💬";
+          open-on-workspace = "";
         }
         {
           # This rule applies to all windows as it has no 'matches'
