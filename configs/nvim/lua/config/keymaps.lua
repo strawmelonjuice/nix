@@ -5,7 +5,7 @@ local wk = require("which-key")
 
 -- Visual VCS managers group
 wk.add({
-	{ "<Space>v", group = "Visual VCS", mode = { "n" } },
+	{ "<space>v", group = "Visual VCS", mode = { "n" } },
 })
 -- Control-S save
 map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
@@ -13,61 +13,61 @@ map("v", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
 map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 
 -- Splitting
-map("n", "<Space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
-map("n", "<Space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
+map("n", "<space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
+map("n", "<space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
 
 -- Pickers      --------------------------------------------------------------------------------------------------------------------------------------------------
 ---@diagnostic disable-next-line: assign-type-mismatch
-map("n", "<Space>f", function()
+map("n", "<space>f", function()
 	Snacks.picker.files()
 end, { desc = "Open file picker" })
 
-map("n", "<Space>/", function()
+map("n", "<space>/", function()
 	Snacks.picker.grep()
 end, { desc = "Project grep" })
 
-map("n", "<Space>d", function()
+map("n", "<space>d", function()
 	Snacks.picker.diagnostics_buffer()
 end, { desc = "Buffer diagnostics" })
 
-map("n", "<Space>D", function()
+map("n", "<space>D", function()
 	Snacks.picker.diagnostics()
 end, { desc = "Project diagnostics" })
 
-map("n", "<Space>b", function()
+map("n", "<space>b", function()
 	Snacks.picker.buffers()
 end, { desc = "Open buffer picker" })
 
-map("n", "<Space>s", function()
+map("n", "<space>s", function()
 	Snacks.picker.lsp_symbols()
 end, { desc = "Open symbol picker" })
 
-map("n", "<Space>S", function()
+map("n", "<space>S", function()
 	Snacks.picker.lsp_workspace_symbols()
 end, { desc = "Open project symbol picker" })
 
-map("n", "<Space>?", function()
+map("n", "<space>?", function()
 	Snacks.picker.commands()
 end, { desc = "Open command picker" })
 
-map("n", "<Space>r", function()
+map("n", "<space>r", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
-map("n", "<Space>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
+map("n", "<space>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
 
-map("n", "<Space>e", function()
+map("n", "<space>e", function()
 	Snacks.explorer({ layout = { layout = { position = "right" } } })
 end, { desc = "Explorer" })
 
-map("n", "<Space><Space>", function()
+map("n", "<space><space>", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
 -- LSP          --------------------------------------------------------------------------------------------------------------------------------------------------
 -- LSP group
 wk.add({
-	{ "<Space>c", group = "LSP ->", mode = { "n", "v" } },
+	{ "<space>c", group = "LSP ->", mode = { "n", "v" } },
 })
 -- Hover info
 map("n", "<C-k>", vim.lsp.buf.hover, {})
@@ -83,11 +83,11 @@ map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 map("n", "<space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
 
 -- Stolen from Ollie
+vim.keymap.set("n", "<space>cew", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
 map("n", "<space>cs", function()
 	-- get current line(string) and row(int) in the buffer
 	local line = vim.trim(vim.api.nvim_get_current_line())
 	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-
 	-- make "-----------" seperator line at consitent length
 	local seperator = string.rep("-", 120 - string.len(line))
 

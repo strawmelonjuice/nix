@@ -69,6 +69,17 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		opts = {
+			diagnostics = {
+				virtual_text = {
+					format = function(diagnostic)
+						return string.match(diagnostic.message, "(.-)\n")
+					end,
+				},
+				virtual_lines = {
+					current_line = true,
+				},
+			},
+
 			servers = {
 				-- Nix
 				nil_ls = {

@@ -34,8 +34,9 @@
         	top = 5,
         	bottom = 5,
         }
-        config.font_size = 8
+        config.font_size = 14
         config.font = wezterm.font_with_fallback({
+          "Maple Mono NF",
         	"Hermit",
         	"Lilex",
         	"Lotion",
