@@ -15,8 +15,9 @@
       user.name = "MLC Bloeiman";
       user.email = "mar@strawmelonjuice.com";
       signing = {
-        backend = "gpg";
+        backend = "ssh"; # Or gpg, both r fine w me!
         behaviour = "own";
+        key = "/home/mar/.ssh/id_ed25519.pub";
         gpg.key = "9FFA7AE8896DD236";
       };
       ui.diff-formatter = [
