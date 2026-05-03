@@ -5,9 +5,6 @@
     ./shell/kc.nix
     ./shell/zsh.nix
   ];
-  programs.fish = {
-    enable = true;
-  };
   programs.direnv = {
     silent = true;
     enable = true;
@@ -39,10 +36,6 @@
     source = ../../configs/ssh-config;
   };
 
-  xdg.configFile."fish" = {
-    source = ../../configs/fish;
-    recursive = true;
-  };
   xdg.configFile."zellij" = {
     source = ../../configs/zellij;
     recursive = true;
@@ -59,13 +52,7 @@
     hyfetch
     macchina
     zellij
-    fish
-    fishPlugins.done
-    fishPlugins.fzf-fish
-    fishPlugins.forgit
-    fishPlugins.hydro
     fzf
-    fishPlugins.grc
     xsel
     jq
   ];

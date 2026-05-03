@@ -14,7 +14,6 @@
       "gleam"
       "zed-just"
       "discord-presence"
-      "fish"
       "kdl"
     ];
     extraPackages = with pkgs; [

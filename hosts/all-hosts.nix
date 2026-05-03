@@ -60,6 +60,20 @@
     podman-compose
     podman-tui
     polkit_gnome
+    wayland-utils
+    wl-clipboard
+    xclip
+    xwayland-satellite
+    vlc
+
+    # KDE Utilities
+    kdePackages.kcalc
+    kdePackages.kcharselect
+    kdePackages.kclock
+    kdePackages.kcolorchooser
+    kdePackages.ksystemlog
+    kdePackages.isoimagewriter
+    kdePackages.partitionmanager
   ];
 
   programs.nix-ld.enable = true;
@@ -80,8 +94,17 @@
   # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
   services.displayManager.cosmic-greeter.enable = true;
   # services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-  programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
+  # programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
+  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = with pkgs; [
+    kdePackages.elisa # We got strawberry
+    kdePackages.kdepim-runtime
+    kdePackages.konversation # IRC client
+    kdePackages.kpat # Solitaire
+    kdePackages.ksudoku
+    kdePackages.ktorrent
+  ];
+
   programs.niri.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.mar.enableGnomeKeyring = true;

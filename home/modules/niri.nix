@@ -27,11 +27,8 @@
     btop
     hyprlock
     libnotify
-    xwayland-satellite
     wireplumber
     brightnessctl
-    xclip
-    wl-clipboard
     cliphist
     playerctl
     killall
@@ -272,6 +269,7 @@
         {
           matches = [
             { app-id = "app.cinny.in"; }
+            { app-id = "cinny"; }
             { app-id = "discord"; }
             { app-id = "pliiebkcmokkgndfalahlmimanmbjlab"; }
             { app-id = "org.kde.kdeconnect.app"; }

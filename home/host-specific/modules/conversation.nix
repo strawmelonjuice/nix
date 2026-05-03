@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    fluffychat
+    cinny-desktop
     # ... unbridged signal again after the people decided I should
     signal-desktop
   ];

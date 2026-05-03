@@ -26,18 +26,19 @@
   programs.plasma = {
     enable = true;
     overrideConfig = true;
-    kscreenlocker.appearance.wallpaper = "/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png";
+    kscreenlocker.appearance.wallpaper = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
     workspace = {
       clickItemTo = "select";
       lookAndFeel = "org.kde.breeze.desktop";
       colorScheme = "BreezeLight";
       cursor.theme = "Layan-cursors";
       iconTheme = "breeze";
-      wallpaper = "/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pink-clouds.png";
+      wallpaper = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
     };
     configFile.kdeglobals.General.AccentColor = "245,194,231";
     configFile.kdeglobals.General.LastUsedCustomAccentColor = "245,194,231";
 
+    # Get touchpad names by running cat /proc/bus/input/devices
     input.touchpads = [
       # Fennekin's touchpad
       {
@@ -52,6 +53,20 @@
         tapToClick = true;
         vendorId = "04f3";
       }
+      # Ponyta's touchpad
+      {
+        disableWhileTyping = false;
+        enable = true;
+        leftHanded = false;
+        middleButtonEmulation = true;
+        name = "ASUE1306:00 04F3:3284 Touchpad";
+        naturalScroll = true;
+        pointerSpeed = 0;
+        productId = "3284";
+        tapToClick = true;
+        vendorId = "04f3";
+      }
+
     ];
 
     panels = [
@@ -70,7 +85,7 @@
                   "applications:vivaldi-stable.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:obsidian.desktop"
-                  "applications:Fluffychat.desktop"
+                  "applications:Cinny.desktop"
                 ]
                 ++ (
                   if hostname == "Fennekin" then

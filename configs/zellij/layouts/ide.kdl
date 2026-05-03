@@ -5,7 +5,7 @@ layout {
           split_direction "vertical"
           pane size="80%" {
             // stacked true
-            pane borderless=true command="fish"  focus=true {
+            pane borderless=true command="zsh"  focus=true {
             // The ide.sh script runs helix or nvim depending on $EDITOR, and once closed, closes the tab.
                 args "/home/mar/.config/zellij/scripts/ide.fish"
             }

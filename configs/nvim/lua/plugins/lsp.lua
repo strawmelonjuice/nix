@@ -11,7 +11,6 @@ return {
 			},
 			formatters_by_ft = {
 				lua = { "stylua" },
-				fish = { "fish_indent" },
 				sh = { "shfmt" },
 				nix = { "nixfmt" },
 				gleam = { "gleam" },

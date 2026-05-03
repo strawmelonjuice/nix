@@ -26,7 +26,7 @@
         "vivaldi-stable.desktop"
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
-        "Fluffychat.desktop"
+        "Cinny.desktop"
       ]
       ++ (
         if hostname == "Fennekin" then

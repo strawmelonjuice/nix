@@ -10,7 +10,7 @@
     ./modules/development.nix
     ./modules/fonts.nix
     ./modules/games.nix
-    ./modules/gnome.nix
+    ./modules/kde.nix
     ./modules/librewolf.nix
     ./modules/niri.nix
     ./modules/shell.nix

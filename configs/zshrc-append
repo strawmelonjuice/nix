@@ -35,7 +35,6 @@ _zap() {
         # Dynamically tell user of flakes.
         if [[ -f flake.nix ]] && command -v nix >/dev/null 2>&1 && [[ -z "$IN_NIX_SHELL" ]] && [[ ! -f .envrc ]]; then
             echo -e "\n\n❄️\tFound flake.nix, run 'create-envrc' to create a .envrc file here to load this flake automatically."
-            echo -e "\tOr alternatively, run 'dev' to open Fish in a nix develop shell."
         fi
     else
         eza -a --icons
@@ -51,33 +50,12 @@ _zap_on_cd() {
 autoload -Uz add-zsh-hook
 add-zsh-hook chpwd _zap_on_cd
 
-# Alias function: dev
-dev() {
-    if [[ -n "$IN_NIX_SHELL" ]]; then
-        echo "⚠️  Already inside Nix shell!"
-        return 0
-    fi
-
-    if [[ -f .envrc ]]; then
-        echo "⚠️  .envrc found, direnv will be used."
-        direnv allow
-        return 0
-    fi
-
-    if [[ -f flake.nix ]] && command -v nix >/dev/null 2>&1; then
-        nix develop --set-env-var SHELL "$SHELL" -c "$SHELL"
-    elif ! command -v nix >/dev/null 2>&1; then
-        echo "󱄅  Nix is not installed!"
-    else
-        echo "❌ No Flake.nix file in this directory"
-    fi
-}
-
 # Function: create-envrc
 function create-envrc() {
     if [ -e .envrc ]
     then
         echo "⚠️  .envrc already here, can't safely insert."
+        direnv reload
         return 0
     fi
 
@@ -108,7 +86,7 @@ function create-envrc() {
 
     echo "if nix flake show &> /dev/null; then
       use flake
-    fi" >./.envrc
+fi" >./.envrc
 
     direnv allow
 }
