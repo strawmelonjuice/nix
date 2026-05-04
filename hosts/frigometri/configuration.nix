@@ -7,9 +7,12 @@
 }:
 {
   imports = [ (modulesPath + "/virtualisation/proxmox-lxc.nix") ];
-  
+
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     sandbox = false;
   };
   networking.firewall.enable = false;
@@ -184,10 +187,36 @@
       archive_command = "/bin/true";
     };
   };
+  programs.zsh.enable = true;
   environment.systemPackages = with pkgs; [
+    git
+    jj
+    podman-compose
+    podman-tui
+    polkit_gnome
+    wayland-utils
+    wl-clipboard
+    xclip
+    xwayland-satellite
+    # coreutils
+    uutils-coreutils-noprefix
+    git
     neovim
     git
     podman
     podman-compose
+  ];
+  security.doas.enable = true;
+  security.sudo.enable = false;
+  security.doas.extraRules = [
+    {
+      users = [
+        "mar"
+        "root"
+      ];
+      keepEnv = true;
+      # In a server this may not be wise ;)
+      # noPass = true;
+    }
   ];
 }
