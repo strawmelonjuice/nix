@@ -20,8 +20,9 @@ jj git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wa
 ```bash
 mkdir -p hosts/$(hostname) # Create the folder
 cp /etc/nixos/*.nix ./hosts/$(hostname)/ # Copy installer configs
-nano ./flake.nix # Include the new hostname in the nixosConfigurations block.
+nano ./flake.nix # Include the new defineSystem-entry in the nixosConfigurations block.
 nano ./hosts/$(hostname)/configuration.nix # You may want to tweak this, or maybe import `../all-hosts.nix`!
+echo "{}" > ./home/host-specific/$(hostname).nix # For home-manager per-machine config
 ```
 Otherwise make sure the hostname matches the one before and continue to 3!
 
@@ -49,6 +50,8 @@ doas git config --global --add safe.directory /home/mar/.dotfiles # Safelist dot
 
 | Name     | Kind               | About                                                                 | Special                                                                       |
 | -------- | ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Fennekin | Convertible laptop | My take-with-me and drawing laptop, has a nice stylus tew             | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
-| Ponyta   | Laptop             | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen.                                      |
-| Samurott | Desktop PC         | -                                                                     | Ultrawide screen, dual boots windows for games.                               |
+| Fennekin | Convertible laptop (fire) | My take-with-me and drawing laptop, has a nice stylus tew             | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
+| Ponyta   | Laptop (fire)            | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen.                                      |
+| Samurott | Desktop PC (water)         | -                                                                     | Ultrawide screen, dual boots windows for games.                               |
+| frigometri (german version of Cryogonal, symbolising server location) | Server (ice) | Cool server from friend I can use |
+

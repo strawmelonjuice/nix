@@ -1,23 +1,30 @@
 {
   pkgs,
-  hostname,
   ...
 }:
 
 {
   imports = [
+    # Enviroments -----------------------------------------------------------------------------------------------------------
     ./modules/cosmic.nix
-    ./modules/development.nix
+    ./modules/kde.nix
+    ./modules/niri.nix
+
+    # Graphical development -------------------------------------------------------------------------------------------------
+    ./modules/development/zed.nix
+    ./modules/development/vscodium.nix
+
+    # Browsers --------------------------------------------------------------------------------------------------------------
+    ./modules/librewolf.nix
+    ./modules/zen.nix
+    #-> And vivaldi, which is configured non-declaratively.
+
+    # Graphical terminal emulator -------------------------------------------------------------------------------------------
+    ./modules/wezterm.nix
+
+    # Misc. -----------------------------------------------------------------------------------------------------------------
     ./modules/fonts.nix
     ./modules/games.nix
-    ./modules/kde.nix
-    ./modules/librewolf.nix
-    ./modules/niri.nix
-    ./modules/shell.nix
-    ./modules/wezterm.nix
-  ]
-  ++ [
-    ./host-specific/${hostname}.nix
   ];
 
   home.username = "mar";
@@ -25,40 +32,35 @@
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
   home.packages = with pkgs; [
-    coreutils
     # GUI Apps
     vivaldi
-    #gnomeExtensions.gesture-improvements
-    gnomeExtensions.appindicator
-    git
+    # I make a lot of things with Inkscape actually!
+    inkscape
   ];
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # 'librewolf.desktop' or 'vivaldi-stable.desktop'
-      "text/html" = "vivaldi-stable.desktop";
-      "x-scheme-handler/http" = "vivaldi-stable.desktop";
-      "x-scheme-handler/https" = "vivaldi-stable.desktop";
-      "x-scheme-handler/about" = "vivaldi-stable.desktop";
-      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
-      "application/xhtml+xml" = "vivaldi-stable.desktop";
-      "application/pdf" = "vivaldi-stable.desktop";
-      "application/x-extension-htm" = "vivaldi-stable.desktop";
-      "application/x-extension-html" = "vivaldi-stable.desktop";
-      "application/x-extension-shtml" = "vivaldi-stable.desktop";
-      "application/x-extension-xhtml" = "vivaldi-stable.desktop";
-      "application/x-extension-xht" = "vivaldi-stable.desktop";
+      # 'librewolf.desktop' or 'vivaldi-stable.desktop' or...
+      "text/html" = "zen.desktop";
+      "x-scheme-handler/http" = "zen.desktop";
+      "x-scheme-handler/https" = "zen.desktop";
+      "x-scheme-handler/about" = "zen.desktop";
+      "x-scheme-handler/unknown" = "zen.desktop";
+      "application/xhtml+xml" = "zen.desktop";
+      "application/pdf" = "zen.desktop";
+      "application/x-extension-htm" = "zen.desktop";
+      "application/x-extension-html" = "zen.desktop";
+      "application/x-extension-shtml" = "zen.desktop";
+      "application/x-extension-xhtml" = "zen.desktop";
+      "application/x-extension-xht" = "zen.desktop";
       "x-scheme-handler/obsidian" = "obsidian.desktop";
     };
   };
 
-  home.sessionVariables = {
-    TERMINAL = "wezterm";
-    PASSWORD_STORE_TYPE = "basic";
-    ZED_ALLOW_EMULATED_GPU = 1;
-    SHELL = "zsh";
-  };
+  home.sessionVariables.TERMINAL = "wezterm";
+  home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
+  home.sessionVariables.ZED_ALLOW_EMULATED_GPU = 1;
 
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";

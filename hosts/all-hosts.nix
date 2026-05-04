@@ -64,6 +64,9 @@
     wl-clipboard
     xclip
     xwayland-satellite
+    # coreutils
+    uutils-coreutils-noprefix
+    git
     vlc
 
     # KDE Utilities

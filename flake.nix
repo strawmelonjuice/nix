@@ -30,7 +30,10 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -42,10 +45,10 @@
     let
 
       # Helper function to create system configs easily
-      mkSystem =
-        hostname: system:
+      defineSystem =
+        hostname: architecture: is_workstation:
         nixpkgs.lib.nixosSystem {
-          inherit system;
+          system = architecture;
           specialArgs = { inherit inputs hostname; };
           modules = [
             inputs.noctalia.nixosModules.default
@@ -57,9 +60,21 @@
 
               home-manager.extraSpecialArgs = { inherit inputs hostname; };
               home-manager.users.mar = {
-                imports = [
-                  ./home/home.nix
-                ];
+                imports =
+                  (
+                    if is_workstation then
+                      [
+                        ./home/desktop.nix
+                        ./home/cli.nix
+                      ]
+                    else
+                      [
+                        ./home/cli.nix
+                      ]
+                  )
+                  ++ [
+                    ./home/host-specific/${hostname}.nix
+                  ];
               };
             }
           ];
@@ -67,9 +82,10 @@
     in
     {
       nixosConfigurations = {
-        Fennekin = mkSystem "Fennekin" "x86_64-linux";
-        Samurott = mkSystem "Samurott" "x86_64-linux";
-        Ponyta = mkSystem "Ponyta" "x86_64-linux";
+        Fennekin = (defineSystem "Fennekin" "x86_64-linux" true);
+        Samurott = (defineSystem "Samurott" "x86_64-linux" true);
+        Ponyta = (defineSystem "Ponyta" "x86_64-linux" true);
+        frigometri = (defineSystem "frigometri" "x86_64-linux" false);
       };
     };
 }

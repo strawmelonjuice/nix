@@ -8,7 +8,7 @@
 {
   dconf.settings = {
     "org/gnome/desktop/applications/browser" = {
-      exec = "vivaldi-stable";
+      exec = "zen";
     };
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -23,7 +23,7 @@
     };
     "org/gnome/shell" = {
       favorite-apps = [
-        "vivaldi-stable.desktop"
+        "zen.desktop"
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
         "Cinny.desktop"
