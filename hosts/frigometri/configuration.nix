@@ -7,7 +7,9 @@
 }:
 {
   imports = [ (modulesPath + "/virtualisation/proxmox-lxc.nix") ];
+  
   nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
     sandbox = false;
   };
   networking.firewall.enable = false;
