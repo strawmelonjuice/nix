@@ -1,18 +1,17 @@
 ### 1. Clone the repo
 
-Cloning the `nix` branch using `jj` from the Strawmelonjuice forge:
+Cloning the `nix` branch using `jj` from my Tangled knot:
 
 ```bash
 # Temporary pre-install these required packages
 nix shell nixpkgs#git nixpkgs#jujutsu --extra-experimental-features nix-command --extra-experimental-features flakes
 
 # Clone the dotfiles
-jj git clone https://forge.strawmelonjuice.com/strawmelonjuice/nix.git -b main ~/.dotfiles
+jj git clone https://tangled.org/did:plc:jgtfsmv25thfs4zmydtbccnn/nix -b main ~/.dotfiles
 
 cd ~/.dotfiles
 # Set origin correctly for dotfiles, assuming you by the time you push again have the keys.
-jj git remote set-url origin ssh://git@forge.strawmelonjuice.com/strawmelonjuice/nix.git
-
+jj git remote set-url origin git@knot.strawmelonjuice.com:did:plc:jgtfsmv25thfs4zmydtbccnn/nix
 # Clone wallpapers.
 jj git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
 ```
