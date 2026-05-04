@@ -136,6 +136,8 @@
 
   users.users.mar = {
     isNormalUser = true;
+    description = "MLC Bloeiman";
+    shell = pkgs.zsh;
     extraGroups = [
       "wheel"
       "networkmanager"
