@@ -33,7 +33,7 @@
     shellAliases = {
       # Stealing these back actually!
       to-dotfiles = "cd ~/.dotfiles || cd ~/dotfiles";
-      rb = "to-dotfiles && jj file track . && doas nixos-rebuild switch --flake ~/.dotfiles#$(hostname)";
+      rb = "jj --repository $HOME/.dotfiles file track $HOME/.dotfiles/. && doas nixos-rebuild switch --flake $HOME/.dotfiles#$(hostname)";
 
       ls = "eza --icons";
       la = "eza --icons -a";
