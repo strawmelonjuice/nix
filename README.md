@@ -50,8 +50,8 @@ doas git config --global --add safe.directory /home/mar/.dotfiles # Safelist dot
 
 | Name     | Kind               | About                                                                 | Special                                                                       |
 | -------- | ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Fennekin | Convertible laptop (fire) | My take-with-me and drawing laptop, has a nice stylus tew             | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
-| Ponyta   | Laptop (fire)            | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen.                                      |
-| Samurott | Desktop PC (water)         | -                                                                     | Ultrawide screen, dual boots windows for games.                               |
-| frigometri (german version of Cryogonal, symbolising server location) | Server (ice) | Cool server from friend I can use |
+| [Fennekin](https://pokemondb.net/pokedex/fennekin) | Convertible laptop (fire) | My take-with-me and drawing laptop, has a nice stylus tew             | Touchscreen, convertible, wifi adaptor is busted, so there's an external one. |
+| [Ponyta](https://pokemondb.net/pokedex/ponyta)   | Laptop (fire)            | My most beefiest laptop eva! And I use it mainly as my school laptop. | Has a good graphics card. Bigger screen.                                      |
+| [Samurott](https://pokemondb.net/pokedex/samurott) | Desktop PC (water)         | -                                                                     | Ultrawide screen, dual boots windows for games.                               |
+| [frigometri (german version of Cryogonal, symbolising server location)](https://pokemondb.net/pokedex/cryogonal) | Server (ice) | Cool server from friend I can use |
 
