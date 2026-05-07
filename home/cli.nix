@@ -25,7 +25,7 @@
   programs.hyfetch = {
     enable = true;
     settings = {
-      preset = "sapphic";
+      preset = "transbian";
       mode = "rgb";
       light_dark = "light";
       lightness = 1.0;
