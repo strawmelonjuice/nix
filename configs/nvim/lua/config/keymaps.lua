@@ -54,7 +54,9 @@ map("n", "<space>r", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
-map("n", "<space>o", "<cmd>FzfLua oldfiles<CR>", { desc = "Oldfiles" })
+vim.keymap.set("n", "<space>o", function()
+	Snacks.picker.recent()
+end, { desc = "OldFiles" })
 
 map("n", "<space>e", function()
 	Snacks.explorer({ layout = { layout = { position = "right" } } })
@@ -83,7 +85,7 @@ map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 map("n", "<space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
 -- Stolen from Ollie
 local function trim(s)
-    return s:match("(.-)%s*%-*$")
+	return s:match("(.-)%s*%-*$")
 end
 
 local show_errors = false
@@ -114,19 +116,17 @@ vim.keymap.set("n", "Te", function()
 	end
 end, { desc = "[T]oggle [E]rrors" })
 
-
 vim.keymap.set("n", "<space>cew", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
 map("n", "<space>cs", function()
-	    -- get current line(string) and row(int) in the buffer
-    local line = trim(vim.api.nvim_get_current_line())
-    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+	-- get current line(string) and row(int) in the buffer
+	local line = trim(vim.api.nvim_get_current_line())
+	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-    -- make "-----------" seperator line at consitent length
-    local seperator = string.rep("-", 120 - string.len(line))
+	-- make "-----------" seperator line at consitent length
+	local seperator = string.rep("-", 120 - string.len(line))
 
-    -- write line with seperator to current buffer at current cursor position
-    vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
-
+	-- write line with seperator to current buffer at current cursor position
+	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
 end, { desc = "set [S]eperator" })
 
 -- Movement     --------------------------------------------------------------------------------------------------------------------------------------------------
