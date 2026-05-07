@@ -119,7 +119,7 @@
       -------------------------   Mar's Nvim!   -------------------------
       ===================================================================
 
-                  Welcome! It's time to start doing stuff! :3
+             Welcome! It's time to start doing stuff! :3
               ]],
             }
           },
