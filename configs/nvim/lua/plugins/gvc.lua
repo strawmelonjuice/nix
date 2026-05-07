@@ -1,30 +1,12 @@
--- Graphical Version Control
-return {
-	{
-		"swaits/lazyjj.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		opts = {
-			mapping = "<space>vj",
-		},
-	},
-	{
-		"kdheepak/lazygit.nvim",
-		lazy = true,
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
-		-- optional for floating window border decoration
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		-- setting the keybinding for LazyGit with 'keys' is recommended in
-		-- order to load the plugin when the command is run for the first time
-		keys = {
-			{ "<space>vg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-		},
-	},
-}
+local M = {}
+
+function M.setup()
+    -- LazyGit
+	-- ... honestly idk what to still put here
+    -- LazyJJ
+    require("lazyjj").setup({
+        mapping = "<space>vj",
+    })
+end
+
+return M

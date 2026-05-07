@@ -81,18 +81,52 @@ map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 -- Rename
 map("n", "<space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
-
 -- Stolen from Ollie
+local function trim(s)
+    return s:match("(.-)%s*%-*$")
+end
+
+local show_errors = false
+-- toggle showing virtual_lines
+vim.keymap.set("n", "Te", function()
+	if show_errors then
+		vim.diagnostic.config({
+			virtual_text = {
+				format = function(diagnostic)
+					return string.match(diagnostic.message, "(.-)\n")
+				end,
+			},
+			virtual_lines = {
+				current_line = true,
+			},
+		})
+		show_errors = false
+	else
+		vim.diagnostic.config({
+			virtual_text = {
+				format = function(diagnostic)
+					return string.match(diagnostic.message, "(.-)\n")
+				end,
+			},
+			virtual_lines = false,
+		})
+		show_errors = true
+	end
+end, { desc = "[T]oggle [E]rrors" })
+
+
 vim.keymap.set("n", "<space>cew", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
 map("n", "<space>cs", function()
-	-- get current line(string) and row(int) in the buffer
-	local line = vim.trim(vim.api.nvim_get_current_line())
-	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-	-- make "-----------" seperator line at consitent length
-	local seperator = string.rep("-", 120 - string.len(line))
+	    -- get current line(string) and row(int) in the buffer
+    local line = trim(vim.api.nvim_get_current_line())
+    local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-	-- write line with seperator to current buffer at current cursor position
-	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
+    -- make "-----------" seperator line at consitent length
+    local seperator = string.rep("-", 120 - string.len(line))
+
+    -- write line with seperator to current buffer at current cursor position
+    vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
+
 end, { desc = "set [S]eperator" })
 
 -- Movement     --------------------------------------------------------------------------------------------------------------------------------------------------
