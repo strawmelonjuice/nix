@@ -1,10 +1,6 @@
 { pkgs, ... }:
 
 {
-  programs.openvpn = {
-    enable = true;
-
-  };
   home.packages = with pkgs; [
     # School: Python and Dbus to run their network script
     python312
@@ -19,5 +15,12 @@
     # teams-for-linux # does exist...
     # Well I think this one makes sense.
     libreoffice-fresh
+
+    # need to connect to a windows server
+    remmina
+    openvpn
+    openconnect
+    vpnc
+    vpnc-scripts
   ];
 }

@@ -28,6 +28,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.packages = [
+    pkgs.networkmanager-openconnect
+    pkgs.networkmanager-vpnc
+  ];
 
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
@@ -116,7 +120,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
