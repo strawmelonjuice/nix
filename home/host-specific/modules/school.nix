@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  programs.openvpn = {
+    enable = true;
+
+  };
   home.packages = with pkgs; [
     # School: Python and Dbus to run their network script
     python312
