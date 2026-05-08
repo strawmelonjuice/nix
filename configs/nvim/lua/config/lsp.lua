@@ -15,6 +15,14 @@ for _, server in ipairs(servers) do
 			vim.lsp.enable(server)
 		end
 	end
+	local config = vim.lsp.config[server]
+
+	if config and config.default_config then
+		local cmd = config.default_config.cmd
+		if cmd and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
+			vim.lsp.enable(server)
+		end
+	end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -28,3 +36,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.supports_method("textDocument/completion") then
+			vim.lsp.completion.enable(true, client.id, args.buf)
+		end
+	end,
+})
+

@@ -34,6 +34,7 @@
   home.packages = with pkgs; [
     # GUI Apps
     vivaldi
+    crosspipe
     # I make a lot of things with Inkscape actually!
     inkscape
   ];
