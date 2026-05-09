@@ -84,7 +84,7 @@
     backend = "podman";
     containers = {
       "fonts-proxy" = {
-        image = "docker.io/strawmelonjuice/fonts-proxy:1.1.1";
+        image = "docker.io/strawmelonjuice/fonts-proxy:1.1.2";
         autoStart = true;
         ports = [
           "39936:8080"
