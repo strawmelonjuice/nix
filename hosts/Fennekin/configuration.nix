@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
+  lib,
   pkgs,
   ...
 }:
@@ -83,6 +84,7 @@
   # services.xserver.libinput.enable = true;
 
   services.desktopManager.gnome.enable = true;
+  programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

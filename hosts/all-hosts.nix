@@ -97,7 +97,6 @@
   # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
   services.displayManager.cosmic-greeter.enable = true;
   # services.displayManager.gdm.enable = true;
-  # programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs; [
     kdePackages.elisa # We got strawberry
