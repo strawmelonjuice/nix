@@ -28,3 +28,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 	end,
 })
+
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1f2335", fg = "#c0caf5" })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#364a82", bold = true })
+vim.opt.pumheight = 10
+vim.opt.pumblend = 10
