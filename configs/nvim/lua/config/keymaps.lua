@@ -1,7 +1,7 @@
 local map = vim.keymap.set
 local wk = require("which-key")
 
--- Misc.        --------------------------------------------------------------------------------------------------------------------------------------------------
+-- Misc. ==============================================================================================================================================
 
 -- Visual VCS managers group
 wk.add({
@@ -16,8 +16,7 @@ map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 map("n", "<space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
 
--- Pickers      --------------------------------------------------------------------------------------------------------------------------------------------------
----@diagnostic disable-next-line: assign-type-mismatch
+-- Pickers---@diagnostic disable-next-line: assign-type-mismatch
 map("n", "<space>f", function()
 	Snacks.picker.files()
 end, { desc = "Open file picker" })
@@ -66,7 +65,7 @@ map("n", "<space><space>", function()
 	Snacks.picker.resume()
 end, { desc = "Resume last search" })
 
--- LSP          --------------------------------------------------------------------------------------------------------------------------------------------------
+-- LSP ================================================================================================================================================
 -- LSP group
 wk.add({
 	{ "<space>c", group = "LSP ->", mode = { "n", "v" } },
@@ -117,23 +116,46 @@ vim.keymap.set("n", "Te", function()
 end, { desc = "[T]oggle [E]rrors" })
 
 vim.keymap.set("n", "<space>cew", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
+local sep = "~"
+-- Adding a group of binds for setting it :3
+wk.add({
+	{ "<space>cS", group = "[S]et [S]eperator ->", mode = { "n", "v" } },
+})
+map("n", "<space>cS-", function()
+	sep = "-"
+end, { desc = "To '---'" })
+map("n", "<space>cS=", function()
+	sep = "="
+end, { desc = "To '==='" })
+map("n", "<space>cS`", function()
+	sep = "~"
+end, { desc = "To '~~~' (default)" })
+-- ...and using it!
 map("n", "<space>cs", function()
 	-- get current line(string) and row(int) in the buffer
 	local line = trim(vim.api.nvim_get_current_line())
 	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-	-- make "-----------" seperator line at consitent length
-	local seperator = string.rep("-", 120 - string.len(line))
+	-- make "~~~~~~~~~~~~" seperator line at consistent length
+	local seperator = string.rep(sep, 150 - string.len(line))
 
 	-- write line with seperator to current buffer at current cursor position
 	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
-end, { desc = "set [S]eperator" })
+end, { desc = "Make [S]eperator" })
 
--- Movement     --------------------------------------------------------------------------------------------------------------------------------------------------
+-- Movement ===========================================================================================================================================
+-- Move cursor within file
 map("i", "<down>", "<esc>gj", { desc = "Move down and exit insert" })
 map("i", "<up>", "<esc>gk", { desc = "Move up and exit insert" })
 
--- Selections   --------------------------------------------------------------------------------------------------------------------------------------------------
+-- Move current line
+map("n", "<A-j>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "Move Line Down" })
+map("n", "<A-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { desc = "Move Line Up" })
+-- Move selection
+map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Selection Down" })
+map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Selection Up" })
+
+-- Selections =========================================================================================================================================
 map("n", "x", "V", { desc = "Select line" })
 map("v", "x", "j", { desc = "Extend selection down" })
 map("v", "X", "k", { desc = "Extend selection up" })
