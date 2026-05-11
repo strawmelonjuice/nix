@@ -77,31 +77,6 @@ map("v", "<C-k>", vim.lsp.buf.hover, {})
 map("n", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
 map("v", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
 
--- Completions
-vim.keymap.set("i", "<Tab>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-n>"
-	else
-		return "<Tab>"
-	end
-end, { expr = true })
-
-vim.keymap.set("i", "<S-Tab>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-p>"
-	else
-		return "<S-Tab>"
-	end
-end, { expr = true })
-
-vim.keymap.set("i", "<CR>", function()
-	if vim.fn.pumvisible() == 1 then
-		return "<C-y>"
-	else
-		return "<CR>"
-	end
-end, { expr = true })
-
 -- Code action
 map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
 map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })

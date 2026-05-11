@@ -1,4 +1,4 @@
-local servers = { "nil_ls", "rust_analyzer", "gleam", "lua_ls", "zls", "taplo", "tailwindcss", "cssls" }
+local servers = { "nil_ls", "rust_analyzer", "gleam", "lua_ls", "zls", "taplo", "tailwindcss", "cssls", "biome" }
 
 for _, server in ipairs(servers) do
 	local config = vim.lsp.config[server]
