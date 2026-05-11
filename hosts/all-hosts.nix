@@ -125,7 +125,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 14d";
+    options = "--delete-older-than 13d";
   };
   nix.settings.auto-optimise-store = true;
 
@@ -144,6 +144,7 @@
       moonlight-qt
     ];
   };
+  programs.mosh.enable = true;
   security.pam.services.hyprlock = { };
   security.doas.enable = true;
   security.sudo.enable = false;
