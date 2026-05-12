@@ -108,8 +108,9 @@
   ];
 
   programs.niri.enable = true;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.mar.enableGnomeKeyring = true;
+  # services.gnome.gnome-keyring.enable = true;
+  # security.pam.services.mar.enableGnomeKeyring = true;
+  security.pam.services.login.kwallet.enable = true;
 
   services.desktopManager.cosmic.enable = true;
   services.system76-scheduler.enable = true;

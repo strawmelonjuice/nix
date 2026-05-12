@@ -1,13 +1,13 @@
 {
   pkgs,
   inputs,
-  config,
   ...
 }:
 
 {
   imports = [
-    ./niri/noctalia.nix
+    ./niri/waybar.nix
+    # ./niri/noctalia.nix
     ./niri/hyprlock.nix
     ./niri/wlogout.nix
 
@@ -18,13 +18,15 @@
   home.packages = with pkgs; [
     wev
     kdePackages.krunner
+    # Emoji's in KDE Runner
+    emoji-runner
     kdePackages.kdeconnect-kde
     kdePackages.qttools
     gnome-console
-    gnome-keyring
     nautilus
     pavucontrol
     btop
+    wofi
     hyprlock
     libnotify
     wireplumber
@@ -53,14 +55,14 @@
   };
   xdg.configFile."niri/scripts/overview-runner.sh" = {
     text = ''
-      #!/run/current-system/sw/bin/bash
-      overviewstatus="$(niri msg overview-state)"
-      if [[ $overviewstatus == *"is close"* ]]; then
-        niri msg action open-overview
-      else
-        niri msg action close-overview
-        noctalia-shell ipc call launcher toggle
-      fi
+            #!/run/current-system/sw/bin/bash
+            overviewstatus="$(niri msg overview-state)"
+            if [[ $overviewstatus == *"is close"* ]]; then
+              niri msg action open-overview
+            else
+              niri msg action close-overview
+      	      ${pkgs.kdePackages.krunner}/bin/krunner &
+            fi
     '';
     executable = true;
   };
@@ -86,7 +88,7 @@
       layer-rules = [
         {
           matches = [
-            { namespace = "^noctalia-overview*"; }
+            { namespace = "waybar"; }
           ];
           place-within-backdrop = true;
         }
@@ -102,14 +104,6 @@
         ELECTRON_OZONE_PLATFORM_HINT = "auto";
       };
 
-      # samurott-nix's second screen is on the left.
-      outputs."Hewlett Packard HP E202 3CQ7450ZT4" = {
-        position = {
-          x = -30000;
-          y = 0;
-        };
-        transform.rotation = 90;
-      };
       outputs."Microstep MSI MP341CQ 0x00000316".variable-refresh-rate = true;
 
       layout = {
@@ -155,11 +149,9 @@
       };
       # Startup spawns!
       spawn-at-startup = [
-        { command = [ "noctalia-shell" ]; }
+        { command = [ "waybar" ]; }
         # { command = [ "spotify" ]; }
         { command = [ "strawberry" ]; }
-        { command = [ "discord" ]; }
-        { command = [ "teams-for-linux" ]; }
         { command = [ "thunderbird" ]; }
         {
           command = [
@@ -193,15 +185,15 @@
         }
         {
           command = [
-            "gnome-keyring-daemon"
-            "--start"
-            "--components=secrets"
+            "dbus-update-activation-environment"
+            "--systemd"
+            "DISPLAY"
+            "WAYLAND_DISPLAY"
+            "XDG_CURRENT_DESKTOP"
           ];
         }
         { command = [ "kdeconnectd" ]; }
         { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
-        # This should make sure Fluffychat doesn't break my key store every damn time 😭
-        { sh = "hostname | gnome-keyring-daemon --replace --unlock"; }
       ];
 
       prefer-no-csd = true;
@@ -307,11 +299,12 @@
 
           hotkey-overlay.title = "Open that gnome file browser";
         };
-        "Mod+Shift+B" = {
-          action.spawn = "librewolf";
-          hotkey-overlay.title = "Open browser: Librewolf";
-        };
         "Mod+B" = {
+          action.spawn = "zen";
+          hotkey-overlay.title = "Open browser: Zen";
+        };
+        "Mod+Shift+B" = {
+
           action.spawn = "vivaldi";
           hotkey-overlay.title = "Open browser: Vivaldi";
         };
@@ -322,20 +315,9 @@
           ];
           hotkey-overlay.title = "HeyLogin Quick Access";
         };
-        "Mod+Alt+C" = {
-          action.spawn = [
-            "vivaldi"
-            "--app=https://app.cinny.in"
-          ];
-          hotkey-overlay.title = "Cinny";
-        };
         "Mod+D" = {
           action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "toggle"
+            "krunner"
           ];
           hotkey-overlay.title = "Launcher";
         };
@@ -349,23 +331,23 @@
         };
         "Mod+V" = {
           action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "clipboard"
+            "sh"
+            "-c"
+            "cliphist list | wofi --dmenu | cliphist decode | wl-copy"
           ];
-          hotkey-overlay.title = "Clipboard";
+          hotkey-overlay.title = "Clipboard History";
         };
+
         "Mod+Period" = {
           action.spawn = [
-            "noctalia-shell"
-            "ipc"
-            "call"
-            "launcher"
-            "emoji"
+            "qdbus"
+            "org.kde.krunner"
+            "/App"
+            "org.kde.krunner.App.querySingleRunner"
+            "emojirunner"
+            "emoji "
           ];
-          hotkey-overlay.title = "Emoji";
+          hotkey-overlay.title = "Emoji Picker (KRunner)";
         };
 
         # Audio media keys
