@@ -15,7 +15,7 @@
     ./modules/development/vscodium.nix
 
     # Browsers --------------------------------------------------------------------------------------------------------------
-    ./modules/librewolf.nix
+    # ./modules/librewolf.nix
     ./modules/zen.nix
     #-> And vivaldi, which is configured non-declaratively.
 

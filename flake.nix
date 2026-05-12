@@ -22,14 +22,16 @@
     niri = {
       url = "github:sodiboo/niri-flake";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # ./home/modules/niri/noctalia.nix is not in use.
+    # noctalia = {
+    #   url = "github:noctalia-dev/noctalia-shell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+    # ./home/modules/librewolf.nix is not in use.
+    # firefox-addons = {
+    #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,7 +53,7 @@
           system = architecture;
           specialArgs = { inherit inputs hostname; };
           modules = [
-            inputs.noctalia.nixosModules.default
+            # inputs.noctalia.nixosModules.default
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager
             {

@@ -28,7 +28,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.networkmanager.packages = [
+  networking.networkmanager.plugins = [
     pkgs.networkmanager-openconnect
     pkgs.networkmanager-vpnc
   ];

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  programs.vscode = {
+  programs.vscodium = {
     package = pkgs.vscodium;
     enable = true;
     profiles = {
