@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  programs.radicle = {
+    enable = true;
+  };
   programs.git = {
     enable = true;
     settings = {

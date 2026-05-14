@@ -206,7 +206,7 @@
         };
         # Dedicated to music listening
         "3" = {
-          name = "";
+          name = "🎶";
         };
       };
 
@@ -256,7 +256,7 @@
             { app-id = "org.strawberrymusicplayer.strawberry"; }
             { app-id = "org.gnome.Music"; }
           ];
-          open-on-workspace = "";
+          open-on-workspace = "🎶";
         }
         {
           matches = [

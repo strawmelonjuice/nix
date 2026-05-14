@@ -7,7 +7,7 @@
   imports = [
     # Development
     ./modules/development.nix
-    ./modules/development/jujutsu.nix
+    ./modules/development/vcs.nix
     ./modules/development/neovim.nix
     # Shell
     ./modules/shell/kc.nix
