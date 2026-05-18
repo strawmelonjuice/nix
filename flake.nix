@@ -46,6 +46,24 @@
     }@inputs:
     let
 
+      # Helper function to get home modules
+      getHomeModules =
+        hostname: is_workstation:
+        (
+          if is_workstation then
+            [
+              ./home/desktop.nix
+              ./home/cli.nix
+            ]
+          else
+            [
+              ./home/cli.nix
+            ]
+        )
+        ++ [
+          ./home/host-specific/${hostname}.nix
+        ];
+
       # Helper function to create system configs easily
       defineSystem =
         hostname: architecture: is_workstation:
@@ -62,24 +80,29 @@
 
               home-manager.extraSpecialArgs = { inherit inputs hostname; };
               home-manager.users.mar = {
-                imports =
-                  (
-                    if is_workstation then
-                      [
-                        ./home/desktop.nix
-                        ./home/cli.nix
-                      ]
-                    else
-                      [
-                        ./home/cli.nix
-                      ]
-                  )
-                  ++ [
-                    ./home/host-specific/${hostname}.nix
-                  ];
+                imports = getHomeModules hostname is_workstation;
               };
             }
           ];
+        };
+
+      # Helper function for standalone Home Manager
+      defineHome =
+        hostname: architecture: is_workstation:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = architecture;
+            config = {
+              allowUnfreePackages = [
+                "joypixels"
+              ];
+              joypixels.acceptLicense = true;
+              allowUnfree = true;
+            };
+
+          };
+          extraSpecialArgs = { inherit inputs hostname; };
+          modules = getHomeModules hostname is_workstation;
         };
     in
     {
@@ -88,6 +111,14 @@
         Samurott = (defineSystem "Samurott" "x86_64-linux" true);
         Ponyta = (defineSystem "Ponyta" "x86_64-linux" true);
         frigometri = (defineSystem "frigometri" "x86_64-linux" false);
+      };
+
+      homeConfigurations = {
+        Fennekin = (defineHome "Fennekin" "x86_64-linux" true);
+        Samurott = (defineHome "Samurott" "x86_64-linux" true);
+        Ponyta = (defineHome "Ponyta" "x86_64-linux" true);
+        frigometri = (defineHome "frigometri" "x86_64-linux" false);
+        marpi5-1 = (defineHome "Cubchoo" "aarch64-linux" false);
       };
     };
 }
