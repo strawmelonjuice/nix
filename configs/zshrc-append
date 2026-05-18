@@ -90,3 +90,17 @@ fi" >./.envrc
 
     direnv allow
 }
+
+
+rb() {
+      jj --repository "$HOME/.dotfiles" file track "$HOME/.dotfiles/."
+
+      if [ -f /etc/NIXOS ]; then
+	echo "nixos rebuild switch --flake \"$HOME/.dotfiles#$(hostname)\""
+        doas nixos-rebuild switch --flake "$HOME/.dotfiles#$(hostname)"
+      else
+	echo "home-manager switch --flake \"$HOME/.dotfiles#$(hostname)\""
+        nix run home-manager -- switch --flake "$HOME/.dotfiles#$(hostname)"
+      fi
+}
+

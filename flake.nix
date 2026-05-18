@@ -91,6 +91,7 @@
         hostname: architecture: is_workstation:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
+
             system = architecture;
             config = {
               allowUnfreePackages = [

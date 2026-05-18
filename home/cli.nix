@@ -18,6 +18,21 @@
   home.homeDirectory = "/home/mar";
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      inherit (prev.lixPackageSets.stable)
+        nixpkgs-review
+        nix-eval-jobs
+        nix-fast-build
+        colmena
+        ;
+    })
+  ];
+  nix.package = pkgs.lixPackageSets.stable.lix;
+  nix.settings = {
+    experimental-features = "flakes nix-command";
+  };
+
   programs.direnv = {
     silent = true;
     enable = true;
