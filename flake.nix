@@ -91,9 +91,23 @@
         hostname: architecture: is_workstation:
         home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
+            overlays = [
+              (final: prev: {
+                inherit (prev.lixPackageSets.stable)
+                  nixpkgs-review
+                  nix-eval-jobs
+                  nix-fast-build
+                  colmena
+                  ;
+              })
+            ];
 
             system = architecture;
             config = {
+              nix.package = nixpkgs.lixPackageSets.stable.lix;
+              nix.settings = {
+                experimental-features = "flakes nix-command";
+              };
               allowUnfreePackages = [
                 "joypixels"
               ];
