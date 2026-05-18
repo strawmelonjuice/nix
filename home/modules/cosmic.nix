@@ -2740,12 +2740,10 @@
     force = true;
     text = ''
       [
-          "vivaldi-stable",
-          "org.wezfurlong.wezterm",
-          "obsidian",
-          "fluffychat",
-          "com.system76.CosmicFiles",
-          "com.system76.CosmicSettings",
+       "zen"
+       "org.wezfurlong.wezterm"
+       "obsidian"
+       "Cinny"
       ]
     '';
   };
