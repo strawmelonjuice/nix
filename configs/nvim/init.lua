@@ -81,7 +81,25 @@ later(function()
 	})
 
 	require("blink.cmp").setup({
-		keymap = { preset = "default" },
+		keymap = {
+			-- thank you ollie https://git.ollie.earth/ollie/nvim/src/commit/a2dace525c23d5bec9d85b65f14918cb6cc1fca9/lua/plugins/blink-cmp.lua#L8
+			preset = "none",
+			["<C-k>"] = { "select_prev" },
+			["<C-j>"] = { "select_next" },
+			-- scroll docs
+			["<C-b>"] = {
+				function(cmp)
+					cmp.scroll_documentation_up(4)
+				end,
+			},
+			["<C-f>"] = {
+				function(cmp)
+					cmp.scroll_documentation_down(4)
+				end,
+			},
+			-- confirm selection
+			["<C-Enter>"] = { "select_and_accept" },
+		},
 
 		appearance = {
 			use_nvim_cmp_as_default = true,
