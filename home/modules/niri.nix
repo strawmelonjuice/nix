@@ -317,9 +317,11 @@
         };
         "Mod+D" = {
           action.spawn = [
-            "krunner"
+            "wofi"
+            "--show"
+            "drun"
           ];
-          hotkey-overlay.title = "Launcher";
+          hotkey-overlay.title = "Dynamic Runner";
         };
         "Mod+Shift+D" = {
           action.spawn = [ "krunner" ];
