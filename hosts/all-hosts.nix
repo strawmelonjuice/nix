@@ -78,6 +78,7 @@
     kdePackages.isoimagewriter
     kdePackages.partitionmanager
   ];
+  services.gnome.gnome-online-accounts.enable = true;
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

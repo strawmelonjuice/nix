@@ -3,8 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
-  lib,
+  config,
   pkgs,
+  lib,
   ...
 }:
 
@@ -14,31 +15,34 @@
     ./hardware-configuration.nix
     ../all-hosts.nix
   ];
-  boot.extraModulePackages = [
-    # Currently marked as broken so I guess no wifi for me then
-    # config.boot.kernelPackages.rtl8821au # Archer T2U
-  ];
-  # Rotation sensor
-  hardware.sensor.iio.enable = true;
+
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  networking.hostName = "Fennekin"; # Define your hostname.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
+
+  # Use latest kernel.
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "Tepig"; # Define your hostname.
   networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # # Use latest kernel.
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # Enable networking
-  networking.networkmanager.enable = true;
-
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+    settings.device."wifi.scan-rand-mac-address" = "no";
+  };
+  services.tailscale.enable = true;
   # Set your time zone.
   time.timeZone = "Europe/Amsterdam";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "nl_NL.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "nl_NL.UTF-8";
@@ -52,14 +56,27 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  # Default session niri.
-  services.displayManager.defaultSession = "niri";
+  # Enable the X11 windowing system.
+  # You can disable this if you're only using the Wayland session.
+  services.xserver.enable = true;
+
+  # Enable the KDE Plasma Desktop Environment.
+  # services.displayManager.sddm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.cinnamon.enable = true;
+  services.displayManager.defaultSession = "cinnamon";
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.cosmic-greeter.enable = lib.mkForce false;
+  programs.niri.enable = lib.mkForce false;
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
-    variant = "euro";
+    layout = "nl";
+    variant = "std";
   };
+
+  # Configure console keymap
+  console.keyMap = "nl";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -83,18 +100,45 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  services.desktopManager.gnome.enable = true;
-  services.desktopManager.lomiri.enable = true;
-  programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.mar = {
+    isNormalUser = true;
+    description = "MLC Bloeiman";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [
+      kdePackages.kate
+      #  thunderbird
+    ];
+  };
+  users.users.eduard = {
+    isNormalUser = true;
+    description = "ERM Bloeiman";
+    extraGroups = [ "networkmanager" ];
+    packages = with pkgs; [
+      libreoffice
+      thunderbird
+    ];
+  };
+
+  # Install Firefox
+  programs.firefox.enable = true;
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowInsecurePredicate =
+    pkg:
+    builtins.elem (pkgs.lib.getName pkg) [
+      "broadcom-sta"
+    ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    galaxy-buds-client
-    grc
-
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
+    google-chrome
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

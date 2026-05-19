@@ -126,6 +126,7 @@
         Samurott = (defineSystem "Samurott" "x86_64-linux" true);
         Ponyta = (defineSystem "Ponyta" "x86_64-linux" true);
         frigometri = (defineSystem "frigometri" "x86_64-linux" false);
+        Tepig = (defineSystem "Tepig" "x86_64-linux" true);
       };
 
       homeConfigurations = {
@@ -134,6 +135,7 @@
         Ponyta = (defineHome "Ponyta" "x86_64-linux" true);
         frigometri = (defineHome "frigometri" "x86_64-linux" false);
         marpi5-1 = (defineHome "Cubchoo" "aarch64-linux" false);
+        Tepig = (defineHome "Tepig" "x86_64-linux" true);
       };
     };
 }
