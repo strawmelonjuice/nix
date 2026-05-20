@@ -108,7 +108,7 @@
 
       layout = {
         empty-workspace-above-first = true;
-        gaps = 10;
+        gaps = 4;
         center-focused-column = "never";
         always-center-single-column = true;
 
@@ -127,7 +127,7 @@
         focus-ring.enable = false;
         border = {
           enable = true;
-          width = 6;
+          width = 2;
           active.color = "#85aaa0";
           inactive.color = "#4a4442";
           urgent.color = "#1e8b44";
@@ -143,8 +143,8 @@
           color = "#0007";
         };
         struts = {
-          left = 14;
-          right = 14;
+          left = 1;
+          right = 1;
         };
       };
       # Startup spawns!
@@ -274,10 +274,10 @@
         {
           # This rule applies to all windows as it has no 'matches'
           geometry-corner-radius = {
-            bottom-left = 20.0;
-            bottom-right = 20.0;
-            top-left = 20.0;
-            top-right = 20.0;
+            bottom-left = 5.0;
+            bottom-right = 5.0;
+            top-left = 5.0;
+            top-right = 5.0;
           };
           clip-to-geometry = true;
         }
