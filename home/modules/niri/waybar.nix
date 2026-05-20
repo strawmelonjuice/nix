@@ -40,9 +40,9 @@
         {
           layer = "top";
           position = "top";
-          height = 30;
-          # margin = "10 15 0 15";
-          spacing = 0;
+          height = 20;
+          margin = "5 15 0 15";
+          spacing = 5;
 
           modules-left = [
             "niri/workspaces"
@@ -78,6 +78,7 @@
               "Spotify (.*)" = "Spotify";
               "(.*) - Tidal" = "Tidal";
               "(.*) - TIDAL" = "Tidal";
+              "(.*) - Obsidian (.*)" = "Obsidian";
             };
 
             # format = "{name}";
@@ -86,8 +87,8 @@
           };
 
           "custom/osktoggle" = {
-            format = "  ";
-            on-click = "~/.config/hypr/scripts/keyboard-relaunch.sh";
+            format = "   ";
+            on-click = "~/.config/niri/scripts/osk.sh";
             tooltip-format = "Toggle the on-screen keyboard (restarts the keyboard if needed.)";
           };
           "custom/waybar-mpris" = {
@@ -128,9 +129,9 @@
           };
           # Clock
           clock = {
-            "timezone" = "Europe/Berlin";
-            "tooltip-format" = "<big>{=%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-            "format-alt" = "{=%Y-%m-%d}";
+            timezone = "Europe/Amsterdam";
+            format = "{:%H:%M}";
+            format-alt = "{:%A, %B %d, %Y (%R)}";
           };
           # System
           "custom/system" = {
@@ -192,8 +193,8 @@
               "warning" = 30;
               "critical" = 15;
             };
-            "format-alt" = "{icon} {capacity}%";
-            "format" = "{icon}  {time}";
+            "format" = "{icon} {capacity}%";
+            "format-alt" = "{icon}  {time}";
             "format-charging" = "  {capacity}%";
             "format-plugged" = "  {capacity}%";
             # "format-good"= " ";
@@ -248,20 +249,17 @@
       ];
 
       style = ''
-        @define-color backgroundlight #e06666;
+        @define-color backgroundlight #6faa88;
         @define-color backgrounddark #f4cccc;
-        @define-color workspacesbackground1 #f4cccc;
-        @define-color workspacesbackground2 #fa8071;
-        @define-color workspacesbackground3 rgba(250, 128, 113, 0.3);
+        @define-color workspacesbackground1 #67db98;
+        @define-color workspacesbackground2 #f4cccc;
+        @define-color workspacesbackground3 #fa8071;
         @define-color bordercolor #f4cccc;
         @define-color textcolor1 #000000;
         @define-color textcolor2  #000000;
         @define-color textcolor3 #f4cccc;
         @define-color iconcolor #9b4457;
 
-        /* -----------------------------------------------------
-         * General 
-         * ----------------------------------------------------- */
 
         * {
           font-family: Hermit, "Font Awesome 6 Free", FontAwesome, Ubuntu, Arial,
@@ -278,9 +276,6 @@
           transition-duration: 0.5s;
         }
 
-        /* -----------------------------------------------------
-         * Workspaces 
-         * ----------------------------------------------------- */
 
         #workspaces {
           margin: 5px 6px 6px 3px;
@@ -290,25 +285,27 @@
           border: 0px;
           font-weight: bold;
           font-style: normal;
-          font-size: 12px;
+          font-size: 10px;
           color: @textcolor1;
         }
 
         #workspaces button {
-          padding: 0px 5px;
+          padding: 8px 0px;
           margin: 4px 3px;
           border-radius: 5px;
           border: 0px;
+          min-width: 15px;
           color: @textcolor1;
           transition: all 0.3s ease-in-out;
           background: @workspacesbackground1;
         }
 
         #workspaces button.active, #workspaces button.focused {
+          padding: 0px 0px;
           color: @textcolor1;
           background: @workspacesbackground2;
-          border-radius: 5px;
-          min-width: 40px;
+          border-radius: 15px;
+          min-width: 25px;
           transition: all 1.0s ease-in-out;
           border: 2px rgb(255,77,77) solid;
         }
@@ -319,9 +316,6 @@
           border-radius: 6px;
         }
 
-        /* -----------------------------------------------------
-         * Tooltips
-         * ----------------------------------------------------- */
 
         tooltip {
           border-radius: 10px;
@@ -345,7 +339,7 @@
           padding: 2px 10px 0px 10px;
           border-radius: 12px;
           color: @textcolor2;
-          font-size: 16px;
+          font-size: 10px;
           font-weight: normal;
         }
 
@@ -401,32 +395,15 @@
         #battery,
         #clock {
           margin-right: 20px;
-          font-size: 20px;
           font-weight: bold;
           color: @iconcolor;
           padding: 4px 10px 2px 10px;
           font-size: 16px;
         }
 
-        #custom-quicklink1,
-        #custom-quicklink2,
-        #custom-quicklink3,
-        #custom-quicklink4,
-        #custom-quicklink5,
-        #custom-quicklink6,
-        #custom-quicklink7,
-        #custom-quicklink8,
-        #custom-quicklink9,
-        #custom-quicklink10 {
-          padding: 0px;
-          margin-right: 7px;
-          font-size: 20px;
-          color: @iconcolor;
-        }
-
         #custom-osktoggle {
           border-radius: 5px;
-          font-size: 20px;
+          font-size: 15px;
           padding: 4px;
           background-color: @backgroundlight;
           color: @textcolor1;
@@ -443,7 +420,7 @@
           padding: 5px 10px 5px 10px;
           /* Add a little extra padding to the right. to make it look more centered. */
           padding-right: 15px;
-          font-size: 20px;
+          font-size: 15px;
           color: @iconcolor;
           border-radius: 5px;
           background-color: @backgroundlight;
@@ -455,24 +432,24 @@
         #cpu,
         #language {
           margin: 10px;
-          padding: 0px;
-          font-size: 14px;
+          padding: 10px;
+          font-size: 8px;
           color: #000000;
           border-radius: 5px;
           background-color: @backgroundlight;
         }
-        /* glue cpu and memory together */
-        #cpu {
-          margin-right: 0px;
-          border-radius: 5px 0px 0px 5px;
-          padding: 0px 10px 0px 10px;
-        }
-        #memory {
-          margin-left: 0px;
-          border-radius: 0px 5px 5px 0px;
-          padding: 0px 10px 0px 10px;
-        }
-
+        /* glue cpu and memory together 
+        # #cpu {
+        #   margin-right: 0px;
+        #   border-radius: 5px 0px 0px 5px;
+        #   padding: 0px 10px 0px 10px;
+        # }
+        # #memory {
+        #   margin-left: 0px;
+        #   border-radius: 0px 5px 5px 0px;
+        #   padding: 0px 10px 0px 10px;
+        # }
+        */
         #keyboard-state {
           background-color: @backgroundlight;
           font-size: 12px;
