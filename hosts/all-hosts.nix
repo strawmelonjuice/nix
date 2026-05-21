@@ -110,8 +110,8 @@
   ];
 
   programs.niri.enable = true;
-  # services.gnome.gnome-keyring.enable = true;
-  # security.pam.services.mar.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
+  security.pam.services.lightdm.kwallet.enable = true;
   security.pam.services.login.kwallet.enable = true;
 
   services.desktopManager.cosmic.enable = true;
