@@ -83,9 +83,9 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  services.desktopManager.gnome.enable = true;
-  services.desktopManager.lomiri.enable = true;
-  programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
+  # services.desktopManager.gnome.enable = true;
+  # services.desktopManager.lomiri.enable = true;
+  # programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

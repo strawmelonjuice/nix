@@ -120,6 +120,11 @@
     packages = with pkgs; [
       libreoffice
       thunderbird
+
+      # Give this man his games
+      kdePackages.kpat
+      kdePackages.ksudoku
+      kdePackages.ktorrent
     ];
   };
 

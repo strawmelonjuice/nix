@@ -96,8 +96,9 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
-  services.displayManager.cosmic-greeter.enable = true;
-  # services.displayManager.gdm.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.desktopManager.cinnamon.enable = true;
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs; [
     kdePackages.elisa # We got strawberry
