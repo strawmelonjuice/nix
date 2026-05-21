@@ -40,19 +40,18 @@
             "niri/window"
           ];
           modules-center = [
-            "custom/osktoggle"
-            "battery"
             "clock"
-            "custom/exit"
+            "custom/media"
           ];
           modules-right = [
             "tray"
-            "mpd"
+            "custom/osktoggle"
             "pulseaudio"
             "network"
             "cpu"
             "memory"
-            "keyboard-state"
+            "battery"
+            "custom/exit"
           ];
 
           "niri/workspaces" = {
@@ -80,25 +79,41 @@
             tooltip-format = "Toggle the on-screen keyboard (restarts the keyboard if needed.)";
           };
 
+          "custom/media" = {
+            return-type = "json";
+            exec = ''
+              waybar-mpris --position --autofocus --play "" --pause "" --order "SYMBOL:TITLE:POSITION"
+              	    '';
+            on-click = "waybar-mpris --send toggle";
+            # This option will switch between players on right click.
+            on-click-right = "waybar-mpris --send player-next";
+            # The options below will switch the selected player on scroll
+            # on-scroll-up = "waybar-mpris --send player-next";
+            # on-scroll-down = "waybar-mpris --send player-prev";
+            # The options below will go to next/previous track on scroll
+            on-scroll-up = "waybar-mpris --send next";
+            on-scroll-down = "waybar-mpris --send prev";
+            escape = true;
+          };
           "custom/exit" = {
-            "format" = "";
-            "tooltip-format" = "Powermenu";
-            "on-click" = "wlogout";
-            "tooltip" = false;
+            format = "";
+            tooltip-format = "Powermenu";
+            on-click = "wlogout";
+            tooltip = false;
           };
 
           "keyboard-state" = {
-            "numlock" = true;
-            "capslock" = true;
-            "format" = "{name} {icon}";
-            "format-icons" = {
-              "locked" = "";
-              "unlocked" = "";
+            numlock = true;
+            capslock = true;
+            format = "{name} {icon}";
+            format-icons = {
+              locked = "";
+              unlocked = "";
             };
           };
 
-          "tray" = {
-            "spacing" = 10;
+          tray = {
+            spacing = 10;
           };
 
           clock = {
@@ -107,30 +122,30 @@
             format-alt = "{:%A, %B %d, %Y (%R)}";
           };
 
-          "cpu" = {
-            "format" = " {usage}% ";
-            "on-click" = "wezterm -e htop";
+          cpu = {
+            format = " {usage}% ";
+            on-click = "wezterm -e htop";
           };
 
-          "memory" = {
-            "format" = " {}% ";
-            "on-click" = "wezterm -e btop";
+          memory = {
+            format = " {}% ";
+            on-click = "wezterm -e btop";
           };
 
-          "network" = {
-            "format" = "{ifname}";
-            "format-wifi" = " ";
-            "format-ethernet" = "  ";
-            "format-disconnected" = "Not connected";
-            "tooltip-format" = " {ifname} via {gwaddri}";
-            "tooltip-format-wifi" = "   {essid} ({signalStrength}%)";
-            "tooltip-format-ethernet" = "  {ifname} ({ipaddr}/{cidr})";
-            "tooltip-format-disconnected" = "Disconnected";
-            "max-length" = 50;
-            "on-click" = "wezterm -e nmtui connect";
+          network = {
+            format = "{ifname}";
+            format-wifi = " ";
+            format-ethernet = "  ";
+            format-disconnected = "Not connected";
+            tooltip-format = " {ifname} via {gwaddri}";
+            tooltip-format-wifi = "   {essid} ({signalStrength}%)";
+            tooltip-format-ethernet = "  {ifname} ({ipaddr}/{cidr})";
+            tooltip-format-disconnected = "Disconnected";
+            max-length = 50;
+            on-click = "wezterm -e nmtui connect";
           };
 
-          "battery" = {
+          battery = {
             "states" = {
               "good" = 80;
               "warning" = 30;
@@ -150,27 +165,27 @@
             ];
           };
 
-          "pulseaudio" = {
-            "format" = "{icon}  {volume}%";
-            "format-bluetooth" = "{volume}% {icon} {format_source}";
-            "format-bluetooth-muted" = "{icon}";
-            "format-muted" = "";
-            "format-source" = "{volume}% ";
-            "format-source-muted" = "";
-            "format-icons" = {
-              "headphone" = "";
-              "hands-free" = "";
-              "headset" = "";
-              "phone" = "";
-              "portable" = "";
-              "car" = "";
-              "default" = [
+          pulseaudio = {
+            format = "{icon}  {volume}%";
+            format-bluetooth = "{volume}% {icon} {format_source}";
+            format-bluetooth-muted = "{icon}";
+            format-muted = "";
+            format-source = "{volume}% ";
+            format-source-muted = "";
+            format-icons = {
+              headphone = "";
+              hands-free = "";
+              headset = "";
+              phone = "";
+              portable = "";
+              car = "";
+              default = [
                 ""
                 " "
                 " "
               ];
             };
-            "on-click" = "pavucontrol";
+            on-click = "pavucontrol";
           };
         }
       ];
@@ -209,6 +224,7 @@
         #disk,
         #keyboard-state,
         #clock,
+        #custom-media,
         #pulseaudio,
         #network,
         #bluetooth,
