@@ -149,6 +149,17 @@
       };
       # Startup spawns!
       spawn-at-startup = [
+        {
+          command = [
+            "dbus-update-activation-environment"
+            "--systemd"
+            "DISPLAY"
+            "WAYLAND_DISPLAY"
+            "XDG_CURRENT_DESKTOP"
+            "NIXOS_OZONE_WL"
+          ];
+        }
+        { command = [ "awww-daemon" ]; }
         { command = [ "waybar" ]; }
         # { command = [ "spotify" ]; }
         { command = [ "strawberry" ]; }
@@ -171,25 +182,6 @@
             "--watch"
             "cliphist"
             "store"
-          ];
-        }
-        {
-          command = [
-            "dbus-update-activation-environment"
-            "--systemd"
-            "DISPLAY"
-            "WAYLAND_DISPLAY"
-            "XDG_CURRENT_DESKTOP"
-            "NIXOS_OZONE_WL"
-          ];
-        }
-        {
-          command = [
-            "dbus-update-activation-environment"
-            "--systemd"
-            "DISPLAY"
-            "WAYLAND_DISPLAY"
-            "XDG_CURRENT_DESKTOP"
           ];
         }
         { command = [ "kdeconnectd" ]; }

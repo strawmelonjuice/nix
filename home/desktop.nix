@@ -71,6 +71,13 @@
         if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
           git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
         fi
+
+        # Wait for awww-daemon to be ready
+        until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
+          echo "Waiting for awww-daemon..."
+          sleep 1
+        done
+
         HOUR=$(date +%H)
         if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
           # Night time: 19:00 to 07:59
@@ -79,8 +86,7 @@
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/1.png
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/2.png
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/3.png
-          noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png ""
-          noctalia-shell ipc call darkMode setDark
+          ${pkgs.awww}/bin/awww img /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png
         else
             # Day time
           ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
@@ -88,8 +94,7 @@
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/1.png
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/2.png
           cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/3.png
-          noctalia-shell ipc call wallpaper set /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png ""
-          noctalia-shell ipc call darkMode setLight
+          ${pkgs.awww}/bin/awww img /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png
         fi
       '';
     };

@@ -8,7 +8,7 @@
     home.packages = [
       pkgs.waybar
       pkgs.waybar-mpris
-      pkgs.swaybg
+      pkgs.awww
       pkgs.wlsunset
       # pkgs.networkmanagerapplet
       pkgs.pavucontrol
@@ -16,15 +16,6 @@
       pkgs.kdePackages.kwalletmanager
       pkgs.kdePackages.ksshaskpass
     ];
-
-    systemd.user.services.swaybg = {
-      Unit.Description = "Swaybg wallpaper daemon";
-      Install.WantedBy = [ "graphical-session.target" ];
-      Service = {
-        ExecStart = "${pkgs.swaybg}/bin/swaybg -i /home/mar/.local/share/wallpapers/current_wallpaper.png -m fill";
-        Restart = "always";
-      };
-    };
 
     services.wlsunset = {
       enable = true;
@@ -92,7 +83,7 @@
           "custom/exit" = {
             "format" = "";
             "tooltip-format" = "Powermenu";
-            "on-click" = "wlogout -b 4";
+            "on-click" = "wlogout";
             "tooltip" = false;
           };
 
@@ -150,7 +141,13 @@
             "format-charging" = "  {capacity}%";
             "format-plugged" = "  {capacity}%";
             "format-full" = "";
-            "format-icons" = [ " " " " " " " " " " ];
+            "format-icons" = [
+              " "
+              " "
+              " "
+              " "
+              " "
+            ];
           };
 
           "pulseaudio" = {
@@ -167,7 +164,11 @@
               "phone" = "";
               "portable" = "";
               "car" = "";
-              "default" = [ "" " " " " ];
+              "default" = [
+                ""
+                " "
+                " "
+              ];
             };
             "on-click" = "pavucontrol";
           };
