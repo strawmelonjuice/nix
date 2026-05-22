@@ -124,12 +124,12 @@
 
           cpu = {
             format = " {usage}% ";
-            on-click = "wezterm -e htop";
+            on-click = "wezterm -e btop -p 1";
           };
 
           memory = {
             format = " {}% ";
-            on-click = "wezterm -e btop";
+            on-click = "wezterm -e btop -p 0";
           };
 
           network = {
@@ -142,7 +142,9 @@
             tooltip-format-ethernet = "  {ifname} ({ipaddr}/{cidr})";
             tooltip-format-disconnected = "Disconnected";
             max-length = 50;
-            on-click = "wezterm -e nmtui connect";
+            on-click = "nm-connection-editor";
+            on-click-right = "wezterm -e nmtui connect";
+
           };
 
           battery = {
