@@ -26,7 +26,6 @@
         "zen.desktop"
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
-        "Cinny.desktop"
       ]
       ++ (
         if hostname == "Fennekin" then

@@ -2743,7 +2743,6 @@
        "zen"
        "org.wezfurlong.wezterm"
        "obsidian"
-       "Cinny"
       ]
     '';
   };

@@ -85,7 +85,6 @@
                   "applications:zen.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:obsidian.desktop"
-                  "applications:Cinny.desktop"
                 ]
                 ++ (
                   if hostname == "Fennekin" then
