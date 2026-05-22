@@ -159,6 +159,8 @@
             "NIXOS_OZONE_WL"
           ];
         }
+        { command = [ "blueman-applet" ]; }
+        { command = [ "blueman-tray" ]; }
         { command = [ "awww-daemon" ]; }
         { command = [ "waybar" ]; }
         # { command = [ "spotify" ]; }
