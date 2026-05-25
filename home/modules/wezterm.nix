@@ -26,7 +26,7 @@
         	end
         end
         config.color_scheme = get_time_of_day()
-        config.window_decorations = "NONE"
+        --config.window_decorations = "NONE"
         config.font = wezterm.font("Hermit")
         config.window_padding = {
         	left = 5,

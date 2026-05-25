@@ -162,6 +162,13 @@
         { command = [ "blueman-applet" ]; }
         { command = [ "blueman-tray" ]; }
         { command = [ "awww-daemon" ]; }
+        {
+          command = [
+            "awww"
+            "img"
+            "/home/mar/.local/share/wallpapers/current_wallpaper.png"
+          ];
+        }
         { command = [ "waybar" ]; }
         # { command = [ "spotify" ]; }
         { command = [ "strawberry" ]; }
