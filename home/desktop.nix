@@ -35,6 +35,7 @@
     # GUI Apps
     vivaldi
     crosspipe
+    owncloud-client
     # I make a lot of things with Inkscape actually!
     inkscape
   ];
