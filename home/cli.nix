@@ -19,6 +19,9 @@
   home.homeDirectory = "/home/mar";
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
+  programs.yazi = {
+    enable = true;
+  };
   programs.direnv = {
     silent = true;
     enable = true;

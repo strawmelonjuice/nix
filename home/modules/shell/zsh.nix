@@ -30,6 +30,7 @@
         { name = "giacomocavalieri/zsh_gleam_completions"; }
       ];
     };
+
     shellAliases = {
       # Stealing these back actually!
       to-dotfiles = "cd ~/.dotfiles || cd ~/dotfiles";
@@ -68,7 +69,9 @@
       # Zoxide + a little dash of info ------------------------------------------------
       cd = "zox";
       cdi = "zoxi";
+
     };
+
     initContent =
       let
         zshConfigEarlyInit = lib.mkOrder 500 ''

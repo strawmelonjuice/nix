@@ -1,5 +1,5 @@
 # Stole ollies idea of putting _part_ in a separate file and part inline :3
-
+export EDITOR=nvim
 # Function: zap
 _zap() {
     if [[ -d .jj || -d .git ]]; then
