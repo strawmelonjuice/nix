@@ -1,8 +1,19 @@
-{ pkgs, ... }:
+{ pkgs, inputs, config, ... }:
 
 {
+  xdg.configFile."gram".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/zed";
+
+  home.sessionVariables.GRAM_ALLOW_EMULATED_GPU = 1;
+
   programs.zed-editor = {
     enable = true;
+    package = pkgs.symlinkJoin {
+      name = "gram";
+      paths = [ inputs.nixpkgs26.legacyPackages.${pkgs.system}.gram ];
+      postBuild = ''
+        ln -s gram $out/bin/zeditor
+      '';
+    };
     extensions = [
       "html"
       "catppuccin"

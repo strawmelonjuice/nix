@@ -7,7 +7,9 @@
     };
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
-
+    };
+    nixpkgs26 = {
+      url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
     home-manager = {

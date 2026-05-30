@@ -11,7 +11,7 @@
     ./modules/niri.nix
 
     # Graphical development -------------------------------------------------------------------------------------------------
-    ./modules/development/zed.nix
+    ./modules/development/gram.nix
     ./modules/development/vscodium.nix
 
     # Browsers --------------------------------------------------------------------------------------------------------------
