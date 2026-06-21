@@ -31,6 +31,8 @@
             sideBar.location = "right";
           };
           security.workspace.trust.enabled = false;
+          workbench.startupEditor = "none";
+          git.enabled = false;
         };
       };
     };

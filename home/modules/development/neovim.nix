@@ -20,15 +20,8 @@
       # Taplo, TOML ls,linter and formatter
       taplo
 
-      # Unzip is depended on for unzipping certain dependencies.
-      # I have decided not to be too opinionated about this today.
-      unzip
-
       # AST-Grep
       ast-grep
-
-      # Node is required as runtime for some LSP's, among them css-ls and tailwindcss-ls
-      nodejs
 
       # SQL linter-formatter
       sqlfluff
@@ -43,6 +36,10 @@
       # More generic web-oriented linter-formatters: Biome, Prettier
       biome
       prettier
+
+      # Web stuff lsp's
+      tailwindcss-language-server
+      typescript-language-server
 
       # And duh
       nil

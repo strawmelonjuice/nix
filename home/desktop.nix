@@ -63,7 +63,6 @@
   home.sessionVariables.TERMINAL = "wezterm";
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
-  home.sessionVariables.ZED_ALLOW_EMULATED_GPU = 1;
 
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
