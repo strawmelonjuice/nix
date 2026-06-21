@@ -23,7 +23,7 @@
     };
     "org/gnome/shell" = {
       favorite-apps = [
-        "zen.desktop"
+        "vivaldi-stable.desktop"
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
       ]

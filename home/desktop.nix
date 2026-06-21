@@ -43,19 +43,19 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # 'librewolf.desktop' or 'vivaldi-stable.desktop' or...
-      "text/html" = "zen.desktop";
-      "x-scheme-handler/http" = "zen.desktop";
-      "x-scheme-handler/https" = "zen.desktop";
-      "x-scheme-handler/about" = "zen.desktop";
-      "x-scheme-handler/unknown" = "zen.desktop";
-      "application/xhtml+xml" = "zen.desktop";
-      "application/pdf" = "zen.desktop";
-      "application/x-extension-htm" = "zen.desktop";
-      "application/x-extension-html" = "zen.desktop";
-      "application/x-extension-shtml" = "zen.desktop";
-      "application/x-extension-xhtml" = "zen.desktop";
-      "application/x-extension-xht" = "zen.desktop";
+      # 'librewolf.desktop' or 'zen.desktop' or...
+      "text/html" = "vivaldi-stable.desktop";
+      "x-scheme-handler/http" = "vivaldi-stable.desktop";
+      "x-scheme-handler/https" = "vivaldi-stable.desktop";
+      "x-scheme-handler/about" = "vivaldi-stable.desktop";
+      "x-scheme-handler/unknown" = "vivaldi-stable.desktop";
+      "application/xhtml+xml" = "vivaldi-stable.desktop";
+      "application/pdf" = "vivaldi-stable.desktop";
+      "application/x-extension-htm" = "vivaldi-stable.desktop";
+      "application/x-extension-html" = "vivaldi-stable.desktop";
+      "application/x-extension-shtml" = "vivaldi-stable.desktop";
+      "application/x-extension-xhtml" = "vivaldi-stable.desktop";
+      "application/x-extension-xht" = "vivaldi-stable.desktop";
       "x-scheme-handler/obsidian" = "obsidian.desktop";
     };
   };

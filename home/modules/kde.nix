@@ -82,7 +82,7 @@
             config = {
               General = {
                 launchers = [
-                  "applications:zen.desktop"
+                  "applications:vivaldi-stable.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:obsidian.desktop"
                 ]

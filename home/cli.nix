@@ -75,26 +75,6 @@
     jq
   ];
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      # 'librewolf.desktop' or 'vivaldi-stable.desktop' or...
-      "text/html" = "zen.desktop";
-      "x-scheme-handler/http" = "zen.desktop";
-      "x-scheme-handler/https" = "zen.desktop";
-      "x-scheme-handler/about" = "zen.desktop";
-      "x-scheme-handler/unknown" = "zen.desktop";
-      "application/xhtml+xml" = "zen.desktop";
-      "application/pdf" = "zen.desktop";
-      "application/x-extension-htm" = "zen.desktop";
-      "application/x-extension-html" = "zen.desktop";
-      "application/x-extension-shtml" = "zen.desktop";
-      "application/x-extension-xhtml" = "zen.desktop";
-      "application/x-extension-xht" = "zen.desktop";
-      "x-scheme-handler/obsidian" = "obsidian.desktop";
-    };
-  };
-
   home.sessionVariables.SHELL = "zsh";
 
   xdg.userDirs = {
