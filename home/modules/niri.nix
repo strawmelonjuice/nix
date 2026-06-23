@@ -164,9 +164,13 @@
         { command = [ "awww-daemon" ]; }
         {
           command = [
-            "awww"
-            "img"
-            "/home/mar/.local/share/wallpapers/current_wallpaper.png"
+            "systemctl"
+            "--user"
+            "restart"
+            "wallpaper-switcher.service"
+            # This runs
+            # "awww" "img" "/home/mar/.local/share/wallpapers/current_wallpaper.png"
+            # But smarter.
           ];
         }
         { command = [ "waybar" ]; }
@@ -300,11 +304,11 @@
 
           hotkey-overlay.title = "Open that gnome file browser";
         };
-        "Mod+B" = {
+        "Mod+Shift+B" = {
           action.spawn = "zen";
           hotkey-overlay.title = "Open browser: Zen";
         };
-        "Mod+Shift+B" = {
+        "Mod+B" = {
 
           action.spawn = "vivaldi";
           hotkey-overlay.title = "Open browser: Vivaldi";
