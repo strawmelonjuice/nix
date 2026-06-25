@@ -16,7 +16,7 @@
         ;
     })
   ];
-  nix.package = pkgs.lixPackageSets.stable.lix;
+  nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
 
   nixpkgs.config = {
     permittedInsecurePackages = [

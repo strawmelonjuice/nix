@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 
@@ -19,6 +20,7 @@
   home.homeDirectory = "/home/mar";
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
+  nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
   programs.yazi = {
