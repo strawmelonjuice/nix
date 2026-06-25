@@ -19,8 +19,11 @@
   home.homeDirectory = "/home/mar";
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
+  nix.extraOptions = "experimental-features = nix-command flakes";
+
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";
   };
   programs.direnv = {
     silent = true;
