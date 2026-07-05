@@ -168,7 +168,6 @@
         }
         { command = [ "blueman-applet" ]; }
         { command = [ "blueman-tray" ]; }
-        { command = [ "awww-daemon" ]; }
         {
           command = [
             "systemctl"

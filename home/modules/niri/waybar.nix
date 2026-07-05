@@ -8,7 +8,6 @@
     home.packages = [
       pkgs.waybar
       pkgs.waybar-mpris
-      pkgs.awww
       pkgs.wlsunset
       # pkgs.networkmanagerapplet
       pkgs.pavucontrol

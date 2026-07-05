@@ -64,44 +64,47 @@
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
+  services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
-                                                     mkdir -p /home/mar/.local/share/wallpapers/slideshow
-                                                     if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
-                                                       git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
-                                                     fi
+        export LIGHTMODE="/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png"
+        export DARKMODE="/home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/retro_city.gif"
+        mkdir -p /home/mar/.local/share/wallpapers/slideshow
+        if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
+          git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
+        fi
 
-                                                     # Wait for awww-daemon to be ready
-                                                     until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
-                                                       echo "Waiting for awww-daemon..."
-                                                       sleep 1
-                                                     done
+        # Wait for awww-daemon to be ready
+        until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
+          echo "Waiting for awww-daemon..."
+          sleep 1
+        done
 
-                                                     HOUR=$(date +%H)
-                                                     if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
-                                                       # Night time: 19:00 to 07:59
-                				       echo "Good night!";
-                                                       ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/current_wallpaper.png
-                                                       # Fake slideshow!
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/1.png
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/2.png
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/3.png
-                                                       # ${pkgs.awww}/bin/awww img /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png
-                                             	       # AWWW supports whatever!
-                        			       ${pkgs.awww}/bin/awww img /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/retro_city.gif
-                                                     else
-                                                       # Day time
-                				       echo "Good day~!";
-                                                       ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
-                                                       # Here too
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/1.png
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/2.png
-                                                       cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/3.png
-        					       # AWWW supports whatever!
-                                                       ${pkgs.awww}/bin/awww img /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png
-                                                     fi
+        HOUR=$(date +%H)
+        if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
+          # Night time: 19:00 to 07:59
+          echo "Good night!";
+          # Fake slideshow!
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/1.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/2.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pastel-window.png /home/mar/.local/share/wallpapers/slideshow/3.png
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img $DARKMODE
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage $DARKMODE
+        else
+          # Day time
+          echo "Good day~!";
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          # Here too
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/1.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/2.png
+          cp --update=all /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/slideshow/3.png
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img $LIGHTMODE
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage $LIGHTMODE
+        fi
       '';
     };
   };
