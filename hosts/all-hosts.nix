@@ -32,7 +32,6 @@
     };
   };
   environment = {
-
     pathsToLink = [ "/share/zsh" ];
     variables = {
       GTK_IM_MODULE = lib.mkForce null;
@@ -95,10 +94,8 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment, Niri and Cosmic. I like to be able to switch whenever.
-  # services.displayManager.cosmic-greeter.enable = true;
+  # Enable niri and KDE. I like to be able to switch whenever.
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.cinnamon.enable = true;
   services.desktopManager.plasma6.enable = true;
   environment.plasma6.excludePackages = with pkgs; [
     kdePackages.elisa # We got strawberry
@@ -106,6 +103,7 @@
     kdePackages.konversation # IRC client
     kdePackages.kpat # Solitaire
     kdePackages.ksudoku
+    kdePackages.discover
     kdePackages.ktorrent
   ];
 
@@ -114,15 +112,14 @@
   security.pam.services.lightdm.kwallet.enable = true;
   security.pam.services.login.kwallet.enable = true;
 
-  services.desktopManager.cosmic.enable = true;
-  services.system76-scheduler.enable = true;
-  environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
-  environment.sessionVariables.XDG_CURRENT_DESKTOP = "cosmic";
-  environment.cosmic.excludePackages = with pkgs; [
-    cosmic-edit
-    cosmic-store
-  ];
-  # services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.system76-scheduler.enable = true;
+  # environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
+  # environment.sessionVariables.XDG_CURRENT_DESKTOP = "cosmic";
+  # environment.cosmic.excludePackages = with pkgs; [
+  #   cosmic-edit
+  #   cosmic-store
+  # ];
 
   # Keep nix store to a reasonable size
   nix.gc = {

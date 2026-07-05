@@ -6,7 +6,7 @@
 {
   imports = [
     # Enviroments -----------------------------------------------------------------------------------------------------------
-    ./modules/cosmic.nix
+    # ./modules/cosmic.nix
     ./modules/kde.nix
     ./modules/niri.nix
 

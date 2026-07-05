@@ -3,6 +3,7 @@
   lib,
   inputs,
   hostname,
+  config,
   ...
 }:
 
@@ -33,7 +34,11 @@
       colorScheme = "BreezeLight";
       cursor.theme = "Layan-cursors";
       iconTheme = "breeze";
-      wallpaper = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
+      wallpaper = [
+        "${config.home.homeDirectory}/.local/share/wallpapers/slideshow/1.png"
+        "${config.home.homeDirectory}/.local/share/wallpapers/slideshow/2.png"
+        "${config.home.homeDirectory}/.local/share/wallpapers/slideshow/3.png"
+      ];
     };
     configFile.kdeglobals.General.AccentColor = "245,194,231";
     configFile.kdeglobals.General.LastUsedCustomAccentColor = "245,194,231";
