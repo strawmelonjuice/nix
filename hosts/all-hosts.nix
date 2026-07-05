@@ -95,8 +95,16 @@
   services.xserver.enable = true;
 
   # Enable niri and KDE. I like to be able to switch whenever.
-  services.xserver.displayManager.lightdm.enable = true;
+  programs.niri.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  # Switching to SDDM after hopping around a lot; will we hate this?
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+    autoNumlock = true;
+  };
+
   environment.plasma6.excludePackages = with pkgs; [
     kdePackages.elisa # We got strawberry
     kdePackages.kdepim-runtime
@@ -107,7 +115,7 @@
     kdePackages.ktorrent
   ];
 
-  programs.niri.enable = true;
+  # Whatever I use, keep using kwallet
   services.gnome.gnome-keyring.enable = lib.mkForce false;
   security.pam.services.lightdm.kwallet.enable = true;
   security.pam.services.login.kwallet.enable = true;
