@@ -56,10 +56,7 @@
   services.displayManager.defaultSession = "plasma";
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "euro";
-  };
+  # services.xserver.xkb = {     layout = "us";     variant = "euro";  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -83,7 +80,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # services.desktopManager.gnome.enable = true;
   # services.desktopManager.lomiri.enable = true;
   # programs.ssh.askPassword = lib.mkForce "${pkgs.gnome-themes-extra}/libexec/seahorse/ssh-askpass";
 
