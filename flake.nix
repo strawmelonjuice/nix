@@ -82,9 +82,6 @@
               };
               home-manager.users.mar = {
                 imports = getHomeModules hostname is_workstation;
-                news.display = "silent";
-                home.username = "mar";
-                home.homeDirectory = "/home/mar";
 
               };
             }

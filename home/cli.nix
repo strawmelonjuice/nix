@@ -17,6 +17,7 @@
   ];
 
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
+  news.display = "silent";
   nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
 
   nix.extraOptions = "experimental-features = nix-command flakes";
@@ -79,6 +80,9 @@
   ];
 
   home.sessionVariables.SHELL = "zsh";
+
+  home.username = "mar";
+  home.homeDirectory = "/home/mar";
 
   xdg.userDirs = {
     enable = true;
