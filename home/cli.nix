@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  inputs,
   ...
 }:
 
@@ -14,6 +15,8 @@
     # Shell
     ./modules/shell/kc.nix
     ./modules/shell/zsh.nix
+
+    inputs.direnv-instant.homeModules.direnv-instant
   ];
 
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
@@ -26,10 +29,24 @@
     enable = true;
     shellWrapperName = "y";
   };
+
+  # Direnv stuff
   programs.direnv = {
     silent = true;
     enable = true;
+    nix-direnv = {
+      enable = true;
+    };
+    # Direnv instant should have me here:
+    enableBashIntegration = false;
+    enableFishIntegration = false;
+    enableZshIntegration = false;
   };
+  programs.direnv-instant = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.hyfetch = {
     enable = true;
     settings = {

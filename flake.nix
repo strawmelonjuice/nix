@@ -35,6 +35,7 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    direnv-instant.url = "github:Mic92/direnv-instant";
   };
   outputs =
     {
