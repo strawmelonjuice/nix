@@ -64,6 +64,9 @@
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
+  services.kdeconnect.enable = true;
+  services.owncloud-client.enable = true;
+  services.tailscale-systray.enable = true;
   services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";

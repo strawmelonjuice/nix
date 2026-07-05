@@ -3,13 +3,10 @@
 
   inputs = {
     nixpkgs-stable = {
-      url = "github:nixos/nixpkgs/nixos-25.11";
+      url = "github:nixos/nixpkgs/nixos-26.05";
     };
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    nixpkgs26 = {
-      url = "github:nixos/nixpkgs/nixos-26.05";
     };
 
     home-manager = {
@@ -80,9 +77,15 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.extraSpecialArgs = { inherit inputs hostname; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs hostname;
+              };
               home-manager.users.mar = {
                 imports = getHomeModules hostname is_workstation;
+                news.display = "silent";
+                home.username = "mar";
+                home.homeDirectory = "/home/mar";
+
               };
             }
           ];

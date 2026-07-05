@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
 {
+  services.radicle.node.lazy.enable = true;
   programs.radicle = {
     enable = true;
   };
