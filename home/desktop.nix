@@ -12,12 +12,12 @@
     ./modules/niri.nix
 
     # Graphical development -------------------------------------------------------------------------------------------------
-    ./modules/development/gram.nix
     ./modules/development/vscodium.nix
+    # ./modules/development/gram.nix
 
     # Browsers --------------------------------------------------------------------------------------------------------------
-    # ./modules/librewolf.nix
     ./modules/zen.nix
+    # ./modules/librewolf.nix
     #-> And vivaldi, which is configured non-declaratively.
 
     # Graphical terminal emulator -------------------------------------------------------------------------------------------
