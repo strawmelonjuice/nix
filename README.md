@@ -5,17 +5,24 @@ I mainly keep this readme for myself, but if you're trying to adopt my dotfiles 
 Cloning the `nix` branch using `jj` from my Tangled knot:
 
 ```bash
+# Preparing ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Temporary pre-install these required packages
 nix shell nixpkgs#git nixpkgs#jujutsu --extra-experimental-features nix-command --extra-experimental-features flakes
 
+# Cloning ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Clone the dotfiles
-jj git clone https://tangled.org/did:plc:jgtfsmv25thfs4zmydtbccnn/nix -b main ~/.dotfiles
+jj git clone https://tangled.org/did:plc:f7kla3ryltgfgbecm44sg2mm -b main ~/.dotfiles
 
 cd ~/.dotfiles
 # Set origin correctly for dotfiles, assuming you by the time you push again have the keys.
-jj git remote set-url origin git@knot.strawmelonjuice.com:did:plc:jgtfsmv25thfs4zmydtbccnn/nix
+jj git remote set-url origin git@knot.ollie.earth:did:plc:f7kla3ryltgfgbecm44sg2mm
+# If you're not me you may want to fork for this above step!
+
+
+# Optional cloning ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Clone wallpapers.
-jj git clone https://github.com/D3Ext/aesthetic-wallpapers.git ~/.local/share/wallpapers/aesthetic-wallpapers
+jj git clone https://forge.strawmelonjuice.com/strawmelonjuice/aesthetic-wallpapers-mirror.git ~/.local/share/wallpapers/aesthetic-wallpapers
+# Or https://github.com/D3Ext/aesthetic-wallpapers.git
 ```
 
 ### 2. Initialize a new Host (optional, if this is a brand new device)
