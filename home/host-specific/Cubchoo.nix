@@ -103,7 +103,7 @@
     ];
     volumes = [
       "${config.home.homeDirectory}/services/data/caddy:/data:Z"
-      "${config.home.homeDirectory}/.config/services/Caddy:/etc/caddy:Z"
+      "${config.home.homeDirectory}/.config/services/Caddy/Caddyfile:/etc/caddy/Caddyfile:Z"
       "${config.home.homeDirectory}/site:/srv/strawmelonjuice-site:ro"
     ];
   };
