@@ -214,7 +214,7 @@
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Add symlink between Owncloud files <-> Home folders
   home.file."media/music" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/services/data/owncloud/data/files/mar/files/Music";
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/services/data/owncloud/data/files/mar/files/Music";
     force = true;
   };
 
