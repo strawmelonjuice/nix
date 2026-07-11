@@ -111,6 +111,7 @@
     ];
   };
 
+  programs.zsh.shellAliases.caddy-reload = "podman exec -it caddy caddy reload --config /etc/caddy/Caddyfile";
   xdg.configFile."services/Caddy/Caddyfile".text = ''
     {
     	email webmaster@strawmelonjuice.com
@@ -335,7 +336,6 @@
       '';
     };
   };
-  # Run every hour
   systemd.user.timers.services-backups = {
     Unit.Description = "Daily backup at half past eleven.";
     Timer = {
