@@ -113,8 +113,6 @@
   environment.systemPackages = with pkgs; [
     grc
     galaxy-buds-client
-    jetbrains.rust-rover
-    jetbrains.webstorm
   ];
 
   programs.steam = {

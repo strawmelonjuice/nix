@@ -86,12 +86,6 @@
   environment.systemPackages = with pkgs; [
     grc
     galaxy-buds-client
-    # Big screen: May run JetBrains.
-    jetbrains.rust-rover
-    jetbrains.webstorm
-    # What am I turning in to...
-    jetbrains.rider
-    jetbrains.pycharm
   ];
 
   programs.steam = {

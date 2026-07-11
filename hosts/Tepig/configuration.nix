@@ -67,6 +67,7 @@
   services.displayManager.defaultSession = "cinnamon";
   services.desktopManager.plasma6.enable = true;
   services.displayManager.cosmic-greeter.enable = lib.mkForce false;
+  services.displayManager.gdm.enable = lib.mkForce false;
   programs.niri.enable = lib.mkForce false;
 
   # Configure keymap in X11

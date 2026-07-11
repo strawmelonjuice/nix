@@ -4,10 +4,12 @@
 }:
 {
   imports = [
-    ./modules/steam.nix
-    ./modules/conversation.nix
-    ./modules/music-streaming.nix
-    ./modules/school.nix
+    ../modules/entertainment/steam.nix
+    ../modules/entertainment/music-streaming.nix
+    ../modules/conversation.nix
+    ../modules/school.nix
+    # Huge screen, may run jetbrains
+    ../modules/development/jetbrainspackages.nix
   ];
   home.packages = with pkgs; [
     wineWow64Packages.stable
