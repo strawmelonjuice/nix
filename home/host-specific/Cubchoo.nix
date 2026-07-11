@@ -93,122 +93,121 @@
   '';
 
   # Caddy ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  services.caddy = {
-    enable = true;
-    virtualHosts = {
-      # email = "webmaster@strawmelonjuice.com";
-      configFile = pkgs.writeText "Caddyfile" ''
-                {
-        	email webmaster@strawmelonjuice.com
-        }
-
-        (icon_redirect) {
-        	redir /assets/site_icon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /favicon.ico https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /assets/img/favicon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /assets/img/favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /assets/img/site_icon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        	redir /assets/img/logo.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-        }
-
-        knot.strawmelonjuice.com {
-        	reverse_proxy tangled:5555
-        }
-
-        music.strawmelonjuice.com {
-        	reverse_proxy navidrome:4533
-        }
-
-        git.strawmelonjuice.com {
-        	redir https://forge.strawmelonjuice.com{uri}
-        }
-
-        forge.strawmelonjuice.com {
-        	redir /assets/site_icon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /favicon.ico https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /assets/img/favicon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /assets/img/favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /assets/img/site_icon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-        	redir /assets/img/logo.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-
-
-        	# proxy to forgejo
-        	# reverse_proxy anubis-forge:3000 {
-        	reverse_proxy forgejo:3000 {
-        		header_up X-Real-Ip {remote_host}
-        	}
-        }
-
-        files-shared.strawmelonjuice.com {
-        	redir https://media.strawmelonjuice.com{uri}
-        }
-
-        fonts.strawmelonjuice.com {
-        	reverse_proxy 100.65.127.22:39936
-        }
-
-        media.strawmelonjuice.com {
-        	# request_body {
-        	#     max_size 3GB
-        	# }
-        	reverse_proxy strawmedia:3022
-        }
-
-        cloud.strawmelonjuice.com {
-        	reverse_proxy owncloud_server:8080
-        }
-
-        www.strawmelonjuice.com,
-        strawmelonjuice.com {
-        	# Old strawmelonjuice.php and Cynthia Full pages that google is still trying and its annoying me.
-        	@old_php_pages {
-        		query p=*
-        		query c=*
-        	}
-
-        	handle @old_php_pages {
-        		respond "This content is no longer available." 410
-        	}
-        	# ===================------ ATPROTO ------===================
-        	handle_path /.well-known/atproto-did {
-        		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
-        	}
-
-        	# ================---- Matrix Homeserver ----================
-        	handle /.well-known/matrix/* {
-        		header Access-Control-Allow-Origin "*"
-        		header Content-Type "application/json"
-
-        		# Using a Matcher inside the handle to respond differently
-        		@server path /.well-known/matrix/server
-        		respond @server `{"m.server": "strawmelonjuice.com:443"}`
-
-        		@client path /.well-known/matrix/client
-        		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
-        	}
-
-        	handle /_matrix/* {
-        		reverse_proxy matrix:8008
-        	}
-
-        	handle /_synapse/client/* {
-        		reverse_proxy matrix:8008
-        	}
-
-        	# ===================------ My Site ------===================
-        	handle {
-        		root * /srv/strawmelonjuice-site/
-        		try_files {path} {path}/index.html /unpopulated.html unpopulated.html
-        		file_server
-        	}
-        }
-      '';
-    };
-
+  services.podman.containers.caddy = {
+    image = "docker.io/library/caddy";
+    network = "server-net";
+    ports = [
+      "80:80"
+      "443:443"
+      "443:443/udp"
+    ];
+    volumes = [
+      "${config.home.homeDirectory}/services/data/caddy:/data:Z"
+      "${config.home.homeDirectory}/.config/services/Caddy:/etc/caddy:Z"
+      "${config.home.homeDirectory}/site:/srv/strawmelonjuice-site:ro"
+    ];
   };
 
+  xdg.configFile."services/Caddy/Caddyfile".text = ''
+    {
+    	email webmaster@strawmelonjuice.com
+    }
+
+    (icon_redirect) {
+    	redir /assets/site_icon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /favicon.ico https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /assets/img/favicon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /assets/img/favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /assets/img/site_icon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    	redir /assets/img/logo.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+    }
+
+    git.strawmelonjuice.com {
+    	redir https://forge.strawmelonjuice.com{uri}
+    }
+
+    forge.strawmelonjuice.com {
+    	redir /assets/site_icon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /favicon.ico https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /assets/img/favicon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /assets/img/favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /assets/img/site_icon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+    	redir /assets/img/logo.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+
+
+    	# proxy to forgejo
+    	# reverse_proxy anubis-forge:3000 {
+    	reverse_proxy forgejo:3000 {
+    		header_up X-Real-Ip {remote_host}
+    	}
+    }
+
+    files-shared.strawmelonjuice.com {
+    	redir https://media.strawmelonjuice.com{uri}
+    }
+
+    fonts.strawmelonjuice.com {
+    	reverse_proxy 100.65.127.22:39936
+    }
+
+    media.strawmelonjuice.com {
+    	# request_body {
+    	#     max_size 3GB
+    	# }
+    	reverse_proxy strawmedia:3022
+    }
+
+    cloud.strawmelonjuice.com {
+    	reverse_proxy owncloud_server:8080
+    }
+
+    www.strawmelonjuice.com,
+    strawmelonjuice.com {
+    	# Old strawmelonjuice.php and Cynthia Full pages that google is still trying and its annoying me.
+    	@old_php_pages {
+    		query p=*
+    		query c=*
+    	}
+
+    	handle @old_php_pages {
+    		respond "This content is no longer available." 410
+    	}
+    	# ===================------ ATPROTO ------===================
+    	handle_path /.well-known/atproto-did {
+    		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
+    	}
+
+    	# ================---- Matrix Homeserver ----================
+    	handle /.well-known/matrix/* {
+    		header Access-Control-Allow-Origin "*"
+    		header Content-Type "application/json"
+
+    		# Using a Matcher inside the handle to respond differently
+    		@server path /.well-known/matrix/server
+    		respond @server `{"m.server": "strawmelonjuice.com:443"}`
+
+    		@client path /.well-known/matrix/client
+    		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
+    	}
+
+    	handle /_matrix/* {
+    		reverse_proxy matrix:8008
+    	}
+
+    	handle /_synapse/client/* {
+    		reverse_proxy matrix:8008
+    	}
+
+    	# ===================------ My Site ------===================
+    	handle {
+    		root * /srv/strawmelonjuice-site/
+    		try_files {path} {path}/index.html /unpopulated.html unpopulated.html
+    		file_server
+    	}
+    }
+  '';
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Add symlink between Owncloud files <-> Home folders
   home.file."media/music" = {
