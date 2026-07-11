@@ -1,4 +1,6 @@
 { pkgs, config, ... }: {
+  targets.genericLinux.enable = true;
+
   # Shared network ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman = {
     networks = {
@@ -94,6 +96,7 @@
 
   # Caddy ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers.caddy = {
+    autoStart = true;
     image = "docker.io/library/caddy";
     network = "server-net";
     ports = [
@@ -215,6 +218,80 @@
     force = true;
   };
 
+  systemd.user.services.owncloud = {
+    enable = true;
+    Service = {
+      ExecStart = pkgs.writeShellScript "owncloud-starter" ''
+        if [ ! -f "${config.xdg.configHome}/.config/services/OwnCloud/.env" ]; then
+        	echo "Missing file : ${config.xdg.configHome}/.config/services/OwnCloud/.env"
+        	exit 1
+        fi
+        cd "${config.xdg.configHome}/.config/services/OwnCloud" && podman compose --env-file ./.env --project-name cloud up 
+      '';
+    };
+  };
+
+  # Define composefile
+  xdg.configFile."services/OwnCloud/docker-compose.yml".text = ''
+    networks:
+      server-net:
+        external: true
+      owncloud-net:
+
+
+    volumes:
+      redis:
+        driver: local
+
+    services:
+      owncloud:
+        # On 8080
+        image: owncloud/server:latest
+        container_name: owncloud_server
+        depends_on:
+          - redis
+        environment:
+          - OWNCLOUD_DOMAIN=cloud.strawmelonjuice.com
+          - OWNCLOUD_TRUSTED_DOMAINS=cloud.strawmelonjuice.com
+          - OWNCLOUD_ADMIN_USERNAME=''${OWNCLOUD_ADMIN_USERNAME}
+          - OWNCLOUD_ADMIN_PASSWORD=''${OWNCLOUD_ADMIN_PASSWORD}
+          - OWNCLOUD_REDIS_ENABLED=true
+          - OWNCLOUD_REDIS_HOST=redis
+          # Main db
+          - OWNCLOUD_DB_TYPE=pgsql 
+          - OWNCLOUD_DB_NAME=owncloud
+          - OWNCLOUD_DB_USERNAME=owncloud
+          - OWNCLOUD_DB_PASSWORD=owncloud
+          - OWNCLOUD_DB_HOST=main-database:5432
+        healthcheck:
+          test: ["CMD", "/usr/bin/healthcheck"]
+          interval: 30s
+          timeout: 10s
+          retries: 5
+        volumes:
+          - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data
+        networks:
+          server-net:
+            aliases:
+              - cloud
+          owncloud-net:
+
+      redis:
+        image: redis:6
+        container_name: owncloud_redis
+        command: ["--databases", "1"]
+        healthcheck:
+          test: ["CMD", "redis-cli", "ping"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
+        volumes:
+          - redis:/data
+        networks:
+          owncloud-net:
+            aliases: 
+              - redis
+  '';
   # Backups ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   systemd.user.services.services-backups = {
     Unit.Description = "Backups";
