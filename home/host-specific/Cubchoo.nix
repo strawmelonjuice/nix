@@ -245,7 +245,6 @@
 
     services:
       owncloud:
-        # On 8080
         image: owncloud/server:latest
         container_name: owncloud_server
         depends_on:
@@ -269,7 +268,7 @@
           timeout: 10s
           retries: 5
         volumes:
-          - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data
+          - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data:Z
         networks:
           server-net:
             aliases:
