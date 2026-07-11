@@ -112,6 +112,7 @@
   };
 
   programs.zsh.shellAliases.caddy-reload = "podman exec -it caddy caddy reload --config /etc/caddy/Caddyfile";
+
   xdg.configFile."services/Caddy/Caddyfile".text = ''
     {
     	email webmaster@strawmelonjuice.com
@@ -212,6 +213,7 @@
     	}
     }
   '';
+
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Add symlink between Owncloud files <-> Home folders
   home.file."media/music" = {
@@ -292,6 +294,32 @@
             aliases: 
               - redis
   '';
+  # Forgejo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  services.podman.containers.forgejo = {
+    autoStart = true;
+    autoUpdate = "registry";
+    image = "codeberg.org/forgejo/forgejo:15.0.4";
+    network = "server-net";
+    ports = [
+      "222:22"
+    ];
+    environment = {
+      "FORGEJO__database__DB_TYPE" = "postgres";
+      "FORGEJO__database__HOST" = "main-database:5432";
+      "FORGEJO__database__NAME" = "forgejo";
+      "FORGEJO__database__USER" = "forgejo";
+      "FORGEJO__database__PASSWD" = "forgejo";
+      "FORGEJO__DEFAULT__APP_NAME" = "Mar's forge";
+      "FORGEJO__DEFAULT__APP_SLOGAN" = "The fruitiest git forge";
+      "FORGEJO__server__ROOT_URL" = "https://forge.strawmelonjuice.com";
+      "FORGEJO__server__OFFLINE_MODE" = false;
+      "FORGEJO__mirror__ENABLED" = true;
+    };
+    volumes = [
+      "${config.home.homeDirectory}/services/data/forgejo:/data:Z"
+    ];
+  };
+
   # Strawmelonjuice media share ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers.mediajuice = {
     autoStart = true;
