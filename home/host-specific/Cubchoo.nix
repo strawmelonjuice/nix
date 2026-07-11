@@ -292,6 +292,19 @@
             aliases: 
               - redis
   '';
+  # Strawmelonjuice media share ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  services.podman.containers.mediajuice = {
+    autoStart = true;
+    image = "docker.io/strawmelonjuice/strawmediajuice:1.2.1";
+    network = "server-net";
+    environment = {
+      PORT = 3022;
+    };
+    volumes = [
+      "${config.home.homeDirectory}/services/data/strawmediajuice:/app/data:Z"
+    ];
+  };
+
   # Backups ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   systemd.user.services.services-backups = {
     Unit.Description = "Backups";
