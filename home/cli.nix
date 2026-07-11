@@ -25,10 +25,7 @@
 
   nix.extraOptions = "experimental-features = nix-command flakes";
 
-  programs.yazi = {
-    enable = true;
-    shellWrapperName = "y";
-  };
+  services.podman.enable = true;
 
   # Direnv stuff
   programs.direnv = {
