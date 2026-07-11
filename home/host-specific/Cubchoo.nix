@@ -333,6 +333,42 @@
     ];
   };
 
+  # Matrix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  services.podman.containers.matrix-main = {
+    autoStart = true;
+    networkAlias = [
+      "matrix"
+      "synapse"
+    ];
+    network = "server-net";
+    # ports = [ "8008:8008" ];
+    image = "matrixdotorg/synapse:latest";
+    environment = {
+      SYNAPSE_CONFIG_PATH = "SYNAPSE_CONFIG_PATH=/data/homeserver.yaml";
+    };
+    volumes = [
+      "${config.home.homeDirectory}/services/data/matrix/synapse:/data:Z"
+    ];
+  };
+  services.podman.containers.matrix-whatsapp = {
+    autoStart = true;
+    networkAlias = [ "mautrix-whatsapp" ];
+    network = "server-net";
+    image = "dock.mau.dev/mautrix/whatsapp:latest";
+    volumes = [
+      "${config.home.homeDirectory}/services/data/matrix/whatsapp:/data:Z"
+    ];
+  };
+  services.podman.containers.matrix-signal = {
+    autoStart = true;
+    networkAlias = [ "mautrix-signal" ];
+    network = "server-net";
+    image = "dock.mau.dev/mautrix/signal:latest";
+    volumes = [
+      "${config.home.homeDirectory}/services/data/matrix/signal:/data:Z"
+    ];
+  };
+
   # Backups ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   systemd.user.services.services-backups = {
     Unit.Description = "Backups";
