@@ -219,16 +219,16 @@
   };
 
   systemd.user.services.owncloud = {
-    enable = true;
     Service = {
       ExecStart = pkgs.writeShellScript "owncloud-starter" ''
-        if [ ! -f "${config.xdg.configHome}/.config/services/OwnCloud/.env" ]; then
-        	echo "Missing file : ${config.xdg.configHome}/.config/services/OwnCloud/.env"
+        if [ ! -f "${config.xdg.configHome}/services/OwnCloud/.env" ]; then
+        	echo "Missing file : ${config.xdg.configHome}/services/OwnCloud/.env"
         	exit 1
         fi
-        cd "${config.xdg.configHome}/.config/services/OwnCloud" && podman compose --env-file ./.env --project-name cloud up 
+        cd "${config.xdg.configHome}/services/OwnCloud" && podman compose --env-file ./.env --project-name cloud up 
       '';
     };
+    Install.WantedBy = [ "multi-user.target" ];
   };
 
   # Define composefile
