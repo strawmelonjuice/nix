@@ -374,42 +374,43 @@
     Unit.Description = "Backups";
     Service = {
       ExecStart = pkgs.writeShellScript "backups" ''
-        BACKUP_DIR="${config.home.homeDirectory}/backups_temp"
-        DATA_DIR="${config.home.homeDirectory}/services/data"
-        TIMESTAMP=$(date +"%Y-%m-%d-%H.%M")
-        ARCHIVE_NAME="$TIMESTAMP.tar.zst"
-        FINAL_DEST="${config.home.homeDirectory}/backups"
+                BACKUP_DIR="${config.home.homeDirectory}/backups_temp"
+                DATA_DIR="${config.home.homeDirectory}/services/data"
+                TIMESTAMP=$(date +"%Y-%m-%d-%H.%M")
+                ARCHIVE_NAME="$TIMESTAMP.tar.zst"
+                FINAL_DEST="${config.home.homeDirectory}/backups"
 
 
-        rm -rf $BACKUP_DIR
-        mkdir -p $BACKUP_DIR
-        mkdir -p $FINAL_DEST
+                rm -rf $BACKUP_DIR
+                mkdir -p $BACKUP_DIR
+                mkdir -p $FINAL_DEST
 
-        echo "Dumping database..."
-        ${pkgs.podman} exec main-database pg_dumpall -U postgres > $BACKUP_DIR/full_db_backup.sql
+                echo "Dumping database..."
+                ${pkgs.podman} exec main-database pg_dumpall -U postgres > $BACKUP_DIR/full_db_backup.sql
 
 
-        echo "Cloning services repository..."
-        git clone --depth 1 --bare https://tangled.org/did:plc:jgtfsmv25thfs4zmydtbccnn/services $BACKUP_DIR/services_repo
+                echo "Cloning services repository..."
+                git clone --depth 1 --bare https://tangled.org/did:plc:jgtfsmv25thfs4zmydtbccnn/services $BACKUP_DIR/services_repo
 
-        echo "Copying data folder..."
-        sudo cp -r $DATA_DIR $BACKUP_DIR/data_files
-        sudo rm -fr $BACKUP_DIR/data_files/owncloud/data/files/mar/files/Music
-        sudo chown mar:mar -R $BACKUP_DIR
+                echo "Copying data folder..."
+                sudo cp -r $DATA_DIR $BACKUP_DIR/data_files
+                sudo rm -fr $BACKUP_DIR/data_files/owncloud/data/files/mar/files/Music
+                sudo chown mar:mar -R $BACKUP_DIR
 
-        echo "Creating archive..."
-        tar -I 'zstd -1 --threads=0' -cf $FINAL_DEST/$ARCHIVE_NAME -C $BACKUP_DIR .
+                echo "Creating archive..."
+                tar -I 'zstd -1 --threads=0' -cf $FINAL_DEST/$ARCHIVE_NAME -C $BACKUP_DIR .
 
-        echo "Uploading configs and data..."
-        # rsync --bwlimit=5000 --partial --progress -avzt $FINAL_DEST/$ARCHIVE_NAME root@mar-backups:${config.home.homeDirectory}/backups/
-        tailscale file cp $FINAL_DEST/$ARCHIVE_NAME root@mar-backups:${config.home.homeDirectory}/backups/
-        echo "Uploading any new or updated music..."
-        rsync --bwlimit=5000  -hrvPt --update ${config.home.homeDirectory}/media/music root@mar-backups:${config.home.homeDirectory}/music
+                echo "Uploading configs and data..."
+                # rsync --bwlimit=5000 --partial --progress -avzt $FINAL_DEST/$ARCHIVE_NAME root@mar-backups:${config.home.homeDirectory}/backups/
+        	ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
+                tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
+                echo "Uploading any new or updated music..."
+                rsync --bwlimit=5000  -hrvPt --update ${config.home.homeDirectory}/media/music root@mar-backups:${config.home.homeDirectory}/music
 
-        echo "Cleaning up..."
-        rm -rf $BACKUP_DIR
+                echo "Cleaning up..."
+                rm -rf $BACKUP_DIR
 
-        echo "Backup $ARCHIVE_NAME complete!"
+                echo "Backup $ARCHIVE_NAME complete!"
       '';
     };
   };
