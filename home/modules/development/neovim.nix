@@ -66,7 +66,7 @@
   programs.helix = {
     enable = true;
     settings = {
-      theme = "flatwhite";
+      theme = "base16_default_light";
       editor.line-number = "relative";
       editor.mouse = true;
       editor.cursor-shape.insert = "bar";
@@ -77,12 +77,10 @@
         "C-s" = ":write";
       };
       keys.normal.space.M = {
-        l = ":theme flatwhite";
-        L = ":theme bogster_light";
-        g = ":theme github_dark_high_contrast";
-        G = ":theme rose_pine_moon";
-        d = ":theme iroaseta";
-        D = ":theme tokyonight_moon";
+        l = ":theme base16_default_light";
+        L = ":theme flatwhite";
+        d = ":theme tokyonight_moon";
+        D = ":theme iroaseta";
       };
       keys.insert = {
         "C-s" = [
