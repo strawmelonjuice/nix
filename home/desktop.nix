@@ -59,7 +59,30 @@
       "application/x-extension-shtml" = "vivaldi-stable.desktop";
       "application/x-extension-xhtml" = "vivaldi-stable.desktop";
       "application/x-extension-xht" = "vivaldi-stable.desktop";
+
+      # Obsidian for obsidian
       "x-scheme-handler/obsidian" = "obsidian.desktop";
+
+      #jetbrains for jetbrains ???
+
+      "x-scheme-handler/jetbrains" = "jetbrainsd.desktop";
+
+      # Thunderbird for thunderbird things
+
+      "x-scheme-handler/mailto" = "userapp-Thunderbird-2NFCS3.desktop";
+      "message/rfc822" = "userapp-Thunderbird-2NFCS3.desktop";
+      "x-scheme-handler/mid" = "userapp-Thunderbird-2NFCS3.desktop";
+      "x-scheme-handler/news" = "userapp-Thunderbird-Y55CS3.desktop";
+      "x-scheme-handler/snews" = "userapp-Thunderbird-Y55CS3.desktop";
+      "x-scheme-handler/nntp" = "userapp-Thunderbird-Y55CS3.desktop";
+      "x-scheme-handler/feed" = "userapp-Thunderbird-U91AS3.desktop";
+      "application/rss+xml" = "userapp-Thunderbird-U91AS3.desktop";
+      "application/x-extension-rss" = "userapp-Thunderbird-U91AS3.desktop";
+      "x-scheme-handler/webcal" = "userapp-Thunderbird-FM1PS3.desktop";
+      "text/calendar" = "userapp-Thunderbird-FM1PS3.desktop";
+      "application/x-extension-ics" = "userapp-Thunderbird-FM1PS3.desktop";
+      "x-scheme-handler/webcals" = "userapp-Thunderbird-FM1PS3.desktop";
+
     };
   };
 
