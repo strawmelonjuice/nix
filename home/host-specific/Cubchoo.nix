@@ -325,6 +325,7 @@
     autoStart = true;
     image = "docker.io/strawmelonjuice/strawmediajuice:1.2.1";
     network = "server-net";
+    networkAlias = [ "strawmedia" ];
     environment = {
       PORT = 3022;
     };
@@ -374,43 +375,40 @@
     Unit.Description = "Backups";
     Service = {
       ExecStart = pkgs.writeShellScript "backups" ''
-                BACKUP_DIR="${config.home.homeDirectory}/backups_temp"
-                DATA_DIR="${config.home.homeDirectory}/services/data"
-                TIMESTAMP=$(date +"%Y-%m-%d-%H.%M")
-                ARCHIVE_NAME="$TIMESTAMP.tar.zst"
-                FINAL_DEST="${config.home.homeDirectory}/backups"
+        BACKUP_DIR="${config.home.homeDirectory}/backups_temp"
+        DATA_DIR="${config.home.homeDirectory}/services/data"
+        TIMESTAMP=$(date +"%Y-%m-%d-%H.%M")
+        ARCHIVE_NAME="$TIMESTAMP.tar.zst"
+        FINAL_DEST="${config.home.homeDirectory}/backups"
+
+        mkdir -p $BACKUP_DIR
+        mkdir -p $FINAL_DEST
+
+        echo "Dumping database..."
+        rm -fr  $BACKUP_DIR/full_db_backup.sql
+        ${pkgs.podman}/bin/podman exec main-database pg_dumpall -U postgres > $BACKUP_DIR/full_db_backup.sql
 
 
-                rm -rf $BACKUP_DIR
-                mkdir -p $BACKUP_DIR
-                mkdir -p $FINAL_DEST
+        echo "Copying local dotfiles..."
+        ${pkgs.rsync}/bin/rsync -rlptDX --delete "${config.home.homeDirectory}/.dotfiles/" "$BACKUP_DIR/local_dotfiles/"
 
-                echo "Dumping database..."
-                ${pkgs.podman} exec main-database pg_dumpall -U postgres > $BACKUP_DIR/full_db_backup.sql
+        echo "Copying data folder..."
+        # sudo cp -r $DATA_DIR $BACKUP_DIR/data_files
+        # sudo rm -fr $BACKUP_DIR/data_files/owncloud/data/files/mar/files/Music
+        sudo ${pkgs.rsync}/bin/rsync -rlptDX --delete --exclude='owncloud/data/files/mar/files/Music' "$DATA_DIR/" "$BACKUP_DIR/data_files/"
+        sudo chown mar:mar -R "$BACKUP_DIR"
 
+        echo "Creating archive..."
+        ${pkgs.gnutar}/bin/tar -I 'zstd -1 --threads=0' -cf $FINAL_DEST/$ARCHIVE_NAME -C $BACKUP_DIR .
 
-                echo "Cloning services repository..."
-                git clone --depth 1 --bare https://tangled.org/did:plc:jgtfsmv25thfs4zmydtbccnn/services $BACKUP_DIR/services_repo
+        echo "Uploading configs and data..."
+        ${pkgs.rsync}/bin/rsync --bwlimit=4000 --partial --progress -avz $FINAL_DEST/$ARCHIVE_NAME frigometri::backups/
+        # ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
+        # tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
+        echo "Uploading any new or updated music..."
+        ${pkgs.rsync}/bin/rsync --bwlimit=4000 -hrvPt --update --size-only ${config.home.homeDirectory}/media/music/ frigometri::music/
 
-                echo "Copying data folder..."
-                sudo cp -r $DATA_DIR $BACKUP_DIR/data_files
-                sudo rm -fr $BACKUP_DIR/data_files/owncloud/data/files/mar/files/Music
-                sudo chown mar:mar -R $BACKUP_DIR
-
-                echo "Creating archive..."
-                tar -I 'zstd -1 --threads=0' -cf $FINAL_DEST/$ARCHIVE_NAME -C $BACKUP_DIR .
-
-                echo "Uploading configs and data..."
-                # rsync --bwlimit=5000 --partial --progress -avzt $FINAL_DEST/$ARCHIVE_NAME root@mar-backups:${config.home.homeDirectory}/backups/
-        	ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
-                tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
-                echo "Uploading any new or updated music..."
-                rsync --bwlimit=5000  -hrvPt --update ${config.home.homeDirectory}/media/music root@mar-backups:${config.home.homeDirectory}/music
-
-                echo "Cleaning up..."
-                rm -rf $BACKUP_DIR
-
-                echo "Backup $ARCHIVE_NAME complete!"
+        echo "Backup for $TIMESTAMP complete!"
       '';
     };
   };
