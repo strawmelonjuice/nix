@@ -32,7 +32,27 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
-
+  services.rsyncd = {
+    enable = true;
+    settings = {
+      globalSection = {
+        uid = "root";
+        gid = "root";
+        "use chroot" = "no";
+        "max connections" = 4;
+      };
+      sections.backups = {
+        path = "/home/mar/backups";
+        "read only" = "no";
+        comment = "Main backup archive storage";
+      };
+      sections.music = {
+        path = "/home/mar/music";
+        "read only" = "no";
+        comment = "Music library storage";
+      };
+    };
+  };
   security.pam.services.sshd.allowNullPassword = true;
   services.fstrim.enable = false; # Let Proxmox host handle fstrim
   services.openssh = {
