@@ -12,6 +12,7 @@
     ./modules/development.nix
     ./modules/development/vcs.nix
     ./modules/development/neovim.nix
+    ./modules/development/helix.nix
     # Shell
     ./modules/shell/kc.nix
     ./modules/shell/zsh.nix
