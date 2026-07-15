@@ -1,5 +1,6 @@
 { pkgs, config, ... }: {
   targets.genericLinux.enable = true;
+  programs.zsh.shellAliases.watch-temperature = "sudo watch -n 1 \"vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state\"  ";
 
   # Shared network ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman = {
@@ -345,7 +346,7 @@
     # ports = [ "8008:8008" ];
     image = "matrixdotorg/synapse:latest";
     environment = {
-      SYNAPSE_CONFIG_PATH = "SYNAPSE_CONFIG_PATH=/data/homeserver.yaml";
+      SYNAPSE_CONFIG_PATH = "/data/homeserver.yaml";
     };
     volumes = [
       "${config.home.homeDirectory}/services/data/matrix/synapse:/data:Z"
