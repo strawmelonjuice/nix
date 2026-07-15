@@ -55,13 +55,6 @@
       # JJ-related
       jje = "jj edit";
       jjd = "jj desc @";
-      # jjd (in editor) and sign
-      jjds = ''
-        jj desc @ -m "
-
-
-        Signed-off-by: $(git config user.name) <$(git config user.email)>" && jj desc @ && jj sign -r @
-      '';
       jjda = ''jj describe @ -m "$(date)"'';
       jjs = "jj show";
       jjn = "jj next --edit";
@@ -79,7 +72,7 @@
           # Have to have ssh-agent running now for yubikey sk-ed25519
           eval $(ssh-agent)
           clear
-          hyfetch
+          ${pkgs.hyfetch}/bin/hyfetch
         '';
         zshConfig = lib.mkOrder 1000 ''
           # Completion styling ------------------------------------------------------------

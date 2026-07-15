@@ -32,12 +32,24 @@
         "$right"
       ];
       ui = {
-        editor = "nvim";
+        editor = "${pkgs.helix}/bin/hx";
         streampager.wrapping = "none";
         movement.edit = true;
         default-command = "status";
         show-cryptographic-signatures = true;
       };
+      revsets.bookmark-advance-to = "coalesce(@ & ~empty(), @-)";
+      templates.draft_commit_description = ''
+        	concat(
+        		"feat:|fix:|refactor:|style:|test:|docs:|build:|perf:|chore:|test:|ops: [what?]",
+        		"\n\n[tell me more? :3]\n\n",
+        		"\nSigned-off-by: ",
+        		self.author().name(),
+        		" <", self.author().email(), ">\n",
+        		"\nJJ: ignore-rest\n",
+        		diff.git(),
+        	)
+      '';
       aliases = {
         # Always using the git backend to clone so why not.
         clone = [
@@ -45,23 +57,35 @@
           "clone"
         ];
 
-        # Moves bookmarks from the previous commit to your current one
-        tug = [
-          "bookmark"
-          "move"
-          "--from"
-          "heads(::@- & bookmarks())"
-          "--to"
-          "coalesce(@ & ~empty(), @-)"
-        ];
-        # JJ tug-push, or JJ teleport or JJ take-and-push whatever is funnier to you.
-        tp = [
+        # Fetch and rebase onto trunk
+        tt = [
           "util"
           "exec"
           "--"
           "sh"
           "-c"
-          "jj tug && jj git push"
+          "jj git fetch && jj rebase --onto 'trunk()'"
+        ];
+
+        # Advance bookmark, then push it
+        ap = [ "autopush" ];
+        autopush = [
+          "util"
+          "exec"
+          "--"
+          "sh"
+          "-c"
+          "jj bookmark advance && jj git push"
+        ];
+
+        # Describe a change, sign it and then create a new change on top
+        ds = [
+          "util"
+          "exec"
+          "--"
+          "sh"
+          "-c"
+          "jj describe && jj sign && jj new"
         ];
 
         # Bit more history
@@ -92,6 +116,7 @@
           "trunk()"
           "--skip-emptied"
         ];
+
         # Lists items with '[TODO]'
         todo-list = [
           "log"
@@ -102,12 +127,14 @@
           "--reversed"
           "--no-pager"
         ];
+
         # Finds the latest '[TODO]' commit and edits it.
         todo-edit-latest = [
           "edit"
           "--ignore-immutable"
           "latest(description(substring:'[TODO]') & mine())"
         ];
+
         # Toggles '[TODO]' on current commit.
         todo-toggle = [
           "util"
