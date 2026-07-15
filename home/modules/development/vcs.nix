@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   services.radicle.node.lazy.enable = true;
@@ -10,6 +10,7 @@
     settings = {
       user.name = "MLC Bloeiman";
       user.email = "mar@strawmelonjuice.com";
+      core.excludesfile = "${config.home.homeDirectory}/.config/jj/ignore";
     };
   };
   programs.jujutsu = {
@@ -130,7 +131,7 @@
       };
     };
   };
-  xdg.configFile."jujutsu/ignore".text = ''
+  xdg.configFile."jj/ignore".text = ''
     # Environment variables
     .env
     .envrc
