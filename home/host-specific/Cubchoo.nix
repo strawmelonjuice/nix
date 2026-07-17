@@ -115,118 +115,122 @@
   programs.zsh.shellAliases.caddy-reload = "podman exec -it caddy caddy reload --config /etc/caddy/Caddyfile";
 
   xdg.configFile."services/Caddy/Caddyfile".text = ''
-                        {
-                        	email webmaster@strawmelonjuice.com
-                        }
+                                    {
+                                    	email webmaster@strawmelonjuice.com
+                                    }
 
-                        (icon_redirect) {
-                        	redir /assets/site_icon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /favicon.ico https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /assets/img/favicon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /assets/img/favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /assets/img/site_icon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        	redir /assets/img/logo.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-                        }
+                                    (icon_redirect) {
+                                    	redir /assets/site_icon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /favicon.ico https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /assets/img/favicon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /assets/img/favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /assets/img/site_icon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    	redir /assets/img/logo.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
+                                    }
 
-                        git.strawmelonjuice.com {
-                        	redir https://forge.strawmelonjuice.com{uri}
-                        }
+                                    git.strawmelonjuice.com {
+                                    	redir https://forge.strawmelonjuice.com{uri}
+                                    }
 
-                        forge.strawmelonjuice.com {
-                        	redir /assets/site_icon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /favicon.ico https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /assets/img/favicon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /assets/img/favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /assets/img/site_icon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
-                        	redir /assets/img/logo.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    forge.strawmelonjuice.com {
+                                    	redir /assets/site_icon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /favicon.ico https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /assets/img/favicon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /assets/img/favicon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /assets/img/site_icon.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
+                                    	redir /assets/img/logo.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
 
 
-                        	# proxy to forgejo
-                        	# reverse_proxy anubis-forge:3000 {
-                        	reverse_proxy forgejo:3000 {
-                        		header_up X-Real-Ip {remote_host}
-                        	}
-                        }
+                                    	# proxy to forgejo
+                                    	# reverse_proxy anubis-forge:3000 {
+                                    	reverse_proxy forgejo:3000 {
+                                    		header_up X-Real-Ip {remote_host}
+                                    	}
+                                    }
 
-                        files-shared.strawmelonjuice.com {
-                        	redir https://media.strawmelonjuice.com{uri}
-                        }
+                                    files-shared.strawmelonjuice.com {
+                                    	redir https://media.strawmelonjuice.com{uri}
+                                    }
 
-                        fonts.strawmelonjuice.com {
-                        	reverse_proxy 100.65.127.22:39936
-                        }
+                                    fonts.strawmelonjuice.com {
+                                    	reverse_proxy 100.65.127.22:39936
+                                    }
 
-                        media.strawmelonjuice.com {
-                        	# request_body {
-                        	#     max_size 3GB
-                        	# }
-                        	reverse_proxy strawmedia:3022
-                        }
+                                    media.strawmelonjuice.com {
+                                    	# request_body {
+                                    	#     max_size 3GB
+                                    	# }
+                                    	reverse_proxy strawmedia:3022
+                                    }
 
-                        cloud.strawmelonjuice.com {
-                        	reverse_proxy owncloud_server:8080
-                        }
-                        matrix.strawmelonjuice.com {
-        			reverse_proxy matrix:8008 {
-    				transport http {
-    					read_timeout 300s
-    					write_timeout 300s
-            			}
-        			}
-                        }
+                                    cloud.strawmelonjuice.com {
+                                    	reverse_proxy owncloud_server:8080
+                                    }
+                                    matrix.strawmelonjuice.com {
+            				reverse_proxy /_matrix/* matrix:8008
+    					reverse_proxy /_synapse/client/* matrix:8008
+                    			reverse_proxy matrix:8008 {
+                				transport http {
+                					read_timeout 300s
+                					write_timeout 300s
+                        			}
+                    			}
+        				reverse_proxy https://app.cinny.in
+                                    }
 
-                        www.strawmelonjuice.com,
-                        strawmelonjuice.com {
-                        	# Old strawmelonjuice.php and Cynthia Full pages that google is still trying and its annoying me.
-                        	@old_php_pages {
-                        		query p=*
-                        		query c=*
-                        	}
+                                    www.strawmelonjuice.com,
+                                    strawmelonjuice.com {
+                                    	# Old strawmelonjuice.php and Cynthia Full pages that google is still trying and its annoying me.
+                                    	@old_php_pages {
+                                    		query p=*
+                                    		query c=*
+                                    	}
 
-                        	handle @old_php_pages {
-                        		respond "This content is no longer available." 410
-                        	}
-                        	# ===================------ ATPROTO ------===================
-                        	handle_path /.well-known/atproto-did {
-                        		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
-                        	}
+                                    	handle @old_php_pages {
+                                    		respond "This content is no longer available." 410
+                                    	}
+                                    	# ===================------ ATPROTO ------===================
+                                    	handle_path /.well-known/atproto-did {
+                                    		header Access-Control-Allow-Origin *
+                                    		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
+                                    	}
 
-                        	# ================---- Matrix Homeserver ----================
-                        	handle /.well-known/matrix/* {
-                        		header Access-Control-Allow-Origin "*"
-                        		header Content-Type "application/json"
+                                    	# ================---- Matrix Homeserver ----================
+                                    	handle /.well-known/matrix/* {
+                                    		header Access-Control-Allow-Origin *
+                                    		header Content-Type application/json
 
-                        		# Using a Matcher inside the handle to respond differently
-                        		@server path /.well-known/matrix/server
-                        		respond @server `{"m.server": "matrix.strawmelonjuice.com:443"}`
+                                    		# Using a Matcher inside the handle to respond differently
+                                    		@server path /.well-known/matrix/server
+                                    		respond @server `{"m.server": "matrix.strawmelonjuice.com:443"}`
 
-                        		@client path /.well-known/matrix/client
-                        		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
-                        	}
+                                    		@client path /.well-known/matrix/client
+                                    		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}, "m.identity_server": {"base_url": "https://vector.im"}}`
+                                    	}
 
-                        	handle /_matrix/* {
-                        		reverse_proxy matrix:8008 {
-        					transport http {
-        						read_timeout 300s
-        						write_timeout 300s
-        						dial_timeout 30s
-        					}
-        				}
-                        	}
+                                    	handle /_matrix/* {
+                                    		reverse_proxy matrix:8008 {
+                    					transport http {
+                    						read_timeout 300s
+                    						write_timeout 300s
+                    						dial_timeout 30s
+                    					}
+                    				}
+                                    	}
 
-                        	handle /_synapse/client/* {
-                        		reverse_proxy matrix:8008
-                        	}
+                                    	handle /_synapse/client/* {
+                                    		reverse_proxy matrix:8008
+                                    	}
 
-                        	# ===================------ My Site ------===================
-                        	handle {
-                        		root * /srv/strawmelonjuice-site/
-                        		try_files {path} {path}/index.html /unpopulated.html unpopulated.html
-                        		file_server
-                        	}
-                        }
+                                    	# ===================------ My Site ------===================
+                                    	handle {
+                                    		root * /srv/strawmelonjuice-site/
+                                    		try_files {path} {path}/index.html /unpopulated.html unpopulated.html
+                                    		file_server
+                                    	}
+                                    }
   '';
 
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -246,7 +250,7 @@
         cd "${config.xdg.configHome}/services/OwnCloud" && podman compose --env-file ./.env --project-name cloud up 
       '';
     };
-    Install.WantedBy = [ "multi-user.target" ];
+    Install.WantedBy = [ "default.target" ];
   };
 
   # Define composefile
@@ -357,8 +361,11 @@
       "synapse"
     ];
     network = "server-net";
-    # ports = [ "8008:8008" ];
-    image = "matrixdotorg/synapse:latest";
+    ports = [
+      "8008:8008"
+      "8448:8448"
+    ];
+    image = "matrixdotorg/synapse:sha-5ed830b";
     environment = {
       SYNAPSE_CONFIG_PATH = "/data/homeserver.yaml";
     };
@@ -367,7 +374,7 @@
     ];
   };
   services.podman.containers.matrix-whatsapp = {
-    autoStart = true;
+    autoStart = false;
     networkAlias = [ "mautrix-whatsapp" ];
     network = "server-net";
     image = "dock.mau.dev/mautrix/whatsapp:latest";
@@ -376,7 +383,7 @@
     ];
   };
   services.podman.containers.matrix-signal = {
-    autoStart = true;
+    autoStart = false;
     networkAlias = [ "mautrix-signal" ];
     network = "server-net";
     image = "dock.mau.dev/mautrix/signal:latest";
