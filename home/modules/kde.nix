@@ -90,6 +90,7 @@
                   "applications:vivaldi-stable.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:obsidian.desktop"
+                  "applications:element-desktop.desktop"
                 ]
                 ++ (
                   if hostname == "Fennekin" then
