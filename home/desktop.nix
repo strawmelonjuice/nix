@@ -3,7 +3,6 @@
   config,
   ...
 }:
-
 {
   imports = [
     # Enviroments ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,6 +89,9 @@
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
+  home.sessionVariables.background-light = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/gruvbox_room.png";
+  home.sessionVariables.background-dark = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/purple-girl.png";
+
   services.kdeconnect.enable = true;
   services.owncloud-client.enable = true;
   services.tailscale-systray.enable = true;
@@ -98,8 +100,6 @@
     Unit.Description = "Swap wallpaper based on time";
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
-        export LIGHTMODE="${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/gruvbox_room.png"
-        export DARKMODE="${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/purple-girl.png"
         mkdir -p /home/mar/.local/share/wallpapers/slideshow
         if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
           git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
@@ -116,23 +116,23 @@
           # Night time: 19:00 to 07:59
           echo "Good night!";
           # Fake slideshow!
-          cp --update=all $DARKMODE /home/mar/.local/share/wallpapers/slideshow/1
-          cp --update=all $DARKMODE /home/mar/.local/share/wallpapers/slideshow/2
-          cp --update=all $DARKMODE /home/mar/.local/share/wallpapers/slideshow/3
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
           # But we can just set it manually much better.
-          ${pkgs.awww}/bin/awww img $DARKMODE
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage $DARKMODE
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark}
         else
           # Day time
           echo "Good day~!";
           ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
           # Here too
-          cp --update=all $LIGHTMODE /home/mar/.local/share/wallpapers/slideshow/1
-          cp --update=all $LIGHTMODE /home/mar/.local/share/wallpapers/slideshow/2
-          cp --update=all $LIGHTMODE /home/mar/.local/share/wallpapers/slideshow/3
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
           # But we can just set it manually much better.
-          ${pkgs.awww}/bin/awww img $LIGHTMODE
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage $LIGHTMODE
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light}
         fi
       '';
     };

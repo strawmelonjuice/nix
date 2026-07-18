@@ -2,6 +2,7 @@
   pkgs,
   lib,
   hostname,
+  config,
   ...
 }:
 
@@ -26,6 +27,7 @@
         "vivaldi-stable.desktop"
         "org.wezfurlong.wezterm.desktop"
         "obsidian.desktop"
+        "element.desktop"
       ]
       ++ (
         if hostname == "Fennekin" then
@@ -57,13 +59,13 @@
       show-thrash = false;
     };
     "org/gnome/desktop/background" = {
-      picture-uri = "file:///home/mar/.local/share/wallpapers/current_wallpaper.png";
+      picture-uri = "file://${config.home.sessionVariables.background-light}";
       # Hoping my systemd service works for gnome too
-      picture-uri-dark = "file:///home/mar/.local/share/wallpapers/current_wallpaper.png";
+      picture-uri-dark = "file://${config.home.sessionVariables.background-dark}";
       picture-options = "zoom"; # "zoom", "centered", "scaled", etc.
     };
     "org/gnome/desktop/screensaver" = {
-      picture-uri = "file:///home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/wallhaven-9mjw78.png";
+      picture-uri = "file://${config.home.sessionVariables.background-light}";
     };
     "org/gnome/desktop/interface" = {
       # color-scheme = "prefer-light"; # Handled by daynight plugin

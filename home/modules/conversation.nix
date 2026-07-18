@@ -2,7 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    # cinny-desktop <- Seems browser works better, can't copy/paste and stuff
-    fluffychat
+    # I'll still use Fluffy from the browser, but since it seems to want to break very much,
+    # locally I'll have element...
+    element-desktop
   ];
 }

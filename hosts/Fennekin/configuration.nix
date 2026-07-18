@@ -55,6 +55,9 @@
   # Default session Plasma.
   services.displayManager.defaultSession = "plasma";
 
+  # But I miss GNOME sometimes
+  services.desktopManager.gnome.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb = {     layout = "us";     variant = "euro";  };
 
@@ -86,11 +89,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    galaxy-buds-client
     grc
 
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
