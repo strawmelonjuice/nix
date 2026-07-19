@@ -218,6 +218,7 @@
     git
     podman
     podman-compose
+    wget
   ];
   security.doas.enable = true;
   security.sudo.enable = false;
