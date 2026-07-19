@@ -442,7 +442,7 @@
                         echo "Uploading configs and data..."
                         # ${pkgs.rsync}/bin/rsync --bwlimit=4000 --partial --progress -avzW $FINAL_DEST/$ARCHIVE_NAME frigometri::backups/
         		# Trying the http way ... fingers crossed
-                	ssh frigometri -- wget -q --show-progress -c --retry-connrefused --tries=0 --timeout=20 "http://marpi5-1:3045/$ARCHIVE_NAME" -o"/home/mar/backups/$ARCHIVE_NAME"
+                	ssh frigometri -- wget -q --show-progress -c --retry-connrefused --tries=0 --timeout=20 -P "/home/mar/backups/" "http://marpi5-1:3045/$ARCHIVE_NAME" 
                         # ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
                         # tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
 
