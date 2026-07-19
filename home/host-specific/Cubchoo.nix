@@ -396,6 +396,8 @@
   systemd.user.services.services-backups = {
     Unit.Description = "Backups";
     Service = {
+      MemoryHigh = "4G";
+      MemoryMax = "6G";
       ExecStart = pkgs.writeShellScript "backups" ''
         BACKUP_DIR="${config.home.homeDirectory}/backups_temp"
         DATA_DIR="${config.home.homeDirectory}/services/data"
@@ -423,12 +425,13 @@
         echo "Creating archive..."
         ${pkgs.gnutar}/bin/tar -I 'zstd -1 --threads=0' -cf $FINAL_DEST/$ARCHIVE_NAME -C $BACKUP_DIR .
 
-        echo "Uploading configs and data..."
-        ${pkgs.rsync}/bin/rsync --bwlimit=4000 --partial --progress -avz $FINAL_DEST/$ARCHIVE_NAME frigometri::backups/
-        # ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
-        # tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
         echo "Uploading any new or updated music..."
         ${pkgs.rsync}/bin/rsync --bwlimit=4000 -hrvPt --update --size-only ${config.home.homeDirectory}/media/music/ frigometri::music/
+
+        echo "Uploading configs and data..."
+        ${pkgs.rsync}/bin/rsync --bwlimit=4000 --partial --progress -avzW $FINAL_DEST/$ARCHIVE_NAME frigometri::backups/
+        # ssh frigometri -- tailscale file get --wait /home/mar/backups/ &
+        # tailscale file cp $FINAL_DEST/$ARCHIVE_NAME frigometri:
 
         echo "Backup for $TIMESTAMP complete!"
       '';
