@@ -6,8 +6,11 @@
 
 {
   xdg.configFile."gram".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/zed";
-  xdg.configFile."zed/config.jsonc".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/zed/config.json";
+  xdg.configFile."zed/settings.jsonc".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/zed/settings.json";
+
+  home.file.".local/share/gram/extensions".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/local/share/zed/extensions";
 
   home.sessionVariables.GRAM_ALLOW_EMULATED_GPU = 1;
 
