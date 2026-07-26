@@ -7,7 +7,9 @@
 }:
 {
   imports = [ (modulesPath + "/virtualisation/proxmox-lxc.nix") ];
-
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.34.0"
+  ];
   nix.settings = {
     experimental-features = [
       "nix-command"
