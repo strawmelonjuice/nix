@@ -1,4 +1,4 @@
-local servers = { "nil_ls", "rust_analyzer", "gleam", "lua_ls", "zls", "taplo", "tailwindcss", "cssls", "biome" }
+local servers = { "nil_ls", "rust_analyzer", "gleam", "lua_ls", "zls", "taplo", "tailwindcss", "cssls", "biome", "prettier" }
 
 for _, server in ipairs(servers) do
 	local config = vim.lsp.config[server]
@@ -10,7 +10,10 @@ for _, server in ipairs(servers) do
 		local cmd = config.default_config.cmd
 		if cmd and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
 			vim.lsp.config(server, {
-				root_dir = vim.fs.root(0, { ".git", "Cargo.toml", "package.json", "flake.nix" }) or vim.fn.getcwd(),
+				root_dir = vim.fs.root(
+					0,
+					{ ".git", ".jj", "gleam.toml", "Cargo.toml", "package.json", "flake.nix", "default.nix" }
+				) or vim.fn.getcwd(),
 			})
 			vim.lsp.enable(server)
 		end

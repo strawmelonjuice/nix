@@ -37,6 +37,7 @@
       # Web stuff lsp's
       tailwindcss-language-server
       typescript-language-server
+      vscode-css-languageserver
 
       # And duh
       nil
