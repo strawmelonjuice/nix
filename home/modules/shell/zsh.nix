@@ -37,10 +37,10 @@
       urb = "jj --repository $HOME/.dotfiles git fetch && jj --repository $HOME/.dotfiles rebase --onto main@origin && rb";
       hmrb = ''jj --repository "$HOME/.dotfiles" file track "$HOME/.dotfiles/."; nix run home-manager -- switch --flake "$HOME/.dotfiles#$(hostname)"'';
 
-      ls = "eza --icons";
-      la = "eza --icons -a";
-      ll = "eza --icons -al";
-      lt = "eza --icons -a --tree --level=1";
+      ls = "eza --icons always ";
+      la = "eza --icons always -a";
+      ll = "eza --icons always -al";
+      lt = "eza --icons always -a --tree --level=1";
       v = "$EDITOR";
       cat = "bat -p";
       nano = "nvim";
