@@ -32,6 +32,7 @@ end)
 later(function()
 	add("neovim/nvim-lspconfig")
 	add("stevearc/conform.nvim")
+	require("plugins.telescope")
 	require("config.lsp")
 	require("config.fmt")
 

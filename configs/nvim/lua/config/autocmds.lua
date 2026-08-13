@@ -23,12 +23,3 @@ local function open_folder(data)
 end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_folder })
-
--- For now I see no reason to update the plugins everytime I open neovim -- UPDATE: I do now, constantly having notifs abt outdated stuff is annoying
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		vim.defer_fn(function()
-			require("lazy").update({ show = false })
-		end, 5000)
-	end,
-})
