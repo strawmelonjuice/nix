@@ -32,14 +32,14 @@
         "$right"
       ];
       ui = {
-        editor = "${pkgs.helix}/bin/hx";
+        editor = "${pkgs.neovim}/bin/nvim";
         streampager.wrapping = "none";
         movement.edit = true;
         default-command = "status";
         show-cryptographic-signatures = true;
       };
       revsets.bookmark-advance-to = "coalesce(@ & ~empty(), @-)";
-      templates.draft_commit_description = ''
+      template-aliases.default_commit_description = ''
         	concat(
         		"feat:|fix:|refactor:|style:|test:|docs:|build:|perf:|chore:|test:|ops: [what?]",
         		"\n\n[tell me more? :3]\n\n",
@@ -108,6 +108,7 @@
         ];
 
         # Rebases your active branches onto the main trunk
+        up = [ "catchup" ];
         catchup = [
           "rebase"
           "-b"
