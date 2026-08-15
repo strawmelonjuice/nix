@@ -27,11 +27,13 @@ now(function()
 	vim.o.termguicolors = true
 	vim.o.background = is_dark and "dark" or "light"
 	vim.cmd.colorscheme(theme)
+	require("which-key").setup({})
 end)
 
 later(function()
 	add("neovim/nvim-lspconfig")
 	add("stevearc/conform.nvim")
+	require("config.keymaps")
 	require("plugins.telescope")
 	require("config.lsp")
 	require("config.fmt")
@@ -126,7 +128,5 @@ later(function()
 	add("wakatime/vim-wakatime")
 	add("vyfor/cord.nvim")
 
-	require("which-key").setup({})
-	require("config.keymaps")
 	require("config.autocmds")
 end)
