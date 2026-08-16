@@ -67,7 +67,7 @@ map("i", "<C-k>", vim.lsp.buf.hover, {})
 map("v", "<C-k>", vim.lsp.buf.hover, {})
 map({ "n", "v" }, "<leader>ci", vim.lsp.buf.hover, { desc = "Show [I]nfo" })
 map("n", "<leader>ff", vim.lsp.buf.format, { desc = "[F]ormat [F]ile" })
-map("v", "<leader>cc", vim.lsp.buf.code_action, { desc = "[C]ode action" })
+map("v", "<leader>ca", vim.lsp.buf.code_action, { desc = "Trigger LSP [A]ction" })
 map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename symbol" })
 map("n", "<space>ce", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
 
