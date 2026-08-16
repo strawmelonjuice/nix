@@ -101,7 +101,7 @@ end, { desc = "toggle [E]rror lines" })
 
 -- Setting the keymap is done several times, so that the description stays accurate.
 local create_sep_kb = function()
-	map("n", "<space>ss", function()
+	map("n", "<space>cs", function()
 		-- get current line(string) and row(int) in the buffer
 		local line = trim(vim.api.nvim_get_current_line())
 		local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
@@ -116,17 +116,17 @@ end
 
 -- Adding a group of binds for setting it
 wk.add({
-	{ "<space>sS", group = "[S]et [S]eperator ->", mode = { "n", "v" } },
+	{ "<space>cS", group = "[S]et [S]eperator ->", mode = { "n", "v" } },
 })
-map("n", "<space>sS-", function()
+map("n", "<space>cS-", function()
 	sep = "-"
 	create_sep_kb()
 end, { desc = "To '---'" })
-map("n", "<space>sS=", function()
+map("n", "<space>cS=", function()
 	sep = "="
 	create_sep_kb()
 end, { desc = "To '==='" })
-map("n", "<space>sS`", function()
+map("n", "<space>cS`", function()
 	sep = "~"
 	create_sep_kb()
 end, { desc = "To '~~~' (default)" })
