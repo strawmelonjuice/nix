@@ -19,8 +19,8 @@ wk.add({
 })
 -- Setting it twice so we're certain it works but also have the correct WK label.
 require("lazyjj").setup({ mapping = "<leader>vj" })
-map("n", "<leader>vj", "LazyJJ", { desc = "[V]isual [J]J (LazyJJ)" })
-map("n", "<leader>vg", "LazyGit", { desc = "[V]isual [G]it (LazyGit)" })
+map("n", "<leader>vj", "<esc><cmd>LazyJJ<cr>", { desc = "[V]isual [J]J (LazyJJ)" })
+map("n", "<leader>vg", "<esc><cmd>LazyGit<cr>", { desc = "[V]isual [G]it (LazyGit)" })
 
 -- Control-S save
 map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
