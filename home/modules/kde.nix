@@ -30,10 +30,8 @@
     kscreenlocker.appearance.wallpaper = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
     workspace = {
       clickItemTo = "select";
-      lookAndFeel = "org.kde.breeze.desktop";
-      colorScheme = "BreezeLight";
-      cursor.theme = "Layan-cursors";
-      iconTheme = "breeze";
+      cursor.theme = "layan-cursors";
+      iconTheme = "Oxygen";
       wallpaper = [
         "${config.home.homeDirectory}/.local/share/wallpapers/slideshow/1.png"
         "${config.home.homeDirectory}/.local/share/wallpapers/slideshow/2.png"
