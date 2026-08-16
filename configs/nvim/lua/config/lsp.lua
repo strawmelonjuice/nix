@@ -37,39 +37,6 @@ local servers = {
 	"taplo",
 }
 
--- My poor setup
--- for _, server in ipairs(servers) do
--- 	local config = vim.lsp.config[server]
---
--- 	-- It failed to load w my careful approach so here we go just enabling all of em like yeet
--- 	vim.lsp.enable(server)
---
--- 	if config and config.default_config then
--- 		local cmd = config.default_config.cmd
--- 		if cmd and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
--- 			vim.lsp.config(server, {
--- 				root_dir = vim.fs.root(
--- 					0,
--- 					{ ".git", ".jj", "gleam.toml", "Cargo.toml", "package.json", "flake.nix", "default.nix" }
--- 				) or vim.fn.getcwd(),
--- 			})
--- 			vim.lsp.enable(server)
--- 		end
--- 	end
--- end
-
--- vim.api.nvim_create_autocmd("LspAttach", {
--- 	callback = function(args)
--- 		local client = vim.lsp.get_client_by_id(args.data.client_id)
--- 		if
--- 			client
--- 			-- and client.supports_method("textDocument/completion")
--- 		then
--- 			vim.lsp.completion.enable(true, client.id, args.buf)
--- 		end
--- 	end,
--- })
-
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1f2335", fg = "#c0caf5" })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#364a82", bold = true })
@@ -94,7 +61,6 @@ require("mason").setup({})
 vim.lsp.enable(servers)
 
 -- keybinds / settings
-vim.keymap.set("n", "<leader>ff", vim.lsp.buf.format, { desc = "Format File" })
 
 vim.lsp.inlay_hint.enable(true)
 
@@ -113,18 +79,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			mode = mode or "n"
 			vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 		end
-
-		map("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-		map("gb", "''", "[G]o [B]ack")
-		map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-		map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-		map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-		map("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-		map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-		map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", "v")
-		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclartion")
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
 		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then

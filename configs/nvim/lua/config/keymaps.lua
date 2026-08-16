@@ -1,12 +1,27 @@
 local map = vim.keymap.set
 local wk = require("which-key")
+local telescopeapi = require("telescope.builtin")
+local function trim(s)
+	return s:match("(.-)%s*%-*$")
+end
+-- Default seperator: ~~~~
+local sep = "~"
 
 -- Misc. ==============================================================================================================================================
 
 -- Visual VCS managers group
 wk.add({
-	{ "<space>v", group = "Visual VCS", mode = { "n" } },
+	{
+		"<leader>v",
+		group = "[V]isual VCS",
+		mode = { "n" },
+	},
 })
+-- Setting it twice so we're certain it works but also have the correct WK label.
+require("lazyjj").setup({ mapping = "<leader>vj" })
+map("n", "<leader>vj", "LazyJJ", { desc = "[V]isual [J]J (LazyJJ)" })
+map("n", "<leader>vg", "LazyGit", { desc = "[V]isual [G]it (LazyGit)" })
+
 -- Control-S save
 map("i", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
 map("v", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
@@ -16,31 +31,49 @@ map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 map("n", "<space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
 map("n", "<space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
 
--- LSP ================================================================================================================================================
--- LSP group
+-- Pickers/Telescope and LSP actions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wk.add({
-	{ "<space>c", group = "LSP ->", mode = { "n", "v" } },
+	{ "<leader>s", group = "[S]earch and pick", mode = { "n", "v" } },
+	{ "<leader>w", group = "[W]orkspace", mode = { "n", "v" } },
+	{ "<leader>f", group = "[F]ile", mode = { "n", "v" } },
+	{ "<leader>c", group = "Under [C]ursor", mode = { "n", "v" } },
 })
--- Hover info
+map("n", "<leader>fs", telescopeapi.lsp_document_symbols, { desc = "[F]ile [S]ymbols" })
+map("n", "<leader>ws", telescopeapi.lsp_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+map("n", "<leader>sn", telescopeapi.lsp_document_symbols, { desc = "[S]earch local symbol [N]ames" })
+map("n", "<leader>sN", telescopeapi.lsp_workspace_symbols, { desc = "[S]earch workspace symbol [N]ames" })
+map("n", "<leader>sh", telescopeapi.help_tags, { desc = "[S]earch [H]elp" })
+map("n", "<leader>sk", telescopeapi.keymaps, { desc = "[S]earch [K]eymaps" })
+map("n", "<leader>sf", telescopeapi.find_files, { desc = "[S]earch [F]iles" })
+map("n", "<leader>ss", telescopeapi.builtin, { desc = "[S]earch [S]elect Telescope" })
+map("n", "<leader>sw", telescopeapi.grep_string, { desc = "[S]earch current [W]ord" })
+map("n", "<leader>s/", telescopeapi.live_grep, { desc = '[S]earch by grep ("/" for searching)' })
+map("n", "<leader>sg", telescopeapi.live_grep, { desc = '[S]earch by [G]rep (aliased: "/")' })
+map("n", "<leader>sd", telescopeapi.diagnostics, { desc = "[S]earch [D]iagnostics" })
+map("n", "<leader>fd", telescopeapi.diagnostics, { desc = "[F]ile [D]iagnostics" })
+map("n", "<leader>sr", telescopeapi.resume, { desc = "[S]earch [R]esume" })
+map("n", "<leader>s.", telescopeapi.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+map("n", "<leader>so", telescopeapi.oldfiles, { desc = '[S]earch [O]ldfiles (aliased: ".")' })
+map("n", "<leader><space>", telescopeapi.buffers, { desc = "[ ] Find existing buffers" })
+map({ "n", "v" }, "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
+map("n", "gb", "''", { desc = "[G]o [B]ack" })
+map({ "n", "v" }, "gr", telescopeapi.lsp_references, { desc = "[G]oto [R]eferences" })
+map({ "n", "v" }, "gI", telescopeapi.lsp_implementations, { desc = "[G]oto [I]mplementation" })
+map({ "n", "v" }, "<leader>cD", telescopeapi.lsp_type_definitions, { desc = "Type [D]efinition" })
+map({ "n", "v" }, "<leader>ws", telescopeapi.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclartion" })
 map("n", "<C-k>", vim.lsp.buf.hover, {})
 map("i", "<C-k>", vim.lsp.buf.hover, {})
 map("v", "<C-k>", vim.lsp.buf.hover, {})
-map("n", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
-map("v", "<space>ci", vim.lsp.buf.hover, { desc = "LSP -> Hover info" })
-
--- Code action
-map("n", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
-map("v", "<space>ca", vim.lsp.buf.code_action, { desc = "LSP -> Code action" })
--- Rename
-map("n", "<space>cr", vim.lsp.buf.rename, { desc = "LSP -> Rename symbol" })
--- Stolen from Ollie
-local function trim(s)
-	return s:match("(.-)%s*%-*$")
-end
+map({ "n", "v" }, "<leader>ci", vim.lsp.buf.hover, { desc = "Show [I]nfo" })
+map("n", "<leader>ff", vim.lsp.buf.format, { desc = "[F]ormat [F]ile" })
+map("v", "<leader>cc", vim.lsp.buf.code_action, { desc = "[C]ode action" })
+map("n", "<leader>cr", vim.lsp.buf.rename, { desc = "[R]ename symbol" })
+map("n", "<space>ce", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
 
 local show_errors = false
 -- toggle showing virtual_lines
-vim.keymap.set("n", "Te", function()
+vim.keymap.set("n", "we", function()
 	if show_errors then
 		vim.diagnostic.config({
 			virtual_text = {
@@ -64,35 +97,42 @@ vim.keymap.set("n", "Te", function()
 		})
 		show_errors = true
 	end
-end, { desc = "[T]oggle [E]rrors" })
+end, { desc = "toggle [E]rror lines" })
 
-vim.keymap.set("n", "<space>cew", vim.diagnostic.open_float, { desc = "Open [E]rror [W]indow" })
-local sep = "~"
--- Adding a group of binds for setting it :3
+-- Setting the keymap is done several times, so that the description stays accurate.
+local create_sep_kb = function()
+	map("n", "<space>ss", function()
+		-- get current line(string) and row(int) in the buffer
+		local line = trim(vim.api.nvim_get_current_line())
+		local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+
+		-- make "~~~~~~~~~~~~" seperator line at consistent length
+		local seperator = string.rep(sep, 150 - string.len(line))
+
+		-- write line with seperator to current buffer at current cursor position
+		vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
+	end, { desc = "Enter [S]eperator here (" .. sep .. ")" })
+end
+
+-- Adding a group of binds for setting it
 wk.add({
-	{ "<space>cS", group = "[S]et [S]eperator ->", mode = { "n", "v" } },
+	{ "<space>sS", group = "[S]et [S]eperator ->", mode = { "n", "v" } },
 })
-map("n", "<space>cS-", function()
+map("n", "<space>sS-", function()
 	sep = "-"
+	create_sep_kb()
 end, { desc = "To '---'" })
-map("n", "<space>cS=", function()
+map("n", "<space>sS=", function()
 	sep = "="
+	create_sep_kb()
 end, { desc = "To '==='" })
-map("n", "<space>cS`", function()
+map("n", "<space>sS`", function()
 	sep = "~"
+	create_sep_kb()
 end, { desc = "To '~~~' (default)" })
+
 -- ...and using it!
-map("n", "<space>cs", function()
-	-- get current line(string) and row(int) in the buffer
-	local line = trim(vim.api.nvim_get_current_line())
-	local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-
-	-- make "~~~~~~~~~~~~" seperator line at consistent length
-	local seperator = string.rep(sep, 150 - string.len(line))
-
-	-- write line with seperator to current buffer at current cursor position
-	vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line .. " " .. seperator })
-end, { desc = "Make [S]eperator" })
+create_sep_kb()
 
 -- Movement ===========================================================================================================================================
 -- Move cursor within file

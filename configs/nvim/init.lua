@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+local colourscheme_light = "dayfox"
+local colourscheme_dark = "tokyonight-night"
 require("config.options")
 
 local path_package = vim.fn.stdpath("data") .. "/site/"
@@ -14,25 +16,37 @@ MiniDeps.setup({ path = { package = path_package } })
 local add, now, later = MiniDeps.add, MiniDeps.now, MiniDeps.later
 
 now(function()
-	add("folke/tokyonight.nvim")
-	add("EdenEast/nightfox.nvim")
-	add("nvim-tree/nvim-web-devicons")
-	add("folke/which-key.nvim")
-	add("nvim-lualine/lualine.nvim")
+	add("https://github.com/folke/tokyonight.nvim")
+	add("https://github.com/EdenEast/nightfox.nvim")
+	add("https://github.com/nvim-tree/nvim-web-devicons")
+	add("https://github.com/folke/which-key.nvim")
+	add("https://github.com/nvim-telescope/telescope.nvim")
+	add("https://github.com/nvim-lua/plenary.nvim")
+	add("https://github.com/nvim-lualine/lualine.nvim")
 
 	local hour = tonumber(os.date("%H"))
 	local is_dark = (hour < 6 or hour >= 19)
-	local theme = is_dark and "tokyonight-night" or "dayfox"
+	local theme = is_dark and colourscheme_dark or colourscheme_light
 
 	vim.o.termguicolors = true
 	vim.o.background = is_dark and "dark" or "light"
 	vim.cmd.colorscheme(theme)
 	require("which-key").setup({})
+	vim.keymap.set("n", "<C-space>l", function()
+		vim.o.background = "light"
+		vim.cmd.colorscheme(colourscheme_light)
+	end, { desc = "Switch to light mode theme (" .. colourscheme_light .. ")" })
+	vim.keymap.set("n", "<C-space>d", function()
+		vim.o.background = "dark"
+		vim.cmd.colorscheme(colourscheme_dark)
+	end, { desc = "Switch to dark mode theme (" .. colourscheme_dark .. ")" })
 end)
 
 later(function()
-	add("neovim/nvim-lspconfig")
-	add("stevearc/conform.nvim")
+	add("https://github.com/swaits/lazyjj.nvim")
+	add("https://github.com/kdheepak/lazygit.nvim")
+	add("https://github.com/neovim/nvim-lspconfig")
+	add("https://github.com/stevearc/conform.nvim")
 	require("config.keymaps")
 	require("plugins.telescope")
 	require("config.lsp")
@@ -47,37 +61,36 @@ later(function()
 		},
 	})
 
-	add("folke/snacks.nvim")
-	require("snacks").setup({
-		indent = {
-			enabled = true,
-			char = "╎",
-			scope = {
-				enabled = true,
-				char = "│",
-			},
-		},
-		dashboard = {
-			enabled = true,
-			sections = {
-				{ section = "header", padding = 5 }, -- Alleen je mooie ASCII art
-			},
-			preset = {
-				header = [[
-         ===================================================================
-         -------------------------   Mar's Nvim!   -------------------------
-         ===================================================================
+	-- 	add("folke/snacks.nvim")
+	-- 	require("snacks").setup({
+	-- 		indent = {
+	-- 			enabled = true,
+	-- 			char = "╎",
+	-- 			scope = {
+	-- 				enabled = true,
+	-- 				char = "│",
+	-- 			},
+	-- 		},
+	-- 		dashboard = {
+	-- 			enabled = true,
+	-- 			sections = {
+	-- 				{ section = "header", padding = 5 }, -- Alleen je mooie ASCII art
+	-- 			},
+	-- 			preset = {
+	-- 				header = [[
+	--          ===================================================================
+	--          -------------------------   Mar's Nvim!   -------------------------
+	--          ===================================================================
+	--
+	--                     Welcome! It's time to start doing stuff! :3
+	-- ]],
+	-- 			},
+	-- 		},
+	-- 		picker = { enabled = true },
+	-- 		explorer = { enabled = true },
+	-- 	})
 
-                    Welcome! It's time to start doing stuff! :3
-]],
-			},
-		},
-		picker = { enabled = true },
-		explorer = { enabled = true },
-	})
-
-	local lualine = require("plugins.lualine")
-	lualine.setup()
+	require("plugins.lualine")
 	add({
 		source = "Saghen/blink.cmp",
 		checkout = "v1",
@@ -118,15 +131,12 @@ later(function()
 		},
 	})
 
-	add("nvim-lua/plenary.nvim")
-	add("swaits/lazyjj.nvim")
-	add("kdheepak/lazygit.nvim")
-	require("plugins.gvc").setup()
-	add("windwp/nvim-autopairs")
+	add("https://github.com/nvim-lua/plenary.nvim")
+	add("https://github.com/windwp/nvim-autopairs")
 	require("nvim-autopairs").setup({ check_ts = true })
 
-	add("wakatime/vim-wakatime")
-	add("vyfor/cord.nvim")
+	add("https://github.com/wakatime/vim-wakatime")
+	add("https://github.com/vyfor/cord.nvim")
 
 	require("config.autocmds")
 end)
