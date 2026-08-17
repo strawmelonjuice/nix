@@ -4,7 +4,7 @@
 }:
 {
   imports = [
-    ../modules/entertainment/steam.nix
+    ../modules/entertainment/light-games.nix
     ../modules/entertainment/music-streaming.nix
     ../modules/conversation.nix
     ../modules/school.nix
