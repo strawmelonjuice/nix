@@ -122,7 +122,7 @@
 
   # Anubis
   services.podman.containers."anubis-forgejo" = {
-    networkAlias = [ "anubis-fogejo" ];
+    networkAlias = [ "anubis-forgejo" ];
     image = "ghcr.io/techarohq/anubis:latest";
     autoStart = true;
     network = "server-net";
