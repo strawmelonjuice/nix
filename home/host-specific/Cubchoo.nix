@@ -101,6 +101,7 @@
     autoStart = true;
     image = "docker.io/library/caddy";
     network = "server-net";
+    networkAlias = [ "caddy" ];
     ports = [
       "80:80"
       "443:443"
@@ -120,44 +121,50 @@
   xdg.configFile."services/Caddy/Caddyfile".source = ../../configs/Cubchoo-caddy/Caddyfile;
 
   # Anubis
-  services.anubis = {
-    # Forgejo
-    instances.forgejo = {
-      enable = true;
-      user = "anubis-forgejo";
-      settings.BIND = ":50001";
-      settings.TARGET = "http://localhost:7300";
-    };
-    instances.site = {
-      enable = true;
-      user = "anubis-site";
-      settings.BIND = ":50001";
-      settings.TARGET = "http://localhost:7008";
+  services.podman.containers."anubis-forgejo" = {
+    networkAlias = [ "anubis-fogejo" ];
+    image = "ghcr.io/techarohq/anubis:latest";
+    autoStart = true;
+    network = "server-net";
+    environment = {
+      BIND = "0.0.0.0:3000";
+      TARGET = "http://forgejo:3000";
     };
   };
-
-  # Tranquil (trying this out)
-
-  services.tranquil-pds = {
-    enable = true;
-    settings = {
-      server = {
-        hostname = "pds.strawmelonjuice.com";
-        host = "localhost";
-        port = "7060";
-      };
-      database = {
-        url = "postgresql://tranquil:postgres@main-database:5432";
-      };
-      storage = {
-        path = "/home/mar/services/data/tranquil/blobs";
-      };
-      tranquil_store = {
-        data_dir = "/home/mar/services/data/tranquil/data";
-      };
+  services.podman.containers."anubis-site" = {
+    networkAlias = [ "anubis-site" ];
+    image = "ghcr.io/techarohq/anubis:latest";
+    autoStart = true;
+    network = "server-net";
+    environment = {
+      BIND = "0.0.0.0:3000";
+      TARGET = "http://caddy:7008";
     };
-    environmentFiles = [ "/etc/secrets/tranquil.env.production" ];
+
   };
+
+  # Tranquil (trying this out) (stopped trying it out, the LSP fooled me (it doesn't work in a home-manager service, and Cubchoo has no system-level nix))
+
+  # services.tranquil-pds = {
+  #   enable = true;
+  #   settings = {
+  #     server = {
+  #       hostname = "pds.strawmelonjuice.com";
+  #       host = "localhost";
+  #       port = "7060";
+  #     };
+  #     database = {
+  #       url = "postgresql://tranquil:postgres@main-database:5432";
+  #     };
+  #     storage = {
+  #       path = "/home/mar/services/data/tranquil/blobs";
+  #     };
+  #     tranquil_store = {
+  #       data_dir = "/home/mar/services/data/tranquil/data";
+  #     };
+  #   };
+  #   environmentFiles = [ "/etc/secrets/tranquil.env.production" ];
+  # };
 
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Add symlink between Owncloud files <-> Home folders
@@ -247,7 +254,6 @@
     network = "server-net";
     ports = [
       "222:22"
-      "7300:3000"
     ];
     environment = {
       "FORGEJO__database__DB_TYPE" = "postgres";
