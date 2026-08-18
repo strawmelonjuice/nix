@@ -100,46 +100,51 @@
     Unit.Description = "Swap wallpaper based on time";
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
-                                mkdir -p /home/mar/.local/share/wallpapers/slideshow
-                                if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
-                                  git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
-                                fi
+        # Since the timer sets up a bit faster 
+        # than a desktop can load in, we give it a
+        # minute to think before it acts.
+        sleep 60
+        mkdir -p /home/mar/.local/share/wallpapers/slideshow
+        if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
+          git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
+        fi
 
-                                # Wait for awww-daemon to be ready
-                                until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
-                                  echo "Waiting for awww-daemon..."
-                                  sleep 1
-                                done
 
-                                HOUR=$(date +%H)
-                                if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
-                                  # Night time: 19:00 to 07:59
-                                  echo "Good night!";
-                                  # Fake slideshow!
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
-                                  # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark}
-                		  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
-                        	  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange
-        			  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
-                                else
-                                  # Day time
-                                  echo "Good day~!";
-                                  ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
-                                  # Here too
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
-                                  # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light}
-                		  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop
-                        	  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic
-        			  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
-                                fi
+        # Wait for awww-daemon to be ready
+        until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
+          echo "Waiting for awww-daemon..."
+          sleep 1
+        done
+
+        HOUR=$(date +%H)
+        if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
+          # Night time: 19:00 to 07:59
+          echo "Good night!";
+          # Fake slideshow!
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
+        else
+          # Day time
+          echo "Good day~!";
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          # Here too
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light}
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
+        fi
       '';
     };
   };
