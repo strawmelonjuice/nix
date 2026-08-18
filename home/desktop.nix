@@ -38,6 +38,11 @@
     vivaldi
     crosspipe
     owncloud-client
+
+    # Additional to the radicle CLI
+    # just because I find the radicle idea so cool
+    radicle-desktop
+
     # I make a lot of things with Inkscape actually!
     inkscape
   ];
