@@ -1,13 +1,24 @@
 {
   pkgs,
   config,
+  hostname,
   ...
 }:
 
 {
-  programs.radicle.enable = true;
-  # Why does this attempt to override stuff the node sets itself...
-  # services.radicle.node.enable = true;
+  programs.radicle = {
+    settings = {
+      cli.hints = true;
+      node = {
+        alias = "strawmelonjuice.${hostname}";
+        listen = [
+          "127.0.0.1:58776"
+        ];
+      };
+    };
+    enable = true;
+  };
+  services.radicle.node.enable = true;
 
   programs.git = {
     enable = true;
