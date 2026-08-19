@@ -86,6 +86,7 @@
   ];
 
   services.tailscale.enable = true;
+  services.radicle.node.openFirewall = true;
 
   # Enable zsh
   programs.zsh.enable = true;

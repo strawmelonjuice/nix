@@ -1,10 +1,14 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 
 {
-  services.radicle.node.lazy.enable = true;
-  programs.radicle = {
-    enable = true;
-  };
+  programs.radicle.enable = true;
+  # Why does this attempt to override stuff the node sets itself...
+  # services.radicle.node.enable = true;
+
   programs.git = {
     enable = true;
     settings = {
