@@ -100,6 +100,8 @@
   services.kdeconnect.enable = true;
   services.owncloud-client.enable = true;
   services.tailscale-systray.enable = true;
+  # services.rsibreak.enable = true;
+  services.safeeyes.enable = true;
   services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
@@ -131,10 +133,10 @@
           cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
           # But we can just set it manually much better.
           ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark}
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark} || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
         else
           # Day time
           echo "Good day~!";
@@ -145,10 +147,10 @@
           cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
           # But we can just set it manually much better.
           ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light}
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic
-          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors"
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light} || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
         fi
       '';
     };
