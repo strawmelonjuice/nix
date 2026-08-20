@@ -138,6 +138,8 @@ later(function()
 	require("splitwise").setup({
 		max_columns = 3, -- Default:2
 		max_rows = 1, -- Default:2
+		auto_resize_enabled = false, -- Default: true
+		wrap_navigation = true, -- Default: false
 	})
 
 	add("https://github.com/wakatime/vim-wakatime")
