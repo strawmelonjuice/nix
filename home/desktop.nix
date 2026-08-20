@@ -65,7 +65,7 @@
       "application/x-extension-xht" = "vivaldi-stable.desktop";
 
       # Obsidian for obsidian
-      "x-scheme-handler/obsidian" = "obsidian.desktop";
+      "x-scheme-handler/obsidian" = "obsidian.desktop;md.Obsidian.desktop;";
 
       #jetbrains for jetbrains ???
 
