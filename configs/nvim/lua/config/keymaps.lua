@@ -28,8 +28,13 @@ map("v", "<C-s>", "<esc><cmd>w<cr>", { desc = "Save and go to normal mode" })
 map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 
 -- Splitting
-map("n", "<space>\\", "<cmd>vsplit<CR>", { desc = "Vertical split" })
-map("n", "<space>-", "<cmd>split<CR>", { desc = "Horizontal split" })
+map("n", "<space>\\", "<cmd>botright vsplit<CR>", { desc = "Vertical split" })
+map("n", "<space>-", "<cmd>botright split<CR>", { desc = "Horizontal split" })
+map("n", "<C-`>", "<cmd>botright split term://zsh<CR>i", { desc = "Split down into term" })
+
+-- exit :term
+map("t", "<Esc>", [[<C-\><C-n>]])
+map("t", "<C-`>", "<cmd>q<CR>", { desc = "Close term split" })
 
 -- Pickers/Telescope and LSP actions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wk.add({

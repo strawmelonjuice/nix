@@ -18,7 +18,7 @@ local function open_folder(data)
 		vim.cmd.cd(data.file)
 
 		-- open the picker
-		Snacks.picker.files({ cwd = true })
+		require("telescope.builtin").find_files()
 	end
 end
 

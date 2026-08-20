@@ -23,6 +23,13 @@ now(function()
 	add("https://github.com/nvim-telescope/telescope.nvim")
 	add("https://github.com/nvim-lua/plenary.nvim")
 	add("https://github.com/nvim-lualine/lualine.nvim")
+	add("https://github.com/hiattp/splitwise.nvim")
+	add("https://github.com/swaits/lazyjj.nvim")
+	add("https://github.com/kdheepak/lazygit.nvim")
+	add("https://github.com/neovim/nvim-lspconfig")
+	add("https://github.com/stevearc/conform.nvim")
+	add("https://github.com/nvim-lua/plenary.nvim")
+	add("https://github.com/windwp/nvim-autopairs")
 
 	local hour = tonumber(os.date("%H"))
 	local is_dark = (hour < 6 or hour >= 19)
@@ -43,10 +50,6 @@ now(function()
 end)
 
 later(function()
-	add("https://github.com/swaits/lazyjj.nvim")
-	add("https://github.com/kdheepak/lazygit.nvim")
-	add("https://github.com/neovim/nvim-lspconfig")
-	add("https://github.com/stevearc/conform.nvim")
 	require("config.keymaps")
 	require("plugins.telescope")
 	require("config.lsp")
@@ -131,9 +134,11 @@ later(function()
 		},
 	})
 
-	add("https://github.com/nvim-lua/plenary.nvim")
-	add("https://github.com/windwp/nvim-autopairs")
 	require("nvim-autopairs").setup({ check_ts = true })
+	require("splitwise").setup({
+		max_columns = 3, -- Default:2
+		max_rows = 1, -- Default:2
+	})
 
 	add("https://github.com/wakatime/vim-wakatime")
 	add("https://github.com/vyfor/cord.nvim")
