@@ -110,7 +110,7 @@
         # Since the timer sets up a bit faster 
         # than a desktop can load in, we give it a
         # minute to think before it acts.
-        sleep 60
+        # sleep 60
         mkdir -p /home/mar/.local/share/wallpapers/slideshow
         if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
           git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
