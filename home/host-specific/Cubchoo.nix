@@ -1,4 +1,6 @@
 { pkgs, config, ... }: {
+  programs.radicle.settings.node.externalAddresses = [ "strawmelonjuice.com:8776" ];
+
   targets.genericLinux.enable = true;
   programs.zsh.shellAliases.watch-temperature = "sudo watch -n 1 \"vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state\"  ";
   home.packages = with pkgs; [ restic ];
