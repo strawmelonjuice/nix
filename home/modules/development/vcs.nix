@@ -14,6 +14,10 @@
         listen = [
           "0.0.0.0:8776"
         ];
+        seedingPolicy = {
+          default = "allow";
+          scope = "all";
+        };
       };
     };
     enable = true;
