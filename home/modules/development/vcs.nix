@@ -12,7 +12,7 @@
       node = {
         alias = "strawmelonjuice.${hostname}";
         listen = [
-          "127.0.0.1:58776"
+          "0.0.0.0:8776"
         ];
       };
     };
