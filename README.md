@@ -11,13 +11,11 @@ nix shell nixpkgs#git nixpkgs#jujutsu --extra-experimental-features nix-command 
 
 # Cloning ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Clone the dotfiles
-jj git clone https://tangled.org/did:plc:f7kla3ryltgfgbecm44sg2mm -b main ~/.dotfiles
+jj git clone https://rosa.radicle.network/zF4ocfML4MryiqMDDX77R5HSKspr.git -b main ~/.dotfiles
 
 cd ~/.dotfiles
-# Set origin correctly for dotfiles, assuming you by the time you push again have the keys.
-jj git remote set-url origin git@knot.ollie.earth:did:plc:f7kla3ryltgfgbecm44sg2mm
-# If you're not me you may want to fork for this above step!
-
+# Make sure to later run rad auth, cancel it, then start your node, and initialize the dotfiles repository to be able to push.
+# ^That is mostly a note to self, unless you're planning to fork!
 
 # Optional cloning ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Clone wallpapers.

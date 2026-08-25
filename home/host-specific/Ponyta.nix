@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   targets.genericLinux.enable = true;
 
@@ -12,6 +13,10 @@
     # Entertainment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ../modules/entertainment/light-games.nix
 
+  ];
+
+  home.packages = with pkgs; [
+    radicle-desktop
   ];
 
   home.username = "mar";

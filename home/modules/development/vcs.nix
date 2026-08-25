@@ -29,10 +29,10 @@
       node = {
         alias = "strawmelonjuice.${hostname}";
         listen = [
-          "0.0.0.0:8776"
+          "[::]:8776"
         ];
         seedingPolicy = {
-          default = "allow";
+          default = "block";
           scope = "all";
         };
       };
