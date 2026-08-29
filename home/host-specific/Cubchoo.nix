@@ -108,13 +108,11 @@
       "80:80"
       "443:443"
       "443:443/udp"
-      "3045:3045"
     ];
     volumes = [
       "${config.home.homeDirectory}/services/data/caddy:/data:Z"
       "${config.home.homeDirectory}/.config/services/Caddy/Caddyfile:/etc/caddy/Caddyfile:Z"
       "${config.home.homeDirectory}/site:/srv/strawmelonjuice-site:ro"
-      "${config.home.homeDirectory}/backups:/srv/backups:ro"
     ];
   };
 
@@ -298,9 +296,8 @@
     network = "server-net";
     ports = [
       "8008:8008"
-      "8448:8448"
     ];
-    image = "matrixdotorg/synapse:sha-5ed830b";
+    image = "matrixdotorg/synapse:latest";
     environment = {
       SYNAPSE_CONFIG_PATH = "/data/homeserver.yaml";
     };
@@ -309,7 +306,7 @@
     ];
   };
   services.podman.containers.matrix-whatsapp = {
-    autoStart = false;
+    autoStart = true;
     networkAlias = [ "mautrix-whatsapp" ];
     network = "server-net";
     image = "dock.mau.dev/mautrix/whatsapp:latest";
@@ -318,7 +315,7 @@
     ];
   };
   services.podman.containers.matrix-signal = {
-    autoStart = false;
+    autoStart = true;
     networkAlias = [ "mautrix-signal" ];
     network = "server-net";
     image = "dock.mau.dev/mautrix/signal:latest";

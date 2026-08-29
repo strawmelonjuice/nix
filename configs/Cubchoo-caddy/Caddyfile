@@ -1,14 +1,15 @@
 {
+	debug
 	email webmaster@strawmelonjuice.com
-    servers {
-        # Cloudflare IP ranges from https://www.cloudflare.com/en-gb/ips/
-        trusted_proxies static 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
-        # Use CF-Connecting-IP to determine the client IP instead of XFF
-        # https://caddyserver.com/docs/caddyfile/options#client-ip-headers
-        client_ip_headers CF-Connecting-IP
-    }
+	#	local_certs
+	servers {
+		# Cloudflare IP ranges from https://www.cloudflare.com/en-gb/ips/
+		trusted_proxies static 173.245.48.0/20 103.21.244.0/22 103.22.200.0/22 103.31.4.0/22 141.101.64.0/18 108.162.192.0/18 190.93.240.0/20 188.114.96.0/20 197.234.240.0/22 198.41.128.0/17 162.158.0.0/15 104.16.0.0/13 104.24.0.0/14 172.64.0.0/13 131.0.72.0/22 2400:cb00::/32 2606:4700::/32 2803:f800::/32 2405:b500::/32 2405:8100::/32 2a06:98c0::/29 2c0f:f248::/32
+		# Use CF-Connecting-IP to determine the client IP instead of XFF
+		# https://caddyserver.com/docs/caddyfile/options#client-ip-headers
+		client_ip_headers CF-Connecting-IP
+	}
 }
-
 
 (icon_redirect) {
 	redir /assets/site_icon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
@@ -18,10 +19,6 @@
 	redir /assets/img/favicon.png https://strawmelonjuice.com/strawmelonjuice.svg permanent
 	redir /assets/img/site_icon.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
 	redir /assets/img/logo.svg https://strawmelonjuice.com/strawmelonjuice.svg permanent
-}
-
-git.strawmelonjuice.com {
-	redir https://forge.strawmelonjuice.com{uri}
 }
 
 forge.strawmelonjuice.com {
@@ -46,6 +43,7 @@ files-shared.strawmelonjuice.com {
 }
 
 fonts.strawmelonjuice.com {
+	header Access-Control-Allow-Origin *
 	reverse_proxy 100.65.127.22:39936
 }
 
@@ -64,15 +62,19 @@ cloud.strawmelonjuice.com {
 	reverse_proxy owncloud_server:8080
 }
 matrix.strawmelonjuice.com {
-	reverse_proxy /_matrix/* matrix:8008
-	reverse_proxy /_synapse/client/* matrix:8008
-	reverse_proxy matrix:8008 {
+	# CORS headers for federation and clients
+	header Access-Control-Allow-Origin *
+
+	# Proxy all Matrix endpoints to Synapse with 5-minute timeouts
+	reverse_proxy /_matrix/* /_synapse/client/* matrix:8008 {
 		transport http {
 			read_timeout 300s
 			write_timeout 300s
 		}
 	}
-	redir https://app.cinny.in/login/strawmelonjuice.com
+
+	# Redirect root visits to Cinny web client
+	redir / https://app.cinny.in/#/login?homeserver=https://strawmelonjuice.com 302
 }
 http://strawmelonjuice.com:7008 {
 	#  My Site
@@ -107,22 +109,23 @@ strawmelonjuice.com {
 		respond @server `{"m.server": "matrix.strawmelonjuice.com:443"}`
 
 		@client path /.well-known/matrix/client
-		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}, "m.identity_server": {"base_url": "https://vector.im"}}`
+		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
 	}
 
-	handle /_matrix/* {
-		reverse_proxy matrix:8008 {
-			transport http {
-				read_timeout 300s
-				write_timeout 300s
-				dial_timeout 30s
-			}
+	#	handle  {
+	#		header Access-Control-Allow-Origin *
+	reverse_proxy /_matrix/* matrix:8008 {
+		transport http {
+			response_header_timeout 60s
+			read_timeout 60s
 		}
 	}
+	#}
 
-	handle /_synapse/client/* {
-		reverse_proxy matrix:8008
-	}
+	#handle  {
+	#	header Access-Control-Allow-Origin *
+	reverse_proxy /_synapse/client/* matrix:8008
+	#}
 
 	# proxy to my sites anubis
 	reverse_proxy anubis-site:3000 {
