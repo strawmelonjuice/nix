@@ -28,6 +28,7 @@
         key = "/home/mar/.ssh/id_ed25519.pub";
         gpg.key = "9FFA7AE8896DD236";
       };
+      git.write-change-id-header = true;
       ui.diff-formatter = [
         "difft"
         "--color=always"
@@ -40,6 +41,34 @@
         movement.edit = true;
         default-command = "status";
         show-cryptographic-signatures = true;
+      };
+      revset-aliases = {
+        "trunk()" = ''
+          	    latest(
+          		  remote_bookmarks(exact:"main", exact:"origin") |
+          		  remote_bookmarks(exact:"master", exact:"origin") |
+          		  remote_bookmarks(exact:"mistress", exact:"origin") |
+          		  remote_bookmarks(exact:"trunk", exact:"origin") |
+
+          		  remote_bookmarks(exact:"main", exact:"upstream") |
+          		  remote_bookmarks(exact:"mistress", exact:"upstream") |
+          		  remote_bookmarks(exact:"master", exact:"upstream") |
+          		  remote_bookmarks(exact:"trunk", exact:"upstream") |
+
+          		  remote_bookmarks(exact:"main", exact:"rad") |
+          		  remote_bookmarks(exact:"mistress", exact:"rad") |
+          		  remote_bookmarks(exact:"master", exact:"rad") |
+          		  remote_bookmarks(exact:"trunk", exact:"rad") |
+
+          		  root()
+          	    )
+        '';
+        "immutable_heads()" = ''
+          		present(trunk()) | tags() | ( 
+           			untracked_remote_bookmarks() ~ 
+           			untracked_remote_bookmarks(remote='rad') ~ 
+           			untracked_remote_bookmarks(regex:'^patch(es)/',remote='rad')
+           		)'';
       };
       revsets.bookmark-advance-to = "coalesce(@ & ~empty(), @-)";
       template-aliases.default_commit_description = ''
