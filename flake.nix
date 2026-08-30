@@ -137,7 +137,7 @@
         Samurott = (defineHome "Samurott" "x86_64-linux" true);
         Ponyta = (defineHome "Ponyta" "x86_64-linux" false);
         frigometri = (defineHome "frigometri" "x86_64-linux" false);
-        marpi5-1 = (defineHome "Cubchoo" "aarch64-linux" false);
+        Cubchoo = (defineHome "Cubchoo" "aarch64-linux" false);
         Tepig = (defineHome "Tepig" "x86_64-linux" true);
       };
     };

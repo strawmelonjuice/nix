@@ -7,14 +7,8 @@
 # ----------- Forges hosted by me ----------
 
 Host forge.strawmelonjuice.com
-  HostName marpi5-1.taild5b3d4.ts.net
+  HostName cubchoo.taild5b3d4.ts.net
   Port 222
-  User git
-  IdentityFile ~/.ssh/id_ed25519
-
-Host knot.strawmelonjuice.com
-  HostName marpi5-1.taild5b3d4.ts.net
-  Port 2222
   User git
   IdentityFile ~/.ssh/id_ed25519
 
@@ -53,16 +47,16 @@ Host tilde.town
     User strawmelonjuice
     IdentityFile ~/.ssh/id_ed25519
 
-# ---- Strawmelonservices/marpi5-1 ------
+# ---- Cubchoo
 Host strawmelonservices
-    HostName marpi5-1.taild5b3d4.ts.net
+    HostName cubchoo.taild5b3d4.ts.net
         User root
         Port 22
         IdentityFile ~/.ssh/y5c01-2026
 Host strawmelonservices-temp
     RequestTTY yes
     RemoteCommand watch -n 1 "vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state"
-    HostName marpi5-1.taild5b3d4.ts.net
+    HostName cubchoo.taild5b3d4.ts.net
         User root
         Port 22
         IdentityFile ~/.ssh/y5c01-2026

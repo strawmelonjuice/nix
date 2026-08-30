@@ -12,7 +12,7 @@
       preferredSeeds = [
         # Mine
         "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
-        "z6MktUaCwVFEbkaHwb8maW5FjPqfvTVpafgmSnxiN8y1NtU3@marpi5-1:8776" # Cubchoo!
+        "z6MktUaCwVFEbkaHwb8maW5FjPqfvTVpafgmSnxiN8y1NtU3@cubchoo:8776"
         "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
         "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
 
