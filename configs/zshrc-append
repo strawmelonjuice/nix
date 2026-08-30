@@ -3,10 +3,6 @@ export EDITOR=nvim
 _zap() {
     if [[ -d .jj || -d .git ]]; then
         clear -x
-	if command rad . > /dev/null 2>&1
-	then 
-		rad sync
-	fi;
         local repo_type=""
 
         if [[ -d .git && -d .jj ]]; then
@@ -18,6 +14,16 @@ _zap() {
         fi
 
         echo "📂 Opened $repo_type repository: $(pwd)"
+
+	if command rad . > /dev/null 2>&1
+	then 
+		rad sync
+		if ! command git ls-remote --exit-code origin > /dev/null 2>&1
+		then
+			echo "Pointing origin to rad."
+			git remote add origin "$(git remote get-url rad --push)"
+		fi
+	fi;
 
         if [[ -d .git ]]; then
             git fetch
