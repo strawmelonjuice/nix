@@ -166,6 +166,14 @@
             "NIXOS_OZONE_WL"
           ];
         }
+        {
+          command = [
+            "systemctl"
+            "--user"
+            "start"
+            "plasma-polkit-agent.service"
+          ];
+        }
         { command = [ "blueman-applet" ]; }
         { command = [ "blueman-tray" ]; }
         {
@@ -174,9 +182,6 @@
             "--user"
             "restart"
             "wallpaper-switcher.service"
-            # This runs
-            # "awww" "img" "/home/mar/.local/share/wallpapers/current_wallpaper.png"
-            # But smarter.
           ];
         }
         { command = [ "waybar" ]; }
@@ -207,7 +212,7 @@
         { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
       ];
 
-      prefer-no-csd = true;
+      # prefer-no-csd = true;
       screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
       workspaces = {
@@ -224,11 +229,16 @@
       window-rules = [
         {
           matches = [
-            { app-id = "^org\\.wezfurlong\\.wezterm$"; }
             { app-id = "Spotify"; }
           ];
 
           open-maximized = true;
+        }
+        {
+          matches = [
+            { app-id = "^org\\.wezfurlong\\.wezterm$"; }
+          ];
+          default-column-width = { };
         }
         {
           matches = [
