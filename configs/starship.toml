@@ -1,16 +1,59 @@
 # This config could just go in home manager, but unfortunately earlier attempts broke harshly..
 
 
+# format = """
+# [](fg:#9A348E)\
+# $os\
+# [](fg:#9A348E) \
+# """
+
+# right_format = """
+# [](#9A348E)\
+#
+# $username\
+# []( fg:#C1E1C1 bg:#9A348E)\
+# $shell\
+# []( fg:#DA627D bg:#C1E1C1)\
+# $directory\
+# []( bg:#DA627D fg:#e7d1ff)\
+# $mise\
+# $nix_shell\
+# []( fg:#FCA17D bg:#e7d1ff)\
+# ${custom.vcs_branch}\
+# ${custom.vcs_status}\
+# []( bg:#FCA17D fg:#86BBD8)\
+# $c\
+# $cpp\
+# $elixir\
+# $elm\
+# $golang\
+# $gradle\
+# $haskell\
+# $java\
+# $julia\
+# $nodejs\
+# $bun\
+# $erlang\
+# $nim\
+# $gleam\
+# $rust\
+# $scala\
+# $php\
+# $zig\
+# []( bg:#86BBD8 fg:#06969A)\
+# $docker_context\
+# $cmd_duration\
+# []( bg:#06969A fg:#33658A)\
+# $status\
+# $time\
+#
+# [ ](fg:#33658A)\
+#
+# """
 format = """
-[](fg:#9A348E)\
-$os\
-[](fg:#9A348E) \
-"""
-
-right_format = """
-[](#9A348E)\
-
+[](#9A348E)\
 $username\
+$hostname\
 []( fg:#C1E1C1 bg:#9A348E)\
 $shell\
 []( fg:#DA627D bg:#C1E1C1)\
@@ -46,9 +89,8 @@ $cmd_duration\
 []( bg:#06969A fg:#33658A)\
 $status\
 $time\
-
-[ ](fg:#33658A)\
-
+[](fg:#33658A)\
+\n\n 
 """
 # Disable the blank line at the start of the prompt
 # add_newline = false
@@ -59,8 +101,14 @@ $time\
 show_always = true
 style_user = "bg:#9A348E fg:#FFD6E0"
 style_root = "bg:#9A348E fg:#FFD6E0"
-format = '[$user ]($style)'
+format = '[$user]($style)'
 disabled = false
+
+[hostname]
+ssh_only = false
+format = '[ @](bg:#9A348E fg:#FFD6E0)[$ssh_symbol](bold blue bg:#9A348E)[ $hostname ](bg:#9A348E fg:#FFD6E0)'
+disabled = false
+
 
 [shell]
 # The shell module displays the current shell name
@@ -81,7 +129,7 @@ fish_indicator = "🐟 Fish"
 # represents the current operating system
 [os]
 style = "bg:#9A348E fg:#FFD6E0"
-disabled = false      # Disabled by default
+disabled = false                # Disabled by default
 
 [directory]
 style = "bg:#DA627D"
@@ -160,11 +208,11 @@ disabled = false
 symbol = "🧅 "
 format = '[ $symbol ($version) ]($style)'
 detect_files = [
-    'bun.lock',
-    'bun.lockb',
-    'bunfig.toml',
-    'package.json',
-    "gleam.toml",
+	'bun.lock',
+	'bun.lockb',
+	'bunfig.toml',
+	'package.json',
+	"gleam.toml",
 ]
 style = "bg:#86BBD8 fg:#FF6B6B"
 
@@ -220,12 +268,12 @@ style = "bg:#33658A" # Like time.
 success_symbol = "💖"
 symbol = "💔"
 format = "[ $symbol]($style)"
-map_symbol =true
+map_symbol = true
 
 
 [time]
 disabled = false
-time_format = "%R"             # Hour:Minute Format
+time_format = "%R"           # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ $time ]($style)'
 
@@ -239,7 +287,7 @@ min_time = 500
 disabled = true
 symbol = "🐭"
 format = '[ $symbol $health ]($style)'
-detect_files = [ "mise.toml"]
+detect_files = ["mise.toml"]
 style = "bg:#e7d1ff fg:#00008b"
 
 [nix_shell]
