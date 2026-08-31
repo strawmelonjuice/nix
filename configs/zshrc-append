@@ -111,3 +111,27 @@ rb() {
       fi
 }
 
+rad-mirror-cubchoo() {
+	local oldpwd="$(pwd)"
+	local da_tempi="$(mktemp)"
+	mkdir -p /home/mar/files/projects/repos/radicle
+	cd /home/mar/files/projects/repos/radicle
+	rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi"
+	while read p; do
+		echo "Asking Cubchoo to seed $p"
+		ssh cubchoo rad seed $p --scope=all
+	done < "$da_tempi"
+	ssh cubchoo -- rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi" 
+	while read p; do
+		echo "Cloning $p to local"
+		rad clone $p || echo "May have already existed."
+	done < "$da_tempi"
+	cd "$oldpwd"
+}
+
+rad-add-all-as-delegates() {
+	local da_tempi="$(mktemp)"
+	# Get all hostname-based preferred seeds, which are in this case, all mine.
+	(echo "";rad config get preferredSeeds;echo "") | grep -v "\." | sed "s,\(.*\)@\(.*\),\\1," | tr '\n' ' ' | sed "s/ z/ --delegate=did:key:z/g" > "$da_tempi"
+	rad id update $(cat "$da_tempi") --description="Add the strawmelonjuice.- devices"
+}
