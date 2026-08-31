@@ -34,7 +34,7 @@
     shellAliases = {
       # Stealing these back actually!
       to-dotfiles = "cd ~/.dotfiles || cd ~/dotfiles";
-      urb = "jj --repository $HOME/.dotfiles git fetch && jj --repository $HOME/.dotfiles rebase --onto 'trunk()' && rb";
+      urb = "rad sync rad:zF4ocfML4MryiqMDDX77R5HSKspr && jj --repository $HOME/.dotfiles git fetch --all-remotes && jj --repository $HOME/.dotfiles rebase --onto 'trunk()' && rb";
       hmrb = ''jj --repository "$HOME/.dotfiles" file track "$HOME/.dotfiles/."; nix run home-manager -- switch --flake "$HOME/.dotfiles#$(hostname)"'';
 
       ls = "eza --icons always ";
