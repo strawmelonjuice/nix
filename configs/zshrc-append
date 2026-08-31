@@ -124,7 +124,8 @@ rad-mirror-cubchoo() {
 	ssh cubchoo -- rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi" 
 	while read p; do
 		echo "Cloning $p to local"
-		rad clone $p || echo "May have already existed."
+		rad clone $p --scope=all || echo "May have already existed."
+		rad seed $p --scope=all
 	done < "$da_tempi"
 	cd "$oldpwd"
 }
