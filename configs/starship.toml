@@ -106,7 +106,8 @@ disabled = false
 
 [hostname]
 ssh_only = false
-format = '[ @](bg:#9A348E fg:#FFD6E0)[$ssh_symbol](bold blue bg:#9A348E)[ $hostname ](bg:#9A348E fg:#FFD6E0)'
+ssh_symbol = "🌐"
+format = '[ @](bg:#9A348E fg:#FFD6E0)[ $ssh_symbol](bold blue bg:#9A348E)[$hostname ](bg:#9A348E fg:#FFD6E0)'
 disabled = false
 
 
