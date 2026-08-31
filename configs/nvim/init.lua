@@ -2,6 +2,9 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 local colourscheme_light = "dayfox"
 local colourscheme_dark = "tokyonight-night"
+local hour = tonumber(os.date("%H"))
+local is_dark = (hour < 6 or hour >= 19)
+
 require("config.options")
 
 local path_package = vim.fn.stdpath("data") .. "/site/"
@@ -31,8 +34,6 @@ now(function()
 	add("https://github.com/nvim-lua/plenary.nvim")
 	add("https://github.com/windwp/nvim-autopairs")
 
-	local hour = tonumber(os.date("%H"))
-	local is_dark = (hour < 6 or hour >= 19)
 	local theme = is_dark and colourscheme_dark or colourscheme_light
 
 	vim.o.termguicolors = true
@@ -64,34 +65,33 @@ later(function()
 		},
 	})
 
-	-- 	add("folke/snacks.nvim")
-	-- 	require("snacks").setup({
-	-- 		indent = {
-	-- 			enabled = true,
-	-- 			char = "╎",
-	-- 			scope = {
-	-- 				enabled = true,
-	-- 				char = "│",
-	-- 			},
-	-- 		},
-	-- 		dashboard = {
-	-- 			enabled = true,
-	-- 			sections = {
-	-- 				{ section = "header", padding = 5 }, -- Alleen je mooie ASCII art
-	-- 			},
-	-- 			preset = {
-	-- 				header = [[
-	--          ===================================================================
-	--          -------------------------   Mar's Nvim!   -------------------------
-	--          ===================================================================
-	--
-	--                     Welcome! It's time to start doing stuff! :3
-	-- ]],
-	-- 			},
-	-- 		},
-	-- 		picker = { enabled = true },
-	-- 		explorer = { enabled = true },
-	-- 	})
+	add("folke/snacks.nvim")
+	local message = is_dark and "Hi! Please remember to sleep, it's dark out!"
+		or "Good day! It's time to start doing stuff! :3"
+	require("snacks").setup({
+		indent = {
+			enabled = true,
+			char = "╎",
+			scope = {
+				enabled = true,
+				char = "│",
+			},
+		},
+		dashboard = {
+			enabled = true,
+			sections = {
+				{ section = "header", padding = 5 },
+			},
+			preset = {
+				header = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+					.. "-------------------------   Mar's Nvim!   -------------------------\n"
+					.. "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+					.. message,
+			},
+		},
+		picker = { enabled = false },
+		explorer = { enabled = true },
+	})
 
 	require("plugins.lualine")
 	add({
