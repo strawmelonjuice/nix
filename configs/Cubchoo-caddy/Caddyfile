@@ -31,11 +31,15 @@ forge.strawmelonjuice.com {
 	redir /assets/img/logo.svg https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
 
 	# proxy to forgejo's anubis
-	reverse_proxy anubis-forgejo:3000 {
+	reverse_proxy anubis:3000 {
 		header_up X-Forwarded-For {client_ip}
-		header_up X-Real-IP {client_ip}
+		header_up X-Real-IP {remote_host}
 		header_up X-Http-Version {http.request.proto}
 	}
+}
+# Forgejo past the anubis
+http://forge.strawmelonjuice.com:7008 {
+	reverse_proxy forgejo:3000
 }
 
 files-shared.strawmelonjuice.com {
@@ -65,13 +69,19 @@ matrix.strawmelonjuice.com {
 	# CORS headers for federation and clients
 	header Access-Control-Allow-Origin *
 
-	# Proxy all Matrix endpoints to Synapse with 5-minute timeouts
-	reverse_proxy /_matrix/* /_synapse/client/* matrix:8008 {
+	reverse_proxy /_matrix/*  matrix:8008 {
 		transport http {
 			read_timeout 300s
 			write_timeout 300s
 		}
 	}
+	reverse_proxy /_synapse/client/*  matrix:8008 {
+		transport http {
+			read_timeout 300s
+			write_timeout 300s
+		}
+	}
+	
 
 	# Redirect root visits to Cinny web client
 	redir / https://app.cinny.in/#/login?homeserver=https://strawmelonjuice.com 302
@@ -112,23 +122,20 @@ strawmelonjuice.com {
 		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
 	}
 
-	#	handle  {
-	#		header Access-Control-Allow-Origin *
 	reverse_proxy /_matrix/* matrix:8008 {
 		transport http {
 			response_header_timeout 60s
 			read_timeout 60s
 		}
 	}
-	#}
 
-	#handle  {
-	#	header Access-Control-Allow-Origin *
 	reverse_proxy /_synapse/client/* matrix:8008
-	#}
 
-	# proxy to my sites anubis
-	reverse_proxy anubis-site:3000 {
+	# un-anubised traffic
+	reverse_proxy /svg/* localhost:7008
+
+	# proxy through anubis
+	reverse_proxy anubis:3000 {
 		header_up X-Forwarded-For {client_ip}
 		header_up X-Real-IP {client_ip}
 		header_up X-Http-Version {http.request.proto}

@@ -121,8 +121,8 @@
   xdg.configFile."services/Caddy/Caddyfile".source = ../../configs/Cubchoo-caddy/Caddyfile;
 
   # Anubis
-  services.podman.containers."anubis-forgejo" = {
-    networkAlias = [ "anubis-forgejo" ];
+  services.podman.containers."anubis" = {
+    networkAlias = [ "anubis" ];
     image = "ghcr.io/techarohq/anubis:latest";
     autoStart = true;
     network = "server-net";
@@ -132,24 +132,9 @@
       OG_PASSTHROUGH = true;
       SERVE_ROBOTS_TXT = true;
       COOKIE_DYNAMIC_DOMAIN = true;
-      TARGET = "http://forgejo:3000";
-      WEBMASTER_EMAIL = "anubis-master@strawmelonjuice.com";
-    };
-  };
-  services.podman.containers."anubis-site" = {
-    networkAlias = [ "anubis-site" ];
-    image = "ghcr.io/techarohq/anubis:latest";
-    autoStart = true;
-    network = "server-net";
-    environment = {
-      BIND = "0.0.0.0:3000";
-      DIFFICULTY = 2;
-      OG_PASSTHROUGH = true;
-      COOKIE_DYNAMIC_DOMAIN = true;
       TARGET = "http://caddy:7008";
       WEBMASTER_EMAIL = "anubis-master@strawmelonjuice.com";
     };
-
   };
 
   # Tranquil (trying this out) (stopped trying it out, the LSP fooled me (it doesn't work in a home-manager service, and Cubchoo has no system-level nix))
