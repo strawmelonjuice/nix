@@ -86,7 +86,7 @@
               General = {
                 launchers = [
                   "applications:vivaldi-stable.desktop"
-                  "applications:org.wezfurlong.wezterm.desktop"
+                  "applications:Alacritty.desktop"
                   "applications:obsidian.desktop"
                   "applications:element-desktop.desktop"
                 ]

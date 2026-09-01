@@ -308,8 +308,8 @@
         "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
 
         "Mod+Return" = {
-          action.spawn = "wezterm";
-          hotkey-overlay.title = "Open a Terminal: wezterm";
+          action.spawn = "alacritty";
+          hotkey-overlay.title = "Open a Terminal: Alacritty";
         };
         "Mod+Shift+Return" = {
           action.spawn = "kgx";

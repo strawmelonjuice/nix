@@ -25,7 +25,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "vivaldi-stable.desktop"
-        "org.wezfurlong.wezterm.desktop"
+        "Alacritty.desktop"
         "obsidian.desktop"
         "element-desktop.desktop"
       ]

@@ -2646,7 +2646,7 @@
     force = true;
     text = ''
       {
-          Terminal: "wezterm start --cwd .",
+          Terminal: "alacritty start --cwd .",
       }
     '';
   };
@@ -2741,8 +2741,9 @@
     text = ''
       [
        "zen"
-       "org.wezfurlong.wezterm"
+       "Alacritty"
        "obsidian"
+       "element-desktop"
       ]
     '';
   };

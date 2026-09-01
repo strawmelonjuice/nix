@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, ... }:
 
 {
   programs.wezterm = {
@@ -36,7 +36,7 @@
         }
         config.font_size = 14
         config.font = wezterm.font_with_fallback({
-          "Maple Mono NF",
+          "${config.home.sessionVariables.PREFERRED_MONO_FONT}",
         	"Hermit",
         	"Lilex",
         	"Lotion",

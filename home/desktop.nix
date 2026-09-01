@@ -20,7 +20,8 @@
     #-> And vivaldi, which is configured non-declaratively.
 
     # Graphical terminal emulator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    ./modules/wezterm.nix
+    # ./modules/wezterm.nix
+    ./modules/alacritty.nix
 
     # Entertainment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ./modules/entertainment/light-games.nix
@@ -90,12 +91,15 @@
     };
   };
 
-  home.sessionVariables.TERMINAL = "wezterm";
+  home.sessionVariables.TERMINAL = "alacritty";
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
   home.sessionVariables.background-light = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/gruvbox_room.png";
   home.sessionVariables.background-dark = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/purple-girl.png";
+  home.sessionVariables.TERM_THEME_LIGHT = "rose_pine_dawn";
+  home.sessionVariables.TERM_THEME_DARK = "tokyo_night_enhanced";
+  home.sessionVariables.PREFERRED_MONO_FONT = "Maple Mono NF";
 
   services.kdeconnect.enable = true;
   services.owncloud-client.enable = true;
@@ -105,55 +109,65 @@
   services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
+    Install.WantedBy = [ "graphical.target" ];
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
-                # Since the timer sets up a bit faster 
-                # than a desktop can load in, we give it a
-                # minute to think before it acts.
-                # sleep 60
-                mkdir -p /home/mar/.local/share/wallpapers/slideshow
-                if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
-                  git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
-                fi
+                                # Since the timer sets up a bit faster 
+                                # than a desktop can load in, we give it a
+                                # minute to think before it acts.
+                                # sleep 60
+                                mkdir -p /home/mar/.local/share/wallpapers/slideshow
+                                if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
+                                  git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
+                                fi
 
 
-                # Wait for awww-daemon to be ready
-                until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
-                  echo "Waiting for awww-daemon..."
-                  sleep 1
-                done
+                                # Wait for awww-daemon to be ready
+                                until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
+                                  echo "Waiting for awww-daemon..."
+                                  sleep 1
+                                done
 
-                HOUR=$(date +%H)
-                if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
-                  # Night time: 19:00 to 07:59
-                  echo "Good night!";
-                  # Fake slideshow!
-                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
-                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
-                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
-                  # But we can just set it manually much better.
-                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
-        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark} || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
-                else
-                  # Day time
-                  echo "Good day~!";
-                  ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
-                  # Here too
-                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
-                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
-                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
-                  # But we can just set it manually much better.
-                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
-        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light} || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
-                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
-                fi
+                                HOUR=$(date +%H)
+                                if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
+                                  # Night time: 19:00 to 07:59
+                                  echo "Good night!";
+                                  # Fake slideshow!
+                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
+                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
+                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
+                                  # But we can just set it manually much better.
+                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
+
+                        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
+                		  # KDE is in this episode too
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark} || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
+
+
+        			  ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_DARK}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
+                                else
+                                  # Day time
+                                  echo "Good day~!";
+                                  ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+                                  # Here too
+                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
+                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
+                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
+                                  # But we can just set it manually much better.
+                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
+
+                        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
+                		  # KDE is in this episode too
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light} || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
+
+        			  ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_LIGHT}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
+                                fi
       '';
     };
   };

@@ -123,12 +123,12 @@
 
           cpu = {
             format = " {usage}% ";
-            on-click = "wezterm -e btop -p 1";
+            on-click = "alacritty -e btop -p 1";
           };
 
           memory = {
             format = " {}% ";
-            on-click = "wezterm -e btop -p 0";
+            on-click = "alacritty -e btop -p 0";
           };
 
           network = {
@@ -142,7 +142,7 @@
             tooltip-format-disconnected = "Disconnected";
             max-length = 50;
             on-click = "nm-connection-editor";
-            on-click-right = "wezterm -e nmtui connect";
+            on-click-right = "alacritty -e nmtui connect";
 
           };
 
