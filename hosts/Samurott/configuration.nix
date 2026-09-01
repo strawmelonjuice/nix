@@ -133,7 +133,7 @@
     device = "/dev/disk/by-id/ata-ST2000DM008-2UB102_WFL8TYW7-part1";
     fsType = "ntfs";
     options = [
-      "default"
+      # "default"
       "users"
       "nofail"
       "exec"
