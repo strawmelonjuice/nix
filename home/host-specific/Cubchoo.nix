@@ -284,12 +284,9 @@
   # https://continuwuity.org/deploying/docker.html#caddy-using-caddyfile
   services.podman.containers.matrix-main = {
     autoStart = true;
-    networkAlias = [
-      "matrix"
-    ];
-    network = "server-net";
+    # network = "host";
     ports = [
-      "8008:8008"
+      "18008:8008"
     ];
     image = "forgejo.ellis.link/continuwuation/continuwuity:latest";
     environment = {

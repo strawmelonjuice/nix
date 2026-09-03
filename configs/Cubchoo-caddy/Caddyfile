@@ -67,7 +67,7 @@ cloud.strawmelonjuice.com {
 }
 
 https://matrix.strawmelonjuice.com:443, https://matrix.strawmelonjuice.com:8448 {
-	reverse_proxy http://matrix:8008
+	reverse_proxy http://host.containers.internal:18008
 }
 
 http://strawmelonjuice.com:7008 {
