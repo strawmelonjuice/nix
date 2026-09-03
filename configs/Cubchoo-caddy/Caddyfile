@@ -65,27 +65,11 @@ media.strawmelonjuice.com {
 cloud.strawmelonjuice.com {
 	reverse_proxy owncloud_server:8080
 }
-matrix.strawmelonjuice.com {
-	# CORS headers for federation and clients
-	header Access-Control-Allow-Origin *
 
-	reverse_proxy /_matrix/*  matrix:8008 {
-		transport http {
-			read_timeout 300s
-			write_timeout 300s
-		}
-	}
-	reverse_proxy /_synapse/client/*  matrix:8008 {
-		transport http {
-			read_timeout 300s
-			write_timeout 300s
-		}
-	}
-	
-
-	# Redirect root visits to Cinny web client
-	redir / https://app.cinny.in/#/login?homeserver=https://strawmelonjuice.com 302
+https://matrix.strawmelonjuice.com:443, https://matrix.strawmelonjuice.com:8448 {
+	reverse_proxy http://matrix:8008
 }
+
 http://strawmelonjuice.com:7008 {
 	#  My Site
 	root * /srv/strawmelonjuice-site/
@@ -108,28 +92,6 @@ strawmelonjuice.com {
 		header Access-Control-Allow-Origin *
 		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
 	}
-
-	# ================---- Matrix Homeserver ----================
-	handle /.well-known/matrix/* {
-		header Access-Control-Allow-Origin *
-		header Content-Type application/json
-
-		# Using a Matcher inside the handle to respond differently
-		@server path /.well-known/matrix/server
-		respond @server `{"m.server": "matrix.strawmelonjuice.com:443"}`
-
-		@client path /.well-known/matrix/client
-		respond @client `{"m.homeserver": {"base_url": "https://strawmelonjuice.com"}}`
-	}
-
-	reverse_proxy /_matrix/* matrix:8008 {
-		transport http {
-			response_header_timeout 60s
-			read_timeout 60s
-		}
-	}
-
-	reverse_proxy /_synapse/client/* matrix:8008
 
 	# un-anubised traffic
 	reverse_proxy /svg/* localhost:7008

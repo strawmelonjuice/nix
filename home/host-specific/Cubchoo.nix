@@ -281,42 +281,51 @@
   };
 
   # Matrix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # https://continuwuity.org/deploying/docker.html#caddy-using-caddyfile
   services.podman.containers.matrix-main = {
     autoStart = true;
     networkAlias = [
       "matrix"
-      "synapse"
     ];
     network = "server-net";
     ports = [
       "8008:8008"
     ];
-    image = "matrixdotorg/synapse:latest";
+    image = "forgejo.ellis.link/continuwuation/continuwuity:latest";
     environment = {
-      SYNAPSE_CONFIG_PATH = "/data/homeserver.yaml";
+      CONTINUWUITY_SERVER_NAME = "matrix.strawmelonjuice.com";
+      CONTINUWUITY_DATABASE_PATH = "/var/lib/continuwuity";
+      CONTINUWUITY_ADDRESS = "0.0.0.0";
+      CONTINUWUITY_PORT = 8008;
+      CONTINUWUITY_WELL_KNOWN__SERVER = "matrix.strawmelonjuice.com:443";
+      JEMALLOC_SYS_WITH_LG_PAGE = "14";
     };
     volumes = [
-      "${config.home.homeDirectory}/services/data/matrix/synapse:/data:Z"
+      "${config.home.homeDirectory}/services/data/matrix/continuwuity-db:/var/lib/continuwuity"
+      "${builtins.toFile "resolv.conf" ''
+        nameserver 1.0.0.1
+        nameserver 1.1.1.1
+      ''}:/etc/resolv.conf"
     ];
   };
-  services.podman.containers.matrix-whatsapp = {
-    autoStart = true;
-    networkAlias = [ "mautrix-whatsapp" ];
-    network = "server-net";
-    image = "dock.mau.dev/mautrix/whatsapp:latest";
-    volumes = [
-      "${config.home.homeDirectory}/services/data/matrix/whatsapp:/data:Z"
-    ];
-  };
-  services.podman.containers.matrix-signal = {
-    autoStart = true;
-    networkAlias = [ "mautrix-signal" ];
-    network = "server-net";
-    image = "dock.mau.dev/mautrix/signal:latest";
-    volumes = [
-      "${config.home.homeDirectory}/services/data/matrix/signal:/data:Z"
-    ];
-  };
+  # services.podman.containers.matrix-whatsapp = {
+  #   autoStart = true;
+  #   networkAlias = [ "mautrix-whatsapp" ];
+  #   network = "server-net";
+  #   image = "dock.mau.dev/mautrix/whatsapp:latest";
+  #   volumes = [
+  #     "${config.home.homeDirectory}/services/data/matrix/whatsapp:/data:Z"
+  #   ];
+  # };
+  # services.podman.containers.matrix-signal = {
+  #   autoStart = true;
+  #   networkAlias = [ "mautrix-signal" ];
+  #   network = "server-net";
+  #   image = "dock.mau.dev/mautrix/signal:latest";
+  #   volumes = [
+  #     "${config.home.homeDirectory}/services/data/matrix/signal:/data:Z"
+  #   ];
+  # };
 
   # Backups ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   systemd.user.services.services-backups = {
