@@ -27,76 +27,81 @@
     };
     volumes = [
       "${config.home.homeDirectory}/database:/var/lib/postgresql:Z"
-      "${config.home.homeDirectory}/.config/services/main-database/postgresql.conf:/etc/postgresql/postgresql.conf:ro"
+      "${builtins.toFile "postgresql.conf" ''
+        # Connectivity
+        max_connections = 200
+        superuser_reserved_connections = 3
+        listen_addresses='*'
+
+        # Memory Settings
+        shared_buffers = '4096 MB'
+        work_mem = '32 MB'
+        maintenance_work_mem = '420 MB'
+        huge_pages = off
+        effective_cache_size = '11 GB'
+        effective_io_concurrency = 1 # concurrent IO only really activated if OS supports posix_fadvise function
+        random_page_cost = 4 # speed of random disk access relative to sequential access (1.0)
+
+        # Monitoring
+        shared_preload_libraries = 'pg_stat_statements' # per statement resource usage stats
+        track_io_timing=on # measure exact block IO times
+        track_functions=pl # track execution times of pl-language procedures if any
+
+        # Replication
+        wal_level = replica # consider using at least 'replica'
+        max_wal_senders = 10
+        synchronous_commit = on
+
+        # Checkpointing:
+        checkpoint_timeout = '15 min'
+        checkpoint_completion_target = 0.9
+        max_wal_size = '1024 MB'
+        min_wal_size = '512 MB'
+
+        # WAL archiving
+        archive_mode = on # having it on enables activating P.I.T.R. at a later time without restart›
+        archive_command = '/bin/true' # not doing anything yet with WAL-s
+
+
+        # WAL writing
+        wal_compression = on
+        wal_buffers = -1 # auto-tuned by Postgres till maximum of segment size (16MB by default)
+        wal_writer_delay = 200ms
+        wal_writer_flush_after = 1MB
+        wal_keep_size = '3650 MB'
+
+
+        # Background writer
+        bgwriter_delay = 200ms
+        bgwriter_lru_maxpages = 100
+        bgwriter_lru_multiplier = 2.0
+        bgwriter_flush_after = 0
+
+        # Parallel queries:
+        max_worker_processes = 8
+        max_parallel_workers_per_gather = 4
+        max_parallel_maintenance_workers = 4
+        max_parallel_workers = 8
+        parallel_leader_participation = on
+
+        # Advanced features
+        enable_partitionwise_join = on
+        enable_partitionwise_aggregate = on
+        jit = on
+        max_slot_wal_keep_size = '1000 MB'
+        track_wal_io_timing = on
+        maintenance_io_concurrency = 1
+        wal_recycle = on
+      ''}:/etc/postgresql/postgresql.conf:ro"
     ];
     exec = "postgres -c 'config_file=/etc/postgresql/postgresql.conf'";
+
+    extraPodmanArgs = [
+      "--memory 1g"
+      "--memory-swap 1g"
+      "--memory-reservation 512m"
+    ];
   };
-  xdg.configFile."services/main-database/postgresql.conf".text = ''
-    # Connectivity
-    max_connections = 200
-    superuser_reserved_connections = 3
-    listen_addresses='*'
-
-    # Memory Settings
-    shared_buffers = '4096 MB'
-    work_mem = '32 MB'
-    maintenance_work_mem = '420 MB'
-    huge_pages = off
-    effective_cache_size = '11 GB'
-    effective_io_concurrency = 1 # concurrent IO only really activated if OS supports posix_fadvise function
-    random_page_cost = 4 # speed of random disk access relative to sequential access (1.0)
-
-    # Monitoring
-    shared_preload_libraries = 'pg_stat_statements' # per statement resource usage stats
-    track_io_timing=on # measure exact block IO times
-    track_functions=pl # track execution times of pl-language procedures if any
-
-    # Replication
-    wal_level = replica # consider using at least 'replica'
-    max_wal_senders = 10
-    synchronous_commit = on
-
-    # Checkpointing:
-    checkpoint_timeout = '15 min'
-    checkpoint_completion_target = 0.9
-    max_wal_size = '1024 MB'
-    min_wal_size = '512 MB'
-
-    # WAL archiving
-    archive_mode = on # having it on enables activating P.I.T.R. at a later time without restart›
-    archive_command = '/bin/true' # not doing anything yet with WAL-s
-
-
-    # WAL writing
-    wal_compression = on
-    wal_buffers = -1 # auto-tuned by Postgres till maximum of segment size (16MB by default)
-    wal_writer_delay = 200ms
-    wal_writer_flush_after = 1MB
-    wal_keep_size = '3650 MB'
-
-
-    # Background writer
-    bgwriter_delay = 200ms
-    bgwriter_lru_maxpages = 100
-    bgwriter_lru_multiplier = 2.0
-    bgwriter_flush_after = 0
-
-    # Parallel queries:
-    max_worker_processes = 8
-    max_parallel_workers_per_gather = 4
-    max_parallel_maintenance_workers = 4
-    max_parallel_workers = 8
-    parallel_leader_participation = on
-
-    # Advanced features
-    enable_partitionwise_join = on
-    enable_partitionwise_aggregate = on
-    jit = on
-    max_slot_wal_keep_size = '1000 MB'
-    track_wal_io_timing = on
-    maintenance_io_concurrency = 1
-    wal_recycle = on
-  '';
 
   # Caddy ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers.caddy = {
@@ -114,13 +119,18 @@
       "${config.home.homeDirectory}/.config/services/Caddy/Caddyfile:/etc/caddy/Caddyfile:Z"
       "${config.home.homeDirectory}/site:/srv/strawmelonjuice-site:ro"
     ];
+    extraPodmanArgs = [
+      "--memory 1g"
+      "--memory-swap 1g"
+      "--memory-reservation 512m"
+    ];
   };
 
   programs.zsh.shellAliases.caddy-reload = "podman exec -it caddy caddy reload --config /etc/caddy/Caddyfile";
 
   xdg.configFile."services/Caddy/Caddyfile".source = ../../configs/Cubchoo-caddy/Caddyfile;
 
-  # Anubis
+  # Anubis ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers."anubis" = {
     networkAlias = [ "anubis" ];
     image = "ghcr.io/techarohq/anubis:latest";
@@ -128,13 +138,17 @@
     network = "server-net";
     environment = {
       BIND = "0.0.0.0:3000";
-      DIFFICULTY = 6;
+      DIFFICULTY = 3;
       OG_PASSTHROUGH = true;
       SERVE_ROBOTS_TXT = true;
       COOKIE_DYNAMIC_DOMAIN = true;
       TARGET = "http://caddy:7008";
       WEBMASTER_EMAIL = "anubis-master@strawmelonjuice.com";
     };
+    extraPodmanArgs = [
+      "--memory 100m"
+      "--memory-reservation 512m"
+    ];
   };
 
   # Tranquil (trying this out) (stopped trying it out, the LSP fooled me (it doesn't work in a home-manager service, and Cubchoo has no system-level nix))
@@ -218,6 +232,9 @@
           retries: 5
         volumes:
           - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data:Z
+        resources:
+          limits:
+            memory: 2G
         networks:
           server-net:
             aliases:
@@ -235,6 +252,9 @@
           retries: 5
         volumes:
           - redis:/data
+        resources:
+          limits:
+            memory: 1G
         networks:
           owncloud-net:
             aliases: 
@@ -264,6 +284,11 @@
     volumes = [
       "${config.home.homeDirectory}/services/data/forgejo:/data:Z"
     ];
+
+    extraPodmanArgs = [
+      "--memory 1g"
+      "--memory-reservation 512m"
+    ];
   };
 
   # Strawmelonjuice media share ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -278,6 +303,11 @@
     volumes = [
       "${config.home.homeDirectory}/services/data/strawmediajuice:/app/data:Z"
     ];
+
+    extraPodmanArgs = [
+      "--memory 100m"
+      "--memory-reservation 512m"
+    ];
   };
 
   # Matrix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -288,7 +318,7 @@
     ports = [
       "18008:8008"
     ];
-    image = "forgejo.ellis.link/continuwuation/continuwuity:latest";
+    image = "forgejo.ellis.link/continuwuation/continuwuity:latest-maxperf";
     environment = {
       CONTINUWUITY_SERVER_NAME = "matrix.strawmelonjuice.com";
       CONTINUWUITY_DATABASE_PATH = "/var/lib/continuwuity";
@@ -303,6 +333,11 @@
         nameserver 1.0.0.1
         nameserver 1.1.1.1
       ''}:/etc/resolv.conf"
+    ];
+    extraPodmanArgs = [
+      "--memory 1g"
+      "--memory-swap 1g"
+      "--memory-reservation 512m"
     ];
   };
   # services.podman.containers.matrix-whatsapp = {
