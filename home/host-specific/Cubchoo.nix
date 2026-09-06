@@ -201,7 +201,6 @@
         external: true
       owncloud-net:
 
-
     volumes:
       redis:
         driver: local
@@ -232,15 +231,15 @@
           retries: 5
         volumes:
           - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data:Z
-        resources:
-          limits:
-            memory: 2G
         networks:
           server-net:
             aliases:
               - cloud
           owncloud-net:
-
+        deploy:
+          resources:
+            limits:
+              memory: 2G
       redis:
         image: redis:6
         container_name: owncloud_redis
@@ -252,13 +251,14 @@
           retries: 5
         volumes:
           - redis:/data
-        resources:
-          limits:
-            memory: 1G
         networks:
           owncloud-net:
             aliases: 
               - redis
+        deploy:
+          resources:
+            limits:
+              memory: 1G
   '';
   # Forgejo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers.forgejo = {
