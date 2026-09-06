@@ -110,14 +110,13 @@
           "jj bookmark advance && jj git push"
         ];
 
-        # Describe a change, sign it and then create a new change on top
-        ds = [
+        rad-sync = [
           "util"
           "exec"
           "--"
           "sh"
           "-c"
-          "jj describe && jj sign && jj new"
+          "rad sync && jj git fetch --all-remotes"
         ];
 
         # Bit more history
