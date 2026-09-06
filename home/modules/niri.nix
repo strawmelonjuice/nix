@@ -25,6 +25,8 @@
     kdePackages.kdeconnect-kde
     kdePackages.qttools
     gnome-console
+    wl-mirror
+    jq
     nautilus
     pavucontrol
     btop
@@ -373,6 +375,11 @@
             "emoji "
           ];
           hotkey-overlay.title = "Emoji Picker (KRunner)";
+        };
+
+        "Mod+P" = {
+          repeat = false;
+          action.spawn-sh = "wl-mirror ''$(niri msg --json focused-output | jq -r .name)";
         };
 
         # Audio media keys
