@@ -85,7 +85,7 @@
             config = {
               General = {
                 launchers = [
-                  "applications:vivaldi-stable.desktop"
+                  "applications:zen.desktop"
                   "applications:Alacritty.desktop"
                   "applications:obsidian.desktop"
                   "applications:element-desktop.desktop"
