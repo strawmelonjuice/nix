@@ -15,6 +15,8 @@
 
   ];
 
+  programs.plasma.krunner.position = "center";
+
   home.packages = with pkgs; [
     wev
     kdePackages.krunner

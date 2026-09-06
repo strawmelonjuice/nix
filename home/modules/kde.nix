@@ -27,6 +27,7 @@
   programs.plasma = {
     enable = true;
     overrideConfig = true;
+    krunner.position = "center";
     kscreenlocker.appearance.wallpaper = "/home/mar/.local/share/wallpapers/current_wallpaper.png";
     workspace = {
       clickItemTo = "select";
