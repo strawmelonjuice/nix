@@ -2,6 +2,8 @@
 {
   targets.genericLinux.enable = true;
 
+  home.sessionVariables.PREFERRED_MONO_FONT = "Maple Mono NF";
+
   imports = [
     # Graphical development ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ../modules/development/vscodium.nix
