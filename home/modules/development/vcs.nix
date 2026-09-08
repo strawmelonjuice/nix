@@ -99,15 +99,9 @@
           "jj git fetch && jj rebase --onto 'trunk()'"
         ];
 
-        # Advance bookmark, then push it
-        ap = [ "autopush" ];
-        autopush = [
-          "util"
-          "exec"
-          "--"
-          "sh"
-          "-c"
-          "jj bookmark advance && jj git push"
+        open = [
+          "new"
+          "trunk()"
         ];
 
         rad-sync = [

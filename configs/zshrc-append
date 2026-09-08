@@ -18,15 +18,10 @@ _zap() {
 	if command rad . > /dev/null 2>&1
 	then 
 		rad sync
-		if ! command git ls-remote --exit-code origin > /dev/null 2>&1
-		then
-			echo "Pointing origin to rad."
-			git remote add origin "$(git remote get-url rad --push)"
-		fi
 	fi;
 
         if [[ -d .git ]]; then
-            git fetch
+            git fetch --all
         else
             jj git fetch --tracked --all-remotes
         fi
