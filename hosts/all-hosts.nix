@@ -97,7 +97,7 @@
   # Enable niri and KDE. I like to be able to switch whenever.
   programs.niri.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.defaultSession = lib.mkForce "plasma";
+  services.displayManager.defaultSession = lib.mkForce "niri";
 
   # Switching to SDDM after hopping around a lot; will we hate this?
   # SDDM/KDE Login manager just refuse to start... plasma. GDM then?

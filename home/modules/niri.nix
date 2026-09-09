@@ -324,12 +324,11 @@
 
           hotkey-overlay.title = "Open that gnome file browser";
         };
-        "Mod+Shift+B" = {
+        "Mod+B" = {
           action.spawn = "zen";
           hotkey-overlay.title = "Open browser: Zen";
         };
-        "Mod+B" = {
-
+        "Mod+Shift+B" = {
           action.spawn = "vivaldi";
           hotkey-overlay.title = "Open browser: Vivaldi";
         };
