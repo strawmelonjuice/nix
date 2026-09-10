@@ -32,7 +32,10 @@
     };
   };
   environment = {
-    pathsToLink = [ "/share/zsh" ];
+    pathsToLink = [
+      "/share/zsh"
+      "/share/fish"
+    ];
     variables = {
       GTK_IM_MODULE = lib.mkForce null;
       QT_IM_MODULE = lib.mkForce null;
@@ -88,8 +91,8 @@
   services.tailscale.enable = true;
   services.radicle.node.openFirewall = true;
 
-  # Enable zsh
-  programs.zsh.enable = true;
+  # Enable fish
+  programs.fish.enable = true;
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
@@ -149,7 +152,7 @@
       "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBKmawcg4EArqnBiDPZhqHas8qm4R3n6f5wtoLKdowd4YQA6oQnTHKQ0ReKWZw/aMSoUgR5nuuMZObPy6bsdQS10AAAAEc3NoOg== mar@Samurott Yubikey 1"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAoQBb5B3iDgdRb+rFwK1t3C6nDW9JTpDGvATnxdTVXZ Backup server management key"
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
       "wheel"

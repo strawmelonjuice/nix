@@ -159,7 +159,7 @@
   users.users.mar = {
     isNormalUser = true;
     description = "MLC Bloeiman";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = [
       "wheel"
       "networkmanager"
@@ -214,7 +214,7 @@
       archive_command = "/bin/true";
     };
   };
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
   environment.systemPackages = with pkgs; [
     jj
     # coreutils

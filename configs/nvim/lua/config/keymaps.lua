@@ -30,7 +30,7 @@ map("n", "<C-s>", "<cmd>w<cr>", { desc = "Save and stay in normal mode" })
 -- Splitting
 map("n", "<space>\\", "<cmd>botright vsplit<CR>", { desc = "Vertical split" })
 map("n", "<space>-", "<cmd>botright split<CR>", { desc = "Horizontal split" })
-map("n", "<C-`>", "<cmd>botright split term://zsh<CR>i", { desc = "Split down into term" })
+map("n", "<C-`>", "<cmd>botright split term://fish<CR>i", { desc = "Split down into term" })
 
 -- exit :term
 map("t", "<Esc>", [[<C-\><C-n>]])

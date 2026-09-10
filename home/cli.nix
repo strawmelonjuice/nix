@@ -13,54 +13,25 @@
     ./modules/development/vcs.nix
     ./modules/development/neovim.nix
     ./modules/development/helix.nix
+
     # Shell
-    ./modules/shell/kc.nix
-    ./modules/shell/zsh.nix
+    ./modules/shell.nix
 
     inputs.direnv-instant.homeModules.direnv-instant
   ];
+  news.display = "silent";
 
   home.stateVersion = "25.11"; # Ensure this matches your NixOS version
-  news.display = "silent";
-  nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
+  home.file.".ssh/config_shared" = {
+    source = ../configs/ssh-config;
+  };
+  home.username = "mar";
+  home.homeDirectory = "/home/mar";
 
+  nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
   services.podman.enable = true;
-
-  # Direnv stuff
-  programs.direnv = {
-    silent = true;
-    enable = true;
-    nix-direnv = {
-      enable = true;
-    };
-    # Direnv instant should have me here:
-    enableBashIntegration = false;
-    enableFishIntegration = false;
-    enableZshIntegration = false;
-  };
-  programs.direnv-instant = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.hyfetch = {
-    enable = true;
-    settings = {
-      preset = "transbian";
-      mode = "rgb";
-      light_dark = "light";
-      lightness = 1.0;
-      color_align = {
-        mode = "horizontal";
-      };
-      backend = "macchina";
-      pride_month_disable = false;
-    };
-
-  };
-
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-qt;
@@ -68,36 +39,6 @@
     defaultCacheTtl = 28800;
     maxCacheTtl = 28800;
   };
-  home.file.".ssh/config_shared" = {
-    source = ../configs/ssh-config;
-  };
-
-  xdg.configFile."zellij" = {
-    source = ../configs/zellij;
-    recursive = true;
-  };
-
-  xdg.configFile."starship.toml" = {
-    source = ../configs/starship.toml;
-  };
-
-  home.packages = with pkgs; [
-    eza
-    bat
-    zoxide
-    starship
-    hyfetch
-    macchina
-    zellij
-    fzf
-    xsel
-    jq
-  ];
-
-  home.sessionVariables.SHELL = "zsh";
-
-  home.username = "mar";
-  home.homeDirectory = "/home/mar";
 
   xdg.userDirs = {
     enable = true;

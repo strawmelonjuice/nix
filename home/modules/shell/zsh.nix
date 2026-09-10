@@ -1,49 +1,5 @@
 { lib, pkgs, ... }:
 {
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-    options = [ "--cmd zox" ];
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.starship = {
-    enable = true;
-    enableZshIntegration = true;
-
-  };
-  home.shellAliases = {
-    to-dotfiles = "cd ~/.dotfiles || cd ~/dotfiles";
-    urb = "rad sync rad:zF4ocfML4MryiqMDDX77R5HSKspr && jj --repository $HOME/.dotfiles git fetch --all-remotes && jj --repository $HOME/.dotfiles rebase --onto 'trunk()' && rb";
-    hmrb = ''jj --repository "$HOME/.dotfiles" file track "$HOME/.dotfiles/."; nix run home-manager -- switch --flake "$HOME/.dotfiles#$(hostname)"'';
-
-    ls = "eza --icons always ";
-    la = "eza --icons always -a";
-    ll = "eza --icons always -al";
-    lt = "eza --icons always -a --tree --level=1";
-    v = "$EDITOR";
-    cat = "bat -p";
-    nano = "nvim";
-    shutdown = "systemctl poweroff";
-    ide = "zellij --layout ide";
-    rsamurott = "ssh Samurott niri output DP-1 mode 1920x1080@60; moonlight --1080 stream Samurott Desktop";
-    # JJ-related
-    jje = "jj edit";
-    jjd = "jj desc @";
-    jjda = ''jj describe @ -m "$(date)"'';
-    jjs = "jj show";
-    jjn = "jj next --edit";
-    cargock = "cargo-clean-all --keep-days 21 ~ -i";
-
-    # Zoxide + a little dash of info ------------------------------------------------
-    cd = "zox";
-    cdi = "zoxi";
-
-  };
   # Forcing myself to evaluate all the options from https://home-manager-options.extranix.com/?query=programs.zsh.&release=release-25.11 and add them or ignore
   programs.zsh = {
     enable = true;
@@ -89,7 +45,4 @@
       ignoreSpace = true;
     };
   };
-  home.packages = with pkgs; [
-    shfmt
-  ];
 }
