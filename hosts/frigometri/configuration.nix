@@ -2,7 +2,6 @@
   config,
   modulesPath,
   pkgs,
-  lib,
   ...
 }:
 {
@@ -110,6 +109,31 @@
         autoStart = true;
         ports = [
           "39936:8080"
+        ];
+
+      };
+      # Matrix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      # https://continuwuity.org/deploying/docker.html#caddy-using-caddyfile
+      matrix-main = {
+        autoStart = true;
+        ports = [
+          "18008:8008"
+        ];
+        image = "forgejo.ellis.link/continuwuation/continuwuity:latest-maxperf";
+        environment = {
+          CONTINUWUITY_SERVER_NAME = "matrix.strawmelonjuice.com";
+          CONTINUWUITY_DATABASE_PATH = "/var/lib/continuwuity";
+          CONTINUWUITY_ADDRESS = "0.0.0.0";
+          CONTINUWUITY_PORT = "8008";
+          CONTINUWUITY_WELL_KNOWN__SERVER = "matrix.strawmelonjuice.com:443";
+          JEMALLOC_SYS_WITH_LG_PAGE = "14";
+        };
+        volumes = [
+          "/home/mar/continuwuity-old-db/var/lib/continuwuity"
+          "${builtins.toFile "resolv.conf" ''
+            nameserver 1.0.0.1
+            nameserver 1.1.1.1
+          ''}:/etc/resolv.conf"
         ];
       };
     };
