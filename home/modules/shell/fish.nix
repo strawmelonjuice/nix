@@ -4,7 +4,7 @@
     let
       fishStart = lib.mkOrder 500 ''
         # Have to have ssh-agent running now for yubikey sk-ed25519
-        eval $(ssh-agent)
+        eval (ssh-agent -c) 
         clear
         ${pkgs.hyfetch}/bin/hyfetch
       '';
