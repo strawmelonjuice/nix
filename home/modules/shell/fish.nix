@@ -25,7 +25,6 @@
     fishPlugins.fzf-fish
     fishPlugins.forgit
     fishPlugins.hydro
-    fishPlugins.grc
     fishPlugins.autopair
   ];
 }
