@@ -36,6 +36,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     direnv-instant.url = "github:Mic92/direnv-instant";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     {
@@ -130,6 +134,7 @@
         Ponyta = (defineSystem "Ponyta" "x86_64-linux" false);
         frigometri = (defineSystem "frigometri" "x86_64-linux" false);
         Tepig = (defineSystem "Tepig" "x86_64-linux" true);
+        Cubchoo = (defineSystem "Cubchoo" "aarch64-linux" false);
       };
 
       homeConfigurations = {

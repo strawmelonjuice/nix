@@ -31,6 +31,7 @@
       };
     };
   };
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   environment = {
     pathsToLink = [
       "/share/zsh"

@@ -1,7 +1,6 @@
 { pkgs, config, ... }: {
   programs.radicle.settings.node.externalAddresses = [ "strawmelonjuice.com:8776" ];
 
-  targets.genericLinux.enable = true;
   programs.zsh.shellAliases.watch-temperature = "sudo watch -n 1 \"vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state\"  ";
   home.packages = with pkgs; [ restic ];
 
@@ -14,181 +13,26 @@
     };
   };
   # Main database ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  services.podman.containers.main-database = {
-    autoStart = true;
-    networkAlias = [
-      "main-database"
-      "db"
-    ];
-    network = "server-net";
-    image = "postgres:18-alpine";
-    environment = {
-      "POSTGRES_HOST_AUTH_METHOD" = "trust";
-    };
-    volumes = [
-      "${config.home.homeDirectory}/database:/var/lib/postgresql:Z"
-      "${builtins.toFile "postgresql.conf" ''
-        # Connectivity
-        max_connections = 200
-        superuser_reserved_connections = 3
-        listen_addresses='*'
-
-        # Memory Settings
-        shared_buffers = '4096 MB'
-        work_mem = '32 MB'
-        maintenance_work_mem = '420 MB'
-        huge_pages = off
-        effective_cache_size = '11 GB'
-        effective_io_concurrency = 1 # concurrent IO only really activated if OS supports posix_fadvise function
-        random_page_cost = 4 # speed of random disk access relative to sequential access (1.0)
-
-        # Monitoring
-        shared_preload_libraries = 'pg_stat_statements' # per statement resource usage stats
-        track_io_timing=on # measure exact block IO times
-        track_functions=pl # track execution times of pl-language procedures if any
-
-        # Replication
-        wal_level = replica # consider using at least 'replica'
-        max_wal_senders = 10
-        synchronous_commit = on
-
-        # Checkpointing:
-        checkpoint_timeout = '15 min'
-        checkpoint_completion_target = 0.9
-        max_wal_size = '1024 MB'
-        min_wal_size = '512 MB'
-
-        # WAL archiving
-        archive_mode = on # having it on enables activating P.I.T.R. at a later time without restart›
-        archive_command = '/bin/true' # not doing anything yet with WAL-s
-
-
-        # WAL writing
-        wal_compression = on
-        wal_buffers = -1 # auto-tuned by Postgres till maximum of segment size (16MB by default)
-        wal_writer_delay = 200ms
-        wal_writer_flush_after = 1MB
-        wal_keep_size = '3650 MB'
-
-
-        # Background writer
-        bgwriter_delay = 200ms
-        bgwriter_lru_maxpages = 100
-        bgwriter_lru_multiplier = 2.0
-        bgwriter_flush_after = 0
-
-        # Parallel queries:
-        max_worker_processes = 8
-        max_parallel_workers_per_gather = 4
-        max_parallel_maintenance_workers = 4
-        max_parallel_workers = 8
-        parallel_leader_participation = on
-
-        # Advanced features
-        enable_partitionwise_join = on
-        enable_partitionwise_aggregate = on
-        jit = on
-        max_slot_wal_keep_size = '1000 MB'
-        track_wal_io_timing = on
-        maintenance_io_concurrency = 1
-        wal_recycle = on
-      ''}:/etc/postgresql/postgresql.conf:ro"
-    ];
-    exec = "postgres -c 'config_file=/etc/postgresql/postgresql.conf'";
-
-    extraPodmanArgs = [
-      "--memory 1g"
-      "--memory-swap 1g"
-      "--memory-reservation 512m"
-    ];
-  };
+  # - Moved to nix service
 
   # Caddy ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  services.podman.containers.caddy = {
-    autoStart = true;
-    image = "docker.io/library/caddy";
-    network = "server-net";
-    networkAlias = [ "caddy" ];
-    ports = [
-      "80:80"
-      "443:443"
-      "443:443/udp"
-    ];
-    volumes = [
-      "${config.home.homeDirectory}/services/data/caddy:/data:Z"
-      "${config.home.homeDirectory}/.config/services/Caddy/Caddyfile:/etc/caddy/Caddyfile:Z"
-      "${config.home.homeDirectory}/site:/srv/strawmelonjuice-site:ro"
-    ];
-    extraPodmanArgs = [
-      "--memory 1g"
-      "--memory-swap 1g"
-      "--memory-reservation 512m"
-    ];
-  };
-
-  programs.zsh.shellAliases.caddy-reload = "podman exec -it caddy caddy reload --config /etc/caddy/Caddyfile";
-
-  xdg.configFile."services/Caddy/Caddyfile".source = ../../configs/Cubchoo-caddy/Caddyfile;
-
-  # Anubis ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  services.podman.containers."anubis" = {
-    networkAlias = [ "anubis" ];
-    image = "ghcr.io/techarohq/anubis:latest";
-    autoStart = true;
-    network = "server-net";
-    environment = {
-      BIND = "0.0.0.0:3000";
-      DIFFICULTY = 3;
-      OG_PASSTHROUGH = true;
-      SERVE_ROBOTS_TXT = true;
-      COOKIE_DYNAMIC_DOMAIN = true;
-      TARGET = "http://caddy:7008";
-      WEBMASTER_EMAIL = "anubis-master@strawmelonjuice.com";
-    };
-    extraPodmanArgs = [
-      "--memory 100m"
-      "--memory-reservation 512m"
-    ];
-  };
-
-  # Tranquil (trying this out) (stopped trying it out, the LSP fooled me (it doesn't work in a home-manager service, and Cubchoo has no system-level nix))
-
-  # services.tranquil-pds = {
-  #   enable = true;
-  #   settings = {
-  #     server = {
-  #       hostname = "pds.strawmelonjuice.com";
-  #       host = "localhost";
-  #       port = "7060";
-  #     };
-  #     database = {
-  #       url = "postgresql://tranquil:postgres@main-database:5432";
-  #     };
-  #     storage = {
-  #       path = "/home/mar/services/data/tranquil/blobs";
-  #     };
-  #     tranquil_store = {
-  #       data_dir = "/home/mar/services/data/tranquil/data";
-  #     };
-  #   };
-  #   environmentFiles = [ "/etc/secrets/tranquil.env.production" ];
-  # };
+  # - Mostly moved to nix service
 
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Add symlink between Owncloud files <-> Home folders
   home.file."media/music" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/services/data/owncloud/data/files/mar/files/Music";
+    source = config.lib.file.mkOutOfStoreSymlink "/cubchoo/owncloud/data/files/mar/files/Music";
     force = true;
   };
 
   systemd.user.services.owncloud = {
     Service = {
       ExecStart = pkgs.writeShellScript "owncloud-starter" ''
-        if [ ! -f "${config.xdg.configHome}/services/OwnCloud/.env" ]; then
-        	echo "Missing file : ${config.xdg.configHome}/services/OwnCloud/.env"
-        	exit 1
-        fi
-        cd "${config.xdg.configHome}/services/OwnCloud" && podman compose --env-file ./.env --project-name cloud up 
+        # if [ ! -f "${config.xdg.configHome}/services/OwnCloud/.env" ]; then
+        # 	echo "Missing file : ${config.xdg.configHome}/services/OwnCloud/.env"
+        # 	exit 1
+        # fi
+        cd "${config.xdg.configHome}/services/OwnCloud" && ${pkgs.podman-compose}/bin/podman-compose --env-file ./.env --project-name cloud up 
       '';
     };
     Install.WantedBy = [ "default.target" ];
@@ -197,8 +41,6 @@
   # Define composefile
   xdg.configFile."services/OwnCloud/docker-compose.yml".text = ''
     networks:
-      server-net:
-        external: true
       owncloud-net:
 
     volumes:
@@ -209,13 +51,15 @@
       owncloud:
         image: owncloud/server:latest
         container_name: owncloud_server
+        extra_hosts:
+          - "host.containers.internal:host-gateway"
         depends_on:
           - redis
         environment:
-          - OWNCLOUD_DOMAIN=cloud.strawmelonjuice.com
-          - OWNCLOUD_TRUSTED_DOMAINS=cloud.strawmelonjuice.com
-          - OWNCLOUD_ADMIN_USERNAME=''${OWNCLOUD_ADMIN_USERNAME}
-          - OWNCLOUD_ADMIN_PASSWORD=''${OWNCLOUD_ADMIN_PASSWORD}
+          - OWNCLOUD_DOMAIN=cloud.strawmelonjuice.nl
+          - OWNCLOUD_TRUSTED_DOMAINS=cloud.strawmelonjuice.nl
+          - OWNCLOUD_ADMIN_USERNAME=mar
+          # - OWNCLOUD_ADMIN_PASSWORD=''${OWNCLOUD_ADMIN_PASSWORD}
           - OWNCLOUD_REDIS_ENABLED=true
           - OWNCLOUD_REDIS_HOST=redis
           # Main db
@@ -223,18 +67,17 @@
           - OWNCLOUD_DB_NAME=owncloud
           - OWNCLOUD_DB_USERNAME=owncloud
           - OWNCLOUD_DB_PASSWORD=owncloud
-          - OWNCLOUD_DB_HOST=main-database:5432
+          - OWNCLOUD_DB_HOST=host.containers.internal
         healthcheck:
           test: ["CMD", "/usr/bin/healthcheck"]
           interval: 30s
           timeout: 10s
           retries: 5
         volumes:
-          - ${config.home.homeDirectory}/services/data/owncloud/data/:/mnt/data:Z
+          - /cubchoo/owncloud/data/:/mnt/data:Z
+        ports:
+          - 38080:8080
         networks:
-          server-net:
-            aliases:
-              - cloud
           owncloud-net:
         deploy:
           resources:
@@ -260,36 +103,6 @@
             limits:
               memory: 1G
   '';
-  # Forgejo ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  services.podman.containers.forgejo = {
-    autoStart = true;
-    autoUpdate = "registry";
-    image = "codeberg.org/forgejo/forgejo:16";
-    network = "server-net";
-    ports = [
-      "222:22"
-    ];
-    environment = {
-      "FORGEJO__database__DB_TYPE" = "postgres";
-      "FORGEJO__database__HOST" = "main-database:5432";
-      "FORGEJO__database__NAME" = "forgejo";
-      "FORGEJO__database__USER" = "forgejo";
-      "FORGEJO__database__PASSWD" = "forgejo";
-      "FORGEJO__DEFAULT__APP_NAME" = "Mar's forge";
-      "FORGEJO__DEFAULT__APP_SLOGAN" = "The fruitiest git forge";
-      "FORGEJO__server__ROOT_URL" = "https://forge.strawmelonjuice.com";
-      "FORGEJO__server__OFFLINE_MODE" = false;
-      "FORGEJO__mirror__ENABLED" = true;
-    };
-    volumes = [
-      "${config.home.homeDirectory}/services/data/forgejo:/data:Z"
-    ];
-
-    extraPodmanArgs = [
-      "--memory 1g"
-      "--memory-reservation 512m"
-    ];
-  };
 
   # Strawmelonjuice media share ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   services.podman.containers.mediajuice = {
@@ -311,6 +124,7 @@
   };
 
   # Matrix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # The 'old' host on strawmelonjuice.com
   # https://continuwuity.org/deploying/docker.html#caddy-using-caddyfile
   services.podman.containers.matrix-main = {
     autoStart = true;
@@ -328,7 +142,7 @@
       JEMALLOC_SYS_WITH_LG_PAGE = "14";
     };
     volumes = [
-      "${config.home.homeDirectory}/services/data/matrix/continuwuity-db:/var/lib/continuwuity"
+      "/cubchoo/matrix-old/continuwuity-db:/var/lib/continuwuity"
       "${builtins.toFile "resolv.conf" ''
         nameserver 1.0.0.1
         nameserver 1.1.1.1
@@ -340,24 +154,6 @@
       "--memory-reservation 512m"
     ];
   };
-  # services.podman.containers.matrix-whatsapp = {
-  #   autoStart = true;
-  #   networkAlias = [ "mautrix-whatsapp" ];
-  #   network = "server-net";
-  #   image = "dock.mau.dev/mautrix/whatsapp:latest";
-  #   volumes = [
-  #     "${config.home.homeDirectory}/services/data/matrix/whatsapp:/data:Z"
-  #   ];
-  # };
-  # services.podman.containers.matrix-signal = {
-  #   autoStart = true;
-  #   networkAlias = [ "mautrix-signal" ];
-  #   network = "server-net";
-  #   image = "dock.mau.dev/mautrix/signal:latest";
-  #   volumes = [
-  #     "${config.home.homeDirectory}/services/data/matrix/signal:/data:Z"
-  #   ];
-  # };
 
   # Backups ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   systemd.user.services.services-backups = {
