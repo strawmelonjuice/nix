@@ -129,7 +129,7 @@
           JEMALLOC_SYS_WITH_LG_PAGE = "14";
         };
         volumes = [
-          "/home/mar/continuwuity-old-db/var/lib/continuwuity"
+          "/home/mar/continuwuity-old-db:/var/lib/continuwuity"
           "${builtins.toFile "resolv.conf" ''
             nameserver 1.0.0.1
             nameserver 1.1.1.1
