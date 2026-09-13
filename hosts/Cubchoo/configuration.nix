@@ -53,6 +53,11 @@
   networking.hostName = "Cubchoo";
   networking.networkmanager.wifi.powersave = false;
   networking.networkmanager.enable = true;
+  networking.wireless = {
+    enable = true;
+    extraConfig = "country=NL";
+  };
+  hardware.firmware = [ pkgs.wireless-regdb ];
   services.tailscale.enable = true;
 
   time.timeZone = "Europe/Amsterdam";
