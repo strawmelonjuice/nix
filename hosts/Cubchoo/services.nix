@@ -1,4 +1,10 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+{
   networking.firewall = {
     allowedTCPPorts = [
       80
@@ -26,12 +32,52 @@
       }
     ];
   };
+  imports = [
+    "${
+      fetchTarball {
+        url = "https://github.com/onny/nixos-nextcloud-testumgebung/archive/fa6f062830b4bc3cedb9694c1dbf01d5fdf775ac.tar.gz";
+        sha256 = "0gzd0276b8da3ykapgqks2zhsqdv4jjvbv97dsxg0hgrhb74z0fs";
+      }
+    }/nextcloud-extras.nix"
+  ];
+
   services = {
     caddy = {
       enable = true;
       virtualHosts = {
+        # My site
+        "strawmelonjuice.nl".extraConfig = ''
+            handle_path /.well-known/atproto-did {
+          		header Access-Control-Allow-Origin *
+          		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
+          	}
+
+          	# un-anubised traffic
+          	reverse_proxy /svg/* localhost:7008
+
+          	# proxy through anubis
+          	reverse_proxy anubis:3000 {
+          		header_up X-Forwarded-For {client_ip}
+          		header_up X-Real-IP {client_ip}
+          		header_up X-Http-Version {http.request.proto}
+          	}
+            reverse_proxy localhost:17044 {
+          		header_up X-Forwarded-For {client_ip}
+          		header_up X-Real-IP {remote_host}
+          		header_up X-Http-Version {http.request.proto}
+          	}
+        '';
+
+        "strawmelonjuice.nl:7044".extraConfig = ''
+            #  My Site
+          	root * /cubchoo/site-files/
+          	try_files {path} {path}/index.html /unpopulated.html unpopulated.html
+          	file_server
+        '';
+
+        # Forgejo
+        "forge.strawmelonjuice.com".extraConfig = "redir https://forge.strawmelonjuice.nl{uri}";
         "forge.strawmelonjuice.nl" = {
-          serverAliases = [ "forge.strawmelonjuice.com" ];
           extraConfig = ''
 
             	redir /assets/site_icon.png https://strawmelonjuice.com/svg/forgejo_strawmelonjuice.svg permanent
@@ -50,6 +96,7 @@
             	}
             	'';
         };
+        # Owncloud
         "cloud.strawmelonjuice.com".extraConfig = "redir https://cloud.strawmelonjuice.nl{uri}";
         "cloud.strawmelonjuice.nl" = {
           extraConfig = ''
@@ -60,21 +107,116 @@
               header_up X-Forwarded-Proto https
             }'';
         };
+        # # It's replacement: Nextcloud
+        # "${config.services.nextcloud.hostName}".extraConfig = "reverse_proxy localhost:3074";
+        "${config.services.nextcloud.hostName}".extraConfig = "reverse_proxy localhost:80";
+
+        # Media
+        "media.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:3022";
+        # Navidrome
         "music.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:4533";
         # Old matrix server, running off of backups on frigometri now
         "https://matrix.strawmelonjuice.com:443" = {
           serverAliases = [ "https://matrix.strawmelonjuice.com:8448" ];
           extraConfig = "reverse_proxy http://frigometri.taild5b3d4.ts.net:18008";
         };
+        # Public Google Fonts proxy
         "fonts.strawmelonjuice.nl" = {
           extraConfig = ''
             header Access-Control-Allow-Origin "*"
             reverse_proxy localhost:39936'';
         };
+
+        # Radicle Explorer
+        "rad.strawmelonjuice.nl" =
+          let
+            explorer = pkgs.radicle-explorer.withConfig {
+              preferredSeeds = [
+                {
+                  hostname = "seed.strawmelonjuice.nl";
+                  port = 443;
+                  scheme = "https";
+                }
+
+              ];
+            };
+          in
+          {
+            extraConfig = ''
+                #  My Site
+              	root * ${explorer}
+              	try_files {path} {path}/index.html /unpopulated.html unpopulated.html
+              	file_server
+            '';
+
+          };
+        "seed.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:7065";
+      };
+    };
+    radicle = {
+      # checkConfig = false;
+      enable = true;
+
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAyau8tCGMY2+JdzcGw3gav5Ioh59RVBMG22B1z8jn2K";
+      privateKey = "/home/mar/.ssh/id_ed25519-radicle";
+
+      httpd = {
+        enable = true;
+        nginx.serverName = "seed.strawmelonjuice.nl";
+        listenPort = 7065;
+        aliases = {
+          Lumina = "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA";
+        };
+
+      };
+
+      # Seeding node
+      node = {
+        listenAddress = "[::0]";
+        openFirewall = true;
+      };
+
+      settings = {
+        node = {
+          alias = "seed.strawmelonjuice.nl";
+          follow = [
+            "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
+            "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
+            "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
+          ];
+          seeds = [
+            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA"
+            "rad:z2udif7tkxDuczay6MbLhDnDoyMDB"
+            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP"
+            "rad:zF4ocfML4MryiqMDDX77R5HSKspr"
+
+          ];
+
+          externalAddresses = [ "strawmelonjuice.nl:8776" ];
+
+          seedingPolicy = {
+            default = "block";
+          };
+        };
+        web = {
+          description = "The fruitiest Radicle node";
+          pinned.repositories = [
+            # Which repositories to pin
+            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA"
+          ];
+        };
       };
     };
     anubis = {
       instances = {
+        "my-site" = {
+          enable = true;
+          settings = {
+            TARGET = "http://localhost:7044";
+            BIND = ":17044";
+            BIND_NETWORK = "tcp";
+          };
+        };
         "forgejo" = {
           enable = true;
           settings = {
@@ -209,6 +351,48 @@
         };
       };
     };
+    # NextCloud
+    nextcloud = {
+      enable = true;
+      webserver = "caddy";
+      package = pkgs.nextcloud34;
+      home = "/var/lib/nextcloud";
+      datadir = "/cubchoo/nextcloud";
+      hostName = "nextcloud.strawmelonjuice.nl";
+      maxUploadSize = "2G";
+      # extraApps = {
+      #   inherit (config.services.nextcloud.package.packages.apps)
+      #     news
+      #     contacts
+      #     calendar
+      #     tasks
+      #     whiteboard
+      #     ;
+      # };
+      extraAppsEnable = true;
+      appstoreEnable = true;
+      config = {
+        # Postgres trust-based auth doesn't work, so deciding to use SQLite
+        dbtype = "sqlite";
+        adminpassFile = "/etc/nextcloud-admin-pass";
+        adminuser = "mar";
+      };
+      settings = {
+        maintenance_window_start = 1;
+        mail_domain = "strawmelonjuice.nl";
+        overwriteprotocol = "https";
+        default_phone_region = "NL";
+        log_type = "systemd";
+        serverid = 0;
+      };
+    };
+    # nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [
+    #   {
+    #     addr = "0.0.0.0";
+    #     port = 3074;
+    #   }
+    # ];
+
     # Music!
     navidrome = {
       enable = true;
@@ -235,11 +419,22 @@
     backend = "podman";
     containers = {
       "fonts-proxy" = {
-        image = "docker.io/strawmelonjuice/fonts-proxy:1.1.2";
         autoStart = true;
+        image = "docker.io/strawmelonjuice/fonts-proxy:1.1.2";
         ports = [
           "39936:8080"
         ];
+      };
+      mediajuice = {
+        autoStart = true;
+        image = "docker.io/strawmelonjuice/strawmediajuice:1.2.1";
+        ports = [
+          "3022:3000"
+        ];
+        volumes = [
+          "/cubchoo/strawmediajuice:/app/data:Z"
+        ];
+
       };
     };
   };
@@ -249,5 +444,35 @@
     # Unset me to generate a new (and erroringly read-only) config ini
     ExecStartPre = lib.mkForce [ "" ];
   };
-
+  # Backups
+  systemd.services.services-backups = {
+    description = "Backups";
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      MemoryHigh = "4G";
+      MemoryMax = "6G";
+      ExecStart = pkgs.writeShellScript "backups" ''
+        echo "Streaming deduplicated snapshot to Frigometri..."
+        ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups backup --insecure-no-password \
+          "/cubchoo" \
+          "/home/mar/.dotfiles" \
+          "/var/lib/postgresql" \
+          "/var/lib/navidrome" \
+          "/var/lib/nextcloud" \
+          "/var/lib/radicle"
+        echo "Pruning old snapshots..."
+        ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
+        echo "Uploading new music to Frigometri..."
+        ${pkgs.rsync}/bin/rsync --bwlimit=4000 -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music frigometri::music/
+      '';
+    };
+  };
+  systemd.timers.services-backups = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 23:30:00";
+      Persistent = true;
+    };
+  };
 }
