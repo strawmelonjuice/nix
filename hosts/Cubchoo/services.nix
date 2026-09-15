@@ -96,25 +96,16 @@
             	}
             	'';
         };
-        # Owncloud
-        "cloud.strawmelonjuice.com".extraConfig = "redir https://cloud.strawmelonjuice.nl{uri}";
+        # Nextcloud
         "cloud.strawmelonjuice.nl" = {
-          extraConfig = ''
-            reverse_proxy 0.0.0.0:38080 {
-              header_up Host {http.request.host}
-              header_up X-Real-IP {http.request.remote.host}
-              header_up X-Forwarded-For {http.request.remote.host}
-              header_up X-Forwarded-Proto https
-            }'';
+          serverAliases = [
+            "cloud.strawmelonjuice.com"
+          ];
+          extraConfig = "redir https://nextcloud.strawmelonjuice.nl{uri}";
         };
-        # # It's replacement: Nextcloud
-        # "${config.services.nextcloud.hostName}".extraConfig = "reverse_proxy localhost:3074";
         "http://${config.services.nextcloud.hostName}".serverAliases = [
           "${config.services.nextcloud.hostName}"
         ];
-
-        # "${config.services.nextcloud.hostName}" =
-        #   config.services.caddy.virtualHosts."http://${config.services.nextcloud.hostName}";
 
         # Media
         "media.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:3022";
