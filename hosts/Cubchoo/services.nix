@@ -386,7 +386,7 @@
       settings = {
         maintenance_window_start = 1;
         mail_domain = "strawmelonjuice.nl";
-        overwriteprotocol = "https";
+        # overwriteprotocol = "https";
         default_phone_region = "NL";
         log_type = "systemd";
         serverid = 0;
@@ -475,8 +475,8 @@
         mkdir -p /cubchoo/music/mar
         mkdir -p /cubchoo/music/lily
 
-        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music /cubchoo/music/mar
-        # ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/lily/files/Music /cubchoo/music/mar
+        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music/* /cubchoo/music/mar
+        # ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/lily/files/Music/* /cubchoo/music/mar
 
         chmod a+rwx -R /cubchoo/music/
 
