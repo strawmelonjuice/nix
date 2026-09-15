@@ -5,11 +5,13 @@
   ...
 }:
 {
-  services.podman.enable = lib.mkForce false;
-  systemd.user.services.radicle-node = lib.mkForce { };
-  programs.radicle.settings.node.externalAddresses = [ "strawmelonjuice.nl:8776" ];
-
   home.packages = with pkgs; [ restic ];
+
+  services.podman.enable = lib.mkForce false;
+
+  systemd.user.services.radicle-node = lib.mkForce { };
+  programs.radicle.enable = lib.mkForce false;
+  home.shellAliases.rad = "doas rad-system";
 
   # Main database ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # - Moved to system-level service
