@@ -5,6 +5,7 @@
   ...
 }:
 {
+  services.podman.enable = lib.mkForce false;
   systemd.user.services.radicle-node = lib.mkForce { };
   programs.radicle.settings.node.externalAddresses = [ "strawmelonjuice.nl:8776" ];
 
@@ -17,7 +18,6 @@
   # - Mostly moved to system-level service
 
   # Owncloud ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
 
   # Strawmelonjuice media share ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Moved to system-level container.

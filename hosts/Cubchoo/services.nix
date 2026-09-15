@@ -5,6 +5,12 @@
   ...
 }:
 {
+
+  fileSystems."/var/lib/nextcloud/data" = {
+    device = "/cubchoo/nextcloud/data";
+    fsType = "none";
+    options = [ "bind" ];
+  };
   networking.firewall = {
     allowedTCPPorts = [
       80
@@ -103,9 +109,17 @@
           ];
           extraConfig = "redir https://nextcloud.strawmelonjuice.nl{uri}";
         };
-        "http://${config.services.nextcloud.hostName}".serverAliases = [
-          "${config.services.nextcloud.hostName}"
-        ];
+        "http://${config.services.nextcloud.hostName}" = {
+          serverAliases = [
+            "${config.services.nextcloud.hostName}"
+            # And for whiteboard
+            "http://localhost:40603"
+          ];
+        };
+
+        "nextcloud.strawmelonjuice.nl/whiteboard*".extraConfig = ''
+          uri strip_prefix /whiteboard
+          reverse_proxy localhost:3002'';
 
         # Media
         "media.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:3022";
@@ -352,20 +366,24 @@
       enable = true;
       webserver = "caddy";
       package = pkgs.nextcloud34;
+      imaginary.enable = true;
       home = "/var/lib/nextcloud";
-      datadir = "/cubchoo/nextcloud";
+      datadir = "/var/lib/nextcloud";
+      # datadir = "/cubchoo/nextcloud";
+      # This breaks apps! So instead I made a bind volume between /var/lib/nextcloud/data and /cubchoo/nextcloud/data/
       hostName = "nextcloud.strawmelonjuice.nl";
       maxUploadSize = "2G";
-      # extraApps = {
-      #   inherit (config.services.nextcloud.package.packages.apps)
-      #     news
-      #     contacts
-      #     calendar
-      #     tasks
-      #     whiteboard
-      #     ;
-      # };
-      extraAppsEnable = true;
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps)
+          news
+          contacts
+          calendar
+          tasks
+          whiteboard
+          # richdocuments
+          ;
+      };
+      extraAppsEnable = false;
       appstoreEnable = true;
       config = {
         # Postgres trust-based auth doesn't work, so deciding to use SQLite
@@ -374,6 +392,7 @@
         adminuser = "mar";
       };
       settings = {
+        preview_format = "webp";
         maintenance_window_start = 1;
         mail_domain = "strawmelonjuice.nl";
         # overwriteprotocol = "https";
@@ -382,12 +401,13 @@
         serverid = 0;
       };
     };
-    # nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [
-    #   {
-    #     addr = "0.0.0.0";
-    #     port = 3074;
-    #   }
-    # ];
+    nextcloud-whiteboard-server = {
+      enable = true;
+      settings = {
+        NEXTCLOUD_URL = "http://localhost:40603";
+      };
+      secrets = [ "/etc/nextcloud-whiteboard-secret" ];
+    };
 
     # Music!
     navidrome = {
