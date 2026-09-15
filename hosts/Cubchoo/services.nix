@@ -109,7 +109,13 @@
         };
         # # It's replacement: Nextcloud
         # "${config.services.nextcloud.hostName}".extraConfig = "reverse_proxy localhost:3074";
-        "${config.services.nextcloud.hostName}".extraConfig = "reverse_proxy localhost:80";
+        "${config.services.nextcloud.hostName}".extraConfig = ''
+            reverse_proxy localhost:80 {              
+                   header_up Host {http.request.host}
+                   header_up X-Real-IP {http.request.remote.host}
+                   header_up X-Forwarded-For {http.request.remote.host}
+                   header_up X-Forwarded-Proto https
+          }'';
 
         # Media
         "media.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:3022";
@@ -398,7 +404,7 @@
       enable = true;
       settings = {
         Scanner.Schedule = "@every 24h";
-        MusicFolder = "/cubchoo/owncloud/data/files/mar/files/Music";
+        MusicFolder = "/cubchoo/music";
         FFmpegPath = "${pkgs.ffmpeg}/bin/ffmpeg";
         LastFM.Enabled = false;
         EnableInsightsCollector = true;
@@ -463,8 +469,19 @@
           "/var/lib/radicle"
         echo "Pruning old snapshots..."
         ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
+
+        echo "Collecting music"
+        mkdir -p /cubchoo/music
+        mkdir -p /cubchoo/music/mar
+        mkdir -p /cubchoo/music/lily
+
+        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music /cubchoo/music/mar
+        # ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/lily/files/Music /cubchoo/music/mar
+
+        chmod a+rwx -R /cubchoo/music/
+
         echo "Uploading new music to Frigometri..."
-        ${pkgs.rsync}/bin/rsync --bwlimit=4000 -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music frigometri::music/
+        ${pkgs.rsync}/bin/rsync --bwlimit=4000 -hrvPt --update --size-only /cubchoo/music frigometri::music/
       '';
     };
   };
