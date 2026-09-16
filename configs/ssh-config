@@ -1,36 +1,29 @@
 #
 # I just include this config whenever
 #
+# # ~/.ssh/config:
+# Include ./config_shared
 
 # Git forges ===============================================================================================
 
 # ----------- Forges hosted by me ----------
 
-Host forge.strawmelonjuice.com
+Host forge.strawmelonjuice.nl
   HostName cubchoo.taild5b3d4.ts.net
   Port 222
-  User git
+  User forgejo
   IdentityFile ~/.ssh/id_ed25519
 
-# ------- Forges hosted by Ollie --------
+# ------ Forges hosted by Others --------
 
 Host knot.nuv.sh
   Port 2222
   User git
   IdentityFile ~/.ssh/id_ed25519
-
 Host knot.ollie.earth
   Port 2222
   User git
   IdentityFile ~/.ssh/id_ed25519
-
-
-Host git.nuv.sh
-  Port 222
-  User git
-  IdentityFile ~/.ssh/id_ed25519
-
-# ------ Forges hosted by Others --------
 Host codeberg.org
   User git
   IdentityFile ~/.ssh/id_ed25519

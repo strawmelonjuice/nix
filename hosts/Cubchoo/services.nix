@@ -138,28 +138,24 @@
         };
 
         # Radicle Explorer
-        "rad.strawmelonjuice.nl" =
-          let
-            explorer = pkgs.radicle-explorer.withConfig {
-              preferredSeeds = [
-                {
-                  hostname = "seed.strawmelonjuice.nl";
-                  port = 443;
-                  scheme = "https";
-                }
+        "rad.strawmelonjuice.nl" = {
+          extraConfig = ''
+            	    root * ${
+                   pkgs.radicle-explorer.withConfig {
+                     preferredSeeds = [
+                       {
+                         hostname = "seed.strawmelonjuice.nl";
+                         port = 443;
+                         scheme = "https";
+                       }
 
-              ];
-            };
-          in
-          {
-            extraConfig = ''
-                #  My Site
-              	root * ${explorer}
-              	try_files {path} {path}/index.html /unpopulated.html unpopulated.html
-              	file_server
-            '';
-
-          };
+                     ];
+                   }
+                 }
+            	    try_files {path} /
+            	    file_server
+          '';
+        };
         "seed.strawmelonjuice.nl".extraConfig = "reverse_proxy localhost:7065";
       };
     };
@@ -176,6 +172,7 @@
         listenPort = 7065;
         aliases = {
           Lumina = "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA";
+          "strawmelonjuice.nl" = "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP";
         };
 
       };
@@ -213,6 +210,8 @@
           pinned.repositories = [
             # Which repositories to pin
             "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA"
+            "rad:zF4ocfML4MryiqMDDX77R5HSKspr"
+            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP"
           ];
         };
       };

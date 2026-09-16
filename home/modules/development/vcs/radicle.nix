@@ -1,17 +1,29 @@
 {
   hostname,
   pkgs,
+  config,
   ...
 }:
 
 {
-  programs.radicle = {
-    settings = {
+  home.file.".radicle/keys/radicle".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.ssh/id_ed25519-radicle";
+  home.file.".radicle/keys/radicle.pub".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.ssh/id_ed25519-radicle.pub";
 
-      publicExplorer = "https://radicle.network/nodes/$host/$rid$path";
+  programs.radicle = {
+
+    settings = {
+      publicExplorer = "https://rad.strawmelonjuice.nl/nodes/$host/$rid$path";
       preferredSeeds = [
         # Mine
-        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@cubchoo:8776"
+        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@seed.strawmelonjuice.nl:8776"
+        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@samurott:8776"
+        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@ponyta:8776"
+        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@fennekin:8776"
+        "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@cubchoo:8778"
+
+        # Mine (old, with each a key)
         "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
         "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
         "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
