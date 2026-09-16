@@ -20,7 +20,6 @@
   programs.fish.generateCompletions = true;
 
   home.packages = with pkgs; [
-    fish
     fishPlugins.done
     fishPlugins.fzf-fish
     fishPlugins.forgit
