@@ -184,6 +184,7 @@
       };
 
       settings = {
+        preferredSeeds = config.home-manager.mar.programs.radicle.settings.preferredSeeds;
         node = {
           alias = "strawmelonjuice";
           follow = [

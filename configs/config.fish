@@ -109,27 +109,27 @@ function rad-mirror-cubchoo
     rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi"
     while read -l p
         echo "Asking Cubchoo to seed $p"
-        ssh cubchoo rad seed $p 
+        ssh root@cubchoo rad-system seed $p 
     end < "$da_tempi"
 
-    ssh cubchoo -- rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi"
+    ssh root@cubchoo -- rad-system ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi"
     while read -l p
         echo "Cloning $p to local"
-        rad clone $p --scope=all; or echo "May have already existed."
-        rad seed $p --scope=all
+        rad clone $p; or echo "May have already existed."
+        rad seed $p
     end < "$da_tempi"
 
     cd "$oldpwd"
 end
 
-function rad-add-all-as-delegates
-    set -l da_tempi (mktemp)
-    # Get all hostname-based preferred seeds, which are in this case, all mine.
-    begin
-        echo ""
-        rad config get preferredSeeds
-        echo ""
-    end | grep -v "\." | sed "s,\(.*\)@\(.*\),\\1," | string join ' ' | sed "s/ z/ --delegate=did:key:z/g" > "$da_tempi"
-
-    rad id update (cat "$da_tempi") --description="Add the strawmelonjuice.- devices"
-end
+# function rad-add-all-as-delegates
+#     set -l da_tempi (mktemp)
+#     # Get all hostname-based preferred seeds, which are in this case, all mine.
+#     begin
+#         echo ""
+#         rad config get preferredSeeds
+#         echo ""
+#     end | grep -v "\." | sed "s,\(.*\)@\(.*\),\\1," | string join ' ' | sed "s/ z/ --delegate=did:key:z/g" > "$da_tempi"
+#
+#     rad id update (cat "$da_tempi") --description="Add the strawmelonjuice.- devices"
+# end
