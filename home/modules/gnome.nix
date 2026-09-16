@@ -59,13 +59,13 @@
       show-thrash = false;
     };
     "org/gnome/desktop/background" = {
-      picture-uri = "file://${config.home.sessionVariables.background-light}";
+      picture-uri = "file://${config.home.sessionVariables.BACKGROUND_LIGHT}";
       # Hoping my systemd service works for gnome too
-      picture-uri-dark = "file://${config.home.sessionVariables.background-dark}";
+      picture-uri-dark = "file://${config.home.sessionVariables.BACKGROUND_DARK}";
       picture-options = "zoom"; # "zoom", "centered", "scaled", etc.
     };
     "org/gnome/desktop/screensaver" = {
-      picture-uri = "file://${config.home.sessionVariables.background-light}";
+      picture-uri = "file://${config.home.sessionVariables.BACKGROUND_LIGHT}";
     };
     "org/gnome/desktop/interface" = {
       # color-scheme = "prefer-light"; # Handled by daynight plugin

@@ -92,11 +92,11 @@ function rb
     jj --repository "$HOME/.dotfiles" file track "$HOME/.dotfiles/."
 
     if test -f /etc/NIXOS
-        echo "-> nixos rebuild switch --flake \"$HOME/.dotfiles#"(hostname)"\""
-        doas nixos-rebuild switch --flake "$HOME/.dotfiles#"(hostname)
+        echo "-> nixos-rebuild switch --flake \"$HOME/.dotfiles#"(hostname)"\""
+        doas nixos-rebuild switch --flake "path:$HOME/.dotfiles#"(hostname)
     else
         echo "-> home-manager switch --flake \"$HOME/.dotfiles#"(hostname)"\""
-        nix run home-manager -- switch --flake "$HOME/.dotfiles#"(hostname)
+        nix run home-manager -- switch --flake "path:$HOME/.dotfiles#"(hostname)
     end
 end
 

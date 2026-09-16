@@ -95,8 +95,8 @@
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
-  home.sessionVariables.background-light = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/gruvbox_room.png";
-  home.sessionVariables.background-dark = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/purple-girl.png";
+  home.sessionVariables.BACKGROUND_LIGHT = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/gruvbox_room.png";
+  home.sessionVariables.BACKGROUND_DARK = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/purple-girl.png";
   home.sessionVariables.TERM_THEME_LIGHT = "rose_pine_dawn";
   home.sessionVariables.TERM_THEME_DARK = "tokyo_night_enhanced";
   home.sessionVariables.PREFERRED_MONO_FONT = "Maple Mono NF";
@@ -133,15 +133,15 @@
                                   # Night time: 19:00 to 07:59
                                   echo "Good night!";
                                   # Fake slideshow!
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.background-dark} /home/mar/.local/share/wallpapers/slideshow/3
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/1
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/2
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/3
                                   # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-dark}
+                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_DARK}
 
                         	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
                 		  # KDE is in this episode too
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-dark} || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_DARK} || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
@@ -153,15 +153,15 @@
                                   echo "Good day~!";
                                   ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
                                   # Here too
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.background-light} /home/mar/.local/share/wallpapers/slideshow/3
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/1
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/2
+                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/3
                                   # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.background-light}
+                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_LIGHT}
 
                         	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
                 		  # KDE is in this episode too
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.background-light} || true
+                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_LIGHT} || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
