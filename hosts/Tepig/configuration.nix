@@ -119,7 +119,7 @@
     description = "ERM Bloeiman";
     extraGroups = [ "networkmanager" ];
     packages = with pkgs; [
-      libreoffice
+      libreoffice-stable
       thunderbird
 
       # Give this man his games
