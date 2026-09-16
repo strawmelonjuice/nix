@@ -114,7 +114,7 @@ rad-mirror-cubchoo() {
 	rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi"
 	while read p; do
 		echo "Asking Cubchoo to seed $p"
-		ssh cubchoo rad seed $p --scope=all
+		ssh cubchoo rad seed $p
 	done < "$da_tempi"
 	ssh cubchoo -- rad ls | grep "rad:" | sed "s/\(.*\)rad:\(.*\)   public\(.*\)/rad:\2/" > "$da_tempi" 
 	while read p; do
