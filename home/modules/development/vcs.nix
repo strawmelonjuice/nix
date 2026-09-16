@@ -44,24 +44,25 @@
       };
       revset-aliases = {
         "trunk()" = ''
-          	    latest(
-          		  remote_bookmarks(exact:"main", exact:"origin") |
-          		  remote_bookmarks(exact:"master", exact:"origin") |
-          		  remote_bookmarks(exact:"mistress", exact:"origin") |
-          		  remote_bookmarks(exact:"trunk", exact:"origin") |
+          latest(
 
-          		  remote_bookmarks(exact:"main", exact:"upstream") |
-          		  remote_bookmarks(exact:"mistress", exact:"upstream") |
-          		  remote_bookmarks(exact:"master", exact:"upstream") |
-          		  remote_bookmarks(exact:"trunk", exact:"upstream") |
+            remote_bookmarks(exact:"mistress", exact:"origin") |
+            remote_bookmarks(exact:"main", exact:"origin") |
+            remote_bookmarks(exact:"master", exact:"origin") |
+            remote_bookmarks(exact:"trunk", exact:"origin") |
 
-          		  remote_bookmarks(exact:"main", exact:"rad") |
-          		  remote_bookmarks(exact:"mistress", exact:"rad") |
-          		  remote_bookmarks(exact:"master", exact:"rad") |
-          		  remote_bookmarks(exact:"trunk", exact:"rad") |
+            remote_bookmarks(exact:"mistress", exact:"upstream") |
+            remote_bookmarks(exact:"main", exact:"upstream") |
+            remote_bookmarks(exact:"master", exact:"upstream") |
+            remote_bookmarks(exact:"trunk", exact:"upstream") |
 
-          		  root()
-          	    )
+            remote_bookmarks(exact:"mistress", exact:"rad") |
+            remote_bookmarks(exact:"main", exact:"rad") |
+            remote_bookmarks(exact:"master", exact:"rad") |
+            remote_bookmarks(exact:"trunk", exact:"rad") |
+
+            root()
+          )
         '';
         "immutable_heads()" = ''
           		present(trunk()) | tags() | ( 
@@ -89,6 +90,16 @@
           "clone"
         ];
 
+        push = [
+          "git"
+          "push"
+        ];
+
+        advance = [
+          "bookmark"
+          "advance"
+        ];
+
         # Fetch and rebase onto trunk
         tt = [
           "util"
@@ -96,7 +107,7 @@
           "--"
           "sh"
           "-c"
-          "jj git fetch && jj rebase --onto 'trunk()'"
+          "jj git fetch --all-remotes && jj rebase --onto 'trunk()'"
         ];
 
         open = [

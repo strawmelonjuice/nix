@@ -1,5 +1,5 @@
 {
-  hostname,
+  # hostname,
   pkgs,
   config,
   ...
@@ -38,7 +38,8 @@
       cli.hints = true;
 
       node = {
-        alias = "strawmelonjuice.${hostname}";
+        # alias = "strawmelonjuice.${hostname}";
+        alias = "strawmelonjuice";
         listen = [
           "[::]:8776"
         ];

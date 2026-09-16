@@ -74,7 +74,7 @@
           	}
         '';
 
-        "strawmelonjuice.nl:7044".extraConfig = ''
+        "http://strawmelonjuice.nl:7044".extraConfig = ''
             #  My Site
           	root * /cubchoo/site-files/
           	try_files {path} {path}/index.html /unpopulated.html unpopulated.html
@@ -164,7 +164,7 @@
       enable = true;
 
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAyau8tCGMY2+JdzcGw3gav5Ioh59RVBMG22B1z8jn2K";
-      privateKey = "/home/mar/.ssh/id_ed25519-radicle";
+      privateKey = "/home/mar/.radicle/keys/radicle";
 
       httpd = {
         enable = true;
@@ -185,33 +185,39 @@
 
       settings = {
         node = {
-          alias = "seed.strawmelonjuice.nl";
+          alias = "strawmelonjuice";
           follow = [
+            "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
+            "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
+            "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
+
             "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
             "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
             "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
           ];
           seeds = [
-            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA"
-            "rad:z2udif7tkxDuczay6MbLhDnDoyMDB"
-            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP"
-            "rad:zF4ocfML4MryiqMDDX77R5HSKspr"
-
+            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
+            "rad:z2udif7tkxDuczay6MbLhDnDoyMDB" # fonts-proxy
+            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP" # Homepage
+            "rad:zF4ocfML4MryiqMDDX77R5HSKspr" # Dotfiles
+            "rad:z35nCKGbfQEpKWuuD75vCQpM33sMQ" # Sweetnhouse
+            "rad:z2HErp1NnCWvC8imVvpmEw8oxUGCt" # Chilp
           ];
 
           externalAddresses = [ "strawmelonjuice.nl:8776" ];
 
           seedingPolicy = {
             default = "block";
+            scope = "followed";
           };
         };
         web = {
           description = "The fruitiest Radicle node";
           pinned.repositories = [
             # Which repositories to pin
-            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA"
-            "rad:zF4ocfML4MryiqMDDX77R5HSKspr"
-            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP"
+            "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
+            "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP" # Homepage
+            "rad:zF4ocfML4MryiqMDDX77R5HSKspr" # Dotfiles
           ];
         };
       };
