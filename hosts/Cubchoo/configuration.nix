@@ -107,6 +107,10 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [
+    neovim
+    micro
+  ];
   virtualisation.containers.enable = true;
   virtualisation.podman = {
     enable = true;

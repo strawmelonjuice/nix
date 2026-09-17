@@ -53,33 +53,29 @@
       virtualHosts = {
         # My site
         "strawmelonjuice.nl".extraConfig = ''
-            handle_path /.well-known/atproto-did {
-          		header Access-Control-Allow-Origin *
-          		respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
-          	}
+          handle_path /.well-known/atproto-did {
+            header Access-Control-Allow-Origin *
+            respond "did:plc:jgtfsmv25thfs4zmydtbccnn"
+          }
 
-          	# un-anubised traffic
-          	reverse_proxy /svg/* localhost:7008
+          # un-anubised traffic
+          reverse_proxy /svg/* localhost:7008
 
-          	# proxy through anubis
-          	reverse_proxy anubis:3000 {
-          		header_up X-Forwarded-For {client_ip}
-          		header_up X-Real-IP {client_ip}
-          		header_up X-Http-Version {http.request.proto}
-          	}
-            reverse_proxy localhost:17044 {
-          		header_up X-Forwarded-For {client_ip}
-          		header_up X-Real-IP {remote_host}
-          		header_up X-Http-Version {http.request.proto}
-          	}
-        '';
+          # proxy through anubis
+          reverse_proxy localhost:17044 {
+            header_up X-Forwarded-For {client_ip}
+            header_up X-Real-IP {remote_host}
+            header_up X-Http-Version {http.request.proto}
+          }'';
 
-        "http://strawmelonjuice.nl:7044".extraConfig = ''
+        "http://localhost:7044" = {
+          serverAliases = [ "http://strawmelonjuice.nl:7044" ];
+          extraConfig = ''
             #  My Site
-          	root * /cubchoo/site-files/
-          	try_files {path} {path}/index.html /unpopulated.html unpopulated.html
-          	file_server
-        '';
+            root * /cubchoo/site-files/
+            try_files {path} {path}/index.html /unpopulated.html unpopulated.html
+            file_server'';
+        };
 
         # Forgejo
         "forge.strawmelonjuice.com".extraConfig = "redir https://forge.strawmelonjuice.nl{uri}";
