@@ -125,9 +125,16 @@ rad-mirror-cubchoo() {
 	cd "$oldpwd"
 }
 
-rad-add-all-as-delegates() {
-	local da_tempi="$(mktemp)"
-	# Get all hostname-based preferred seeds, which are in this case, all mine.
-	(echo "";rad config get preferredSeeds;echo "") | grep -v "\." | sed "s,\(.*\)@\(.*\),\\1," | tr '\n' ' ' | sed "s/ z/ --delegate=did:key:z/g" > "$da_tempi"
-	rad id update $(cat "$da_tempi") --description="Add the strawmelonjuice.- devices"
+rad-init-cubchoo() {
+	local rid="$(rad inspect --rid)"
+	echo "Seeding local repository $rid from Cubchoo"
+	ssh root@cubchoo rad-system seed $rid
+	ssh mar@cubchoo "cd /home/mar/files/projects/repos/radicle/ ; rad clone $rid"
 }
+
+# rad-add-all-as-delegates() {
+# 	local da_tempi="$(mktemp)"
+# 	# Get all hostname-based preferred seeds, which are in this case, all mine.
+# 	(echo "";rad config get preferredSeeds;echo "") | grep -v "\." | sed "s,\(.*\)@\(.*\),\\1," | tr '\n' ' ' | sed "s/ z/ --delegate=did:key:z/g" > "$da_tempi"
+# 	rad id update $(cat "$da_tempi") --description="Add the strawmelonjuice.- devices"
+# }

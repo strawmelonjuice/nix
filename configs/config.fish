@@ -100,6 +100,13 @@ function rb
     end
 end
 
+function rad-init-cubchoo
+	set -l rid (rad inspect --rid)
+	echo "Seeding local repository $rid from Cubchoo"
+	ssh root@cubchoo rad-system seed $rid
+	ssh mar@cubchoo "cd /home/mar/files/projects/repos/radicle/ ; rad clone $rid"
+end
+
 function rad-mirror-cubchoo
     set -l oldpwd (pwd)
     set -l da_tempi (mktemp)
