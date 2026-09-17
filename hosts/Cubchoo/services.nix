@@ -180,7 +180,7 @@
       };
 
       settings = {
-        preferredSeeds = config.home-manager.users.mar.programs.radicle.settings.preferredSeeds;
+        preferredSeeds = (import ../../other/radicle-nodes.nix).all;
         node = {
           alias = "strawmelonjuice";
           follow = [
@@ -188,9 +188,6 @@
             "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
             "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
 
-            "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
-            "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
-            "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
           ];
           seeds = [
             "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
