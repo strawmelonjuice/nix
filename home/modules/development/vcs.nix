@@ -12,7 +12,7 @@
     enable = true;
     settings = {
       user.name = "MLC Bloeiman";
-      user.email = "mar@strawmelonjuice.com";
+      user.email = "strawmelonjuice@proton.me";
       core.excludesfile = "${config.home.homeDirectory}/.config/jj/ignore";
     };
   };
@@ -20,8 +20,8 @@
     enable = true;
     package = pkgs.jujutsu;
     settings = {
-      user.name = "MLC Bloeiman";
-      user.email = "mar@strawmelonjuice.com";
+      user.name = config.programs.git.settings.user.name;
+      user.email = config.programs.git.settings.user.email;
       signing = {
         backend = "ssh"; # Or gpg, both r fine w me!
         behaviour = "own";
