@@ -5,12 +5,26 @@
   ...
 }:
 {
+  fileSystems = {
 
-  fileSystems."/var/lib/nextcloud/data" = {
-    device = "/cubchoo/nextcloud/data";
-    fsType = "none";
-    options = [ "bind" ];
+    "/var/lib/nextcloud/data" = {
+      device = "/cubchoo/nextcloud/data";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+    "/var/lib/radicle/storage" = {
+      device = "/cubchoo/radicle-system-storage";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+    "/home/mar/.radicle/storage" = {
+      device = "/cubchoo/radicle-system-storage";
+      fsType = "none";
+      options = [ "bind" ];
+    };
   };
+
   networking.firewall = {
     allowedTCPPorts = [
       80
@@ -160,7 +174,7 @@
       enable = true;
 
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAyau8tCGMY2+JdzcGw3gav5Ioh59RVBMG22B1z8jn2K";
-      privateKey = "/home/mar/.radicle/keys/radicle";
+      privateKey = "/home/mar/.ssh/id_ed25519-radicle";
 
       httpd = {
         enable = true;
@@ -193,7 +207,7 @@
             "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
             "rad:z2udif7tkxDuczay6MbLhDnDoyMDB" # fonts-proxy
             "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP" # Homepage
-            "rad:zF4ocfML4MryiqMDDX77R5HSKspr" # Dotfiles
+            "rad:z3gXgvgtCPVevRbiNgAMvrHbCswhn" # Dotfiles
             "rad:z35nCKGbfQEpKWuuD75vCQpM33sMQ" # Sweetnhouse
             "rad:z2HErp1NnCWvC8imVvpmEw8oxUGCt" # Chilp
           ];
@@ -211,7 +225,7 @@
             # Which repositories to pin
             "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
             "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP" # Homepage
-            "rad:zF4ocfML4MryiqMDDX77R5HSKspr" # Dotfiles
+            "rad:z3gXgvgtCPVevRbiNgAMvrHbCswhn" # Dotfiles
           ];
         };
       };
@@ -485,7 +499,7 @@
         mkdir -p /cubchoo/music/lily
 
         ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music/* /cubchoo/music/mar
-        # ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/lily/files/Music/* /cubchoo/music/mar
+        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/Lily/files/Music/* /cubchoo/music/lily/
 
         chmod a+rwx -R /cubchoo/music/
 
@@ -501,4 +515,22 @@
       Persistent = true;
     };
   };
+  systemd.services.radicle-node = {
+    path = [ pkgs.openssh ];
+    confinement.enable = lib.mkForce false;
+    serviceConfig = {
+      User = lib.mkForce "mar";
+      Group = lib.mkForce "users";
+      ProtectHome = lib.mkForce false;
+    };
+  };
+  systemd.services.radicle-httpd = {
+    path = [ pkgs.openssh ];
+    confinement.enable = lib.mkForce false;
+    serviceConfig = {
+      User = lib.mkForce "mar";
+      Group = lib.mkForce "users";
+    };
+  };
+
 }
