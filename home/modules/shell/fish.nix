@@ -27,4 +27,8 @@
     fishPlugins.hydro
     fishPlugins.autopair
   ];
+  home.file.".local/scripts/rad-proxy-git-hook.sh".source =
+    ../../../configs/scripts/rad-proxy-git-hook.sh
+
+  ;
 }

@@ -107,6 +107,28 @@ function rad-init-cubchoo
 	ssh mar@cubchoo "cd /home/mar/files/projects/repos/radicle/ ; rad clone $rid"
 end
 
+
+function rad-proxied-clone
+	rad seed $argv[1] --no-fetch
+	rad sync --fetch $argv[1]
+
+	set -l r_identity (rad inspect $argv[1] --identity)
+	set -l r_name (echo $r_identity | jq '.payload.["xyz.radicle.project"].name' -j)
+	set -l r_delegates (echo $r_identity | jq '.delegates')
+	set -l p_did (ssh mar@cubchoo rad self --did)
+	if not contains $p_did $r_delegates
+        	echo "WARN: $p_did is not a delegate on $argv[1]!"
+    	end
+	set -l r_id (echo $argv[1] | sed 's,rad:,,')
+
+	ssh mar@cubchoo "mkdir -p /cubchoo/radicle-proxied"
+	ssh mar@cubchoo "rad clone $argv[1] --bare /cubchoo/radicle-proxied/$r_id/$r_name.git"
+	scp /home/mar/.local/scripts/rad-proxy-git-hook.sh cubchoo:/cubchoo/radicle-proxied/$r_id/$r_name.git/hooks/post-receive
+	ssh mar@cubchoo chmod +x /cubchoo/radicle-proxied/$r_id/$r_name.git/hooks/post-receive
+
+	git clone cubchoo:/cubchoo/radicle-proxied/$r_id/$r_name.git $argv[2..9]
+end
+
 function rad-mirror-cubchoo
     set -l oldpwd (pwd)
     set -l da_tempi (mktemp)
@@ -128,6 +150,7 @@ function rad-mirror-cubchoo
 
     cd "$oldpwd"
 end
+
 
 # function rad-add-all-as-delegates
 #     set -l da_tempi (mktemp)
