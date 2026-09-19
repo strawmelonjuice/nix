@@ -20,27 +20,42 @@
     enable = true;
     package = pkgs.jujutsu;
     settings = {
-      user.name = config.programs.git.settings.user.name;
-      user.email = config.programs.git.settings.user.email;
+      inherit (config.programs.git.settings) user;
       signing = {
         backend = "ssh"; # Or gpg, both r fine w me!
         behaviour = "own";
         key = "/home/mar/.ssh/id_ed25519.pub";
         gpg.key = "9FFA7AE8896DD236";
       };
-      git.write-change-id-header = true;
-      ui.diff-formatter = [
-        "difft"
-        "--color=always"
-        "$left"
-        "$right"
-      ];
+      git = {
+        write-change-id-header = true;
+        sign-on-push = true;
+      };
       ui = {
+        diff-formatter = [
+          "difft"
+          "--color=always"
+          "$left"
+          "$right"
+        ];
+
         editor = "${pkgs.neovim}/bin/nvim";
         streampager.wrapping = "none";
         movement.edit = true;
-        default-command = "status";
+        default-command = [
+          "util"
+          "exec"
+          "--"
+          "sh"
+          "-c"
+          ''
+            jj show --template builtin_log_oneline --stat
+            jj bookmark list
+          ''
+
+        ];
         show-cryptographic-signatures = true;
+
       };
       revset-aliases = {
         "trunk()" = ''
@@ -95,6 +110,11 @@
           "push"
         ];
 
+        bookmarks = [
+          "bookmark"
+          "list"
+        ];
+
         advance = [
           "bookmark"
           "advance"
@@ -121,7 +141,32 @@
           "--"
           "sh"
           "-c"
-          "rad sync && jj git fetch --all-remotes"
+          "rad sync && jj git fetch rad"
+        ];
+
+        rad-patch = [
+          "util"
+          "exec"
+          "--"
+          "bash"
+          "-c"
+          ''
+                    set -euo pipefail
+            	    REV="$(jj show -T 'commit_id' --no-patch -r @)"
+            	    git push rad "$REV:refs/patches"
+          ''
+        ];
+
+        rad-setup-sign = [
+          "util"
+          "exec"
+          "--"
+          "bash"
+          "-c"
+
+          ''
+            jj config set --workspace signing.key "$(rad self --ssh-key)"
+          ''
         ];
 
         # Bit more history
