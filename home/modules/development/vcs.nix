@@ -28,6 +28,7 @@
         gpg.key = "9FFA7AE8896DD236";
       };
       git = {
+        private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
         write-change-id-header = true;
         sign-on-push = true;
       };
