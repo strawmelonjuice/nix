@@ -3,7 +3,6 @@
     description = "Auto-fetch Radicle proxied repositories";
 
     script = ''
-      export RAD_HOME=/home/mar/.radicle
       shopt -s nullglob
 
       for repo in /cubchoo/radicle-proxied/*/*.git; do
