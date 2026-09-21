@@ -1,4 +1,4 @@
-{ pkgs }: {
+{ pkgs, ... }: {
   systemd.services.rad-proxy-sync = {
     description = "Auto-fetch Radicle proxied repositories";
 
