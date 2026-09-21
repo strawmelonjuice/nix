@@ -505,7 +505,7 @@
         chmod a+rwx -R /cubchoo/music/
 
         echo "Uploading new music to Frigometri..."
-        ${pkgs.rsync}/bin/rsync --bwlimit=400 -hrvPt --update --size-only /cubchoo/music frigometri::music/
+        ${pkgs.rsync}/bin/rsync --bwlimit=400 -hrvPt --update --size-only /cubchoo/music/ frigometri::music/
       '';
     };
   };
