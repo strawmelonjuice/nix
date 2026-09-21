@@ -2,6 +2,14 @@
   systemd.services.rad-proxy-sync = {
     description = "Auto-fetch Radicle proxied repositories";
 
+    path = with pkgs; [
+      git
+      radicle-node
+      radicle-cli
+      bash
+      coreutils
+    ];
+
     script = ''
       shopt -s nullglob
 
@@ -12,7 +20,7 @@
           
           ${pkgs.radicle-node}/bin/rad sync --fetch || true
           
-          ${pkgs.git}/bin/git fetch rad || true
+          ${pkgs.git}/bin/git fetch rad "+refs/heads/*:refs/heads/*" || true
         fi
       done
     '';
