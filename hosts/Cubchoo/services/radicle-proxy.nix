@@ -5,12 +5,12 @@
     path = with pkgs; [
       git
       radicle-node
-      radicle-cli
       bash
       coreutils
     ];
 
     script = ''
+      export RAD_HOME=/var/lib/radicle/
       shopt -s nullglob
 
       for repo in /cubchoo/radicle-proxied/*/*.git; do
