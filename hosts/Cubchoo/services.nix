@@ -27,11 +27,11 @@
       options = [ "bind" ];
     };
 
-    "/home/mar/.radicle/storage" = {
-      device = "/cubchoo/radicle-system-storage";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+    # "/home/mar/.radicle/storage" = {
+    #   device = "/cubchoo/radicle-system-storage";
+    #   fsType = "none";
+    #   options = [ "bind" ];
+    # };
   };
 
   networking.firewall = {
