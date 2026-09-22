@@ -39,6 +39,7 @@
     vivaldi
     crosspipe
     owncloud-client
+    kdePackages.filelight
 
     # Additional to the radicle CLI
     # just because I find the radicle idea so cool
@@ -102,10 +103,10 @@
   home.sessionVariables.PREFERRED_MONO_FONT = "Maple Mono NF";
 
   services.kdeconnect.enable = true;
-  services.owncloud-client.enable = true;
+  services.nextcloud-client.enable = true;
   services.tailscale-systray.enable = true;
-  # services.rsibreak.enable = true;
-  services.safeeyes.enable = true;
+  services.rsibreak.enable = true;
+  # services.safeeyes.enable = true;
   services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
