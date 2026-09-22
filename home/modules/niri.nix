@@ -35,7 +35,7 @@
     wireplumber
     brightnessctl
     cliphist
-    moxnotify
+    fnott
     playerctl
     killall
     wvkbd
@@ -203,7 +203,7 @@
             "store"
           ];
         }
-        { command = [ "${pkgs.moxnotify}/bin/moxnotify" ]; }
+        { command = [ "${pkgs.fnott}/bin/fnott" ]; }
         { command = [ "kdeconnectd" ]; }
         { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
       ];
