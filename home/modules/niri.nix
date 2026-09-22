@@ -26,7 +26,6 @@
     kdePackages.qttools
     gnome-console
     wl-mirror
-    jq
     nautilus
     pavucontrol
     btop
@@ -107,15 +106,6 @@
         QT_IM_MODULE = "ibus";
         XMODIFIERS = "@im=ibus";
         ELECTRON_OZONE_PLATFORM_HINT = "auto";
-      };
-
-      outputs."Microstep MSI MP341CQ 0x00000316" = {
-        variable-refresh-rate = "on-demand";
-        mode = {
-          height = 1440;
-          width = 3440;
-          refresh = 100.0;
-        };
       };
 
       layout = {
