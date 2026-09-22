@@ -200,26 +200,26 @@
           "--skip-emptied"
         ];
 
-        # Lists items with '[TODO]'
-        todo-list = [
+        # List wip items
+        list-wips = [
           "log"
           "-Tbuiltin_log_compact_full_description"
           "-r"
-          "all() & description(substring:'[TODO]') & mine()"
+          "all() & description(glob:'wip:*') & mine()"
           "-n30"
           "--reversed"
           "--no-pager"
         ];
 
-        # Finds the latest '[TODO]' commit and edits it.
-        todo-edit-latest = [
+        # Find the latest wip commit and edit it.
+        edit-latest-wip = [
           "edit"
           "--ignore-immutable"
-          "latest(description(substring:'[TODO]') & mine())"
+          "latest(description(glob:'wip:*') & mine())"
         ];
 
-        # Toggles '[TODO]' on current commit.
-        todo-toggle = [
+        # Toggle wip on current commit.
+        toggle-wip = [
           "util"
           "exec"
           "--"
@@ -227,12 +227,10 @@
           "-c"
           ''
             CURRENT_MSG=$(jj log -r @ -T 'description' --no-graph)
-            if echo "$CURRENT_MSG" | grep -q "^\[TODO\]"; then
-              # If it starts with [TODO], strip it and any trailing space
-              NEW_MSG=$(echo "$CURRENT_MSG" | sed 's/^\[TODO\] *//')
+            if echo "$CURRENT_MSG" | grep -q "^wip:"; then
+              NEW_MSG=$(echo "$CURRENT_MSG" | sed 's/^wip: *//')
             else
-              # If it doesn't, add it
-              NEW_MSG="[TODO] $CURRENT_MSG"
+              NEW_MSG="wip: $CURRENT_MSG"
             fi
             jj describe -m "$NEW_MSG"
           ''
