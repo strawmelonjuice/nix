@@ -165,9 +165,7 @@
           "bash"
           "-c"
 
-          ''
-            jj config set --workspace signing.key "$(rad self --ssh-key)"
-          ''
+          ''jj config set --workspace signing.key "$HOME/.ssh/id_ed25519-radicle.pub"''
         ];
 
         # Bit more history
