@@ -38,7 +38,7 @@
     # GUI Apps
     vivaldi
     crosspipe
-    owncloud-client
+    nextcloud-client
     kdePackages.filelight
 
     # Additional to the radicle CLI
