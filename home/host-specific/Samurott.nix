@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -11,8 +10,6 @@
     ../modules/school.nix
     # Huge screen, may run jetbrains
     ../modules/development/jetbrainspackages.nix
-
-    inputs.niri.homeModules.niri
   ];
   home.packages = with pkgs; [
     wineWow64Packages.stable

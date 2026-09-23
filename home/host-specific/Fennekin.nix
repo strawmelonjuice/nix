@@ -1,5 +1,5 @@
 {
-  inputs,
+  lib,
   ...
 }:
 {
@@ -9,16 +9,14 @@
     ../modules/conversation.nix
     ../modules/entertainment/music-streaming.nix
 
-    inputs.niri.homeModules.niri
   ];
 
-  programs.niri.settings.outputs."Microstep MSI MP341CQ 0x00000316" = {
-    variable-refresh-rate = "on-demand";
+  programs.niri.settings.outputs.eDP-1 = {
     mode = {
       width = 1920;
       height = 1080;
       refresh = 40.000;
     };
-    scale = 1.1;
+    scale = 1.10;
   };
 }
