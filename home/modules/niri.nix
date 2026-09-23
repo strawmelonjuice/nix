@@ -280,6 +280,7 @@
             { app-id = "app.cinny.in"; }
             { app-id = "cinny"; }
             { app-id = "discord"; }
+            { app-id = "vesktop"; }
             { app-id = "pliiebkcmokkgndfalahlmimanmbjlab"; }
             { app-id = "org.kde.kdeconnect.app"; }
             { app-id = "thunderbird"; }
