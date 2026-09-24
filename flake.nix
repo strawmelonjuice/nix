@@ -131,7 +131,7 @@
       nixosConfigurations = {
         Fennekin = (defineSystem "Fennekin" "x86_64-linux" true);
         Samurott = (defineSystem "Samurott" "x86_64-linux" true);
-        Ponyta = (defineSystem "Ponyta" "x86_64-linux" false);
+        Ponyta = (defineSystem "Ponyta" "x86_64-linux" true);
         frigometri = (defineSystem "frigometri" "x86_64-linux" false);
         Tepig = (defineSystem "Tepig" "x86_64-linux" true);
         Cubchoo = (defineSystem "Cubchoo" "aarch64-linux" false);
@@ -140,7 +140,7 @@
       homeConfigurations = {
         Fennekin = (defineHome "Fennekin" "x86_64-linux" true);
         Samurott = (defineHome "Samurott" "x86_64-linux" true);
-        Ponyta = (defineHome "Ponyta" "x86_64-linux" false);
+        Ponyta = (defineHome "Ponyta" "x86_64-linux" true);
         frigometri = (defineHome "frigometri" "x86_64-linux" false);
         Cubchoo = (defineHome "Cubchoo" "aarch64-linux" false);
         Tepig = (defineHome "Tepig" "x86_64-linux" true);
