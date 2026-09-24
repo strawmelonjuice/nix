@@ -10,7 +10,7 @@
 
 Host forge.strawmelonjuice.nl
   HostName cubchoo.taild5b3d4.ts.net
-  Port 222
+  Port 443
   User forgejo
   IdentityFile ~/.ssh/id_ed25519
 
