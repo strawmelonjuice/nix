@@ -181,6 +181,7 @@
         }
         { command = [ "waybar" ]; }
         # { command = [ "spotify" ]; }
+        { command = [ "vesktop" ]; }
         { command = [ "strawberry" ]; }
         { command = [ "thunderbird" ]; }
         {
@@ -269,6 +270,7 @@
         }
         {
           matches = [
+            { app-id = "feishin"; }
             { app-id = "Spotify"; }
             { app-id = "org.strawberrymusicplayer.strawberry"; }
             { app-id = "org.gnome.Music"; }

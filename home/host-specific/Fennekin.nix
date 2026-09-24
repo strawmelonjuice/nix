@@ -8,7 +8,6 @@
     ../modules/touchscreen.nix
     ../modules/conversation.nix
     ../modules/entertainment/music-streaming.nix
-
   ];
 
   programs.niri.settings.outputs.eDP-1 = {
