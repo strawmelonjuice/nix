@@ -8,7 +8,6 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,8 +31,8 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     puppy-toetaps = {
-      url = "git+https://forge.strawmelonjuice.nl/lillianrose/citrine.git";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "git+https://forge.strawmelonjuice.nl/lillianrose/citrine.git?rev=af460c22980f6c276762aa9de36ca1fb0bd195d1";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";

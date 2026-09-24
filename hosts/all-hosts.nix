@@ -164,6 +164,8 @@
       moonlight-qt
     ];
   };
+  services.oo7.enable = true;
+  security.pam.services.mar.oo7.enable = true;
   programs.mosh.enable = true;
   security.pam.services.hyprlock = { };
   security.doas.enable = true;

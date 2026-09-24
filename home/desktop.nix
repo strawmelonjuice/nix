@@ -34,6 +34,7 @@
   home.homeDirectory = "/home/mar";
 
   home.packages = with pkgs; [
+    oo7-portal
     # GUI Apps
     vivaldi
     crosspipe
@@ -112,6 +113,7 @@
   # services.rsibreak.enable = true;
   services.safeeyes.enable = true;
   services.awww.enable = true;
+
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
     Install.WantedBy = [ "graphical.target" ];

@@ -270,6 +270,7 @@
         }
         {
           matches = [
+            { app-id = "citrine"; }
             { app-id = "feishin"; }
             { app-id = "Spotify"; }
             { app-id = "org.strawberrymusicplayer.strawberry"; }

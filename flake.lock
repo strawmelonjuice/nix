@@ -267,19 +267,19 @@
       "inputs": {
         "fenix": "fenix",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
         "lastModified": 1789807296,
         "narHash": "sha256-0f0bgFgLJEm9T1a8nRVa64I4aAckkkDGhcnDSzAq2gQ=",
-        "ref": "refs/heads/mistress",
         "rev": "af460c22980f6c276762aa9de36ca1fb0bd195d1",
         "revCount": 2,
         "type": "git",
         "url": "https://forge.strawmelonjuice.nl/lillianrose/citrine.git"
       },
       "original": {
+        "rev": "af460c22980f6c276762aa9de36ca1fb0bd195d1",
         "type": "git",
         "url": "https://forge.strawmelonjuice.nl/lillianrose/citrine.git"
       }
