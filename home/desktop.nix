@@ -48,6 +48,11 @@
     inkscape
   ];
 
+  programs.obs-studio = {
+    enable = true;
+    # enableVirtualCamera = true;
+  };
+
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
