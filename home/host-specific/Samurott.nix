@@ -35,4 +35,6 @@
     };
     scale = 1.15;
   };
+  home.stateVersion = "25.11"; # Ensure this matches your NixOS version
+
 }

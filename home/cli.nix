@@ -22,7 +22,6 @@
   ];
   news.display = "silent";
 
-  home.stateVersion = "25.11"; # Ensure this matches your NixOS version
   home.file.".ssh/config_shared" = {
     source = ../configs/ssh-config;
   };

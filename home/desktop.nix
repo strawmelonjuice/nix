@@ -32,7 +32,6 @@
 
   home.username = "mar";
   home.homeDirectory = "/home/mar";
-  home.stateVersion = "25.11"; # Ensure this matches your NixOS version
 
   home.packages = with pkgs; [
     # GUI Apps
