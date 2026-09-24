@@ -104,8 +104,8 @@
   services.kdeconnect.enable = true;
   services.nextcloud-client.enable = true;
   services.tailscale-systray.enable = true;
-  services.rsibreak.enable = true;
-  # services.safeeyes.enable = true;
+  # services.rsibreak.enable = true;
+  services.safeeyes.enable = true;
   services.awww.enable = true;
   systemd.user.services.wallpaper-switcher = {
     Unit.Description = "Swap wallpaper based on time";
