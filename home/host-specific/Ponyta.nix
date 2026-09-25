@@ -3,6 +3,13 @@
   imports = [
     ../modules/conversation.nix
     ../modules/entertainment/music-streaming.nix
+
+    # ../modules/development/jetbrainspackages.nix
+    ../modules/school.nix
+  ];
+
+  home.packages = with pkgs; [
+    jetbrains-toolbox
   ];
 
   programs.niri.settings.outputs.eDP-1 = {

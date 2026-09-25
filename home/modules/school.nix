@@ -3,10 +3,10 @@
 {
   home.packages = with pkgs; [
     # School: Python and Dbus to run their network script
-    python312
-    python312Packages.dbus-python
-    python313Packages.pydbus
-    dbus
+    # python312
+    # python312Packages.dbus-python
+    # python313Packages.pydbus
+    # dbus
     # School: Run Windows software
     wineWow64Packages.stable
     winetricks
@@ -14,13 +14,13 @@
     # 'teams' exists but only for Darwin...
     # teams-for-linux # does exist...
     # Well I think this one makes sense.
-    libreoffice-fresh
+    libreoffice-stable
 
-    # need to connect to a windows server
-    remmina
-    openvpn
-    openconnect
-    vpnc
-    vpnc-scripts
+    # # need to connect to a windows server
+    # remmina
+    # openvpn
+    # openconnect
+    # vpnc
+    # vpnc-scripts
   ];
 }
