@@ -121,10 +121,6 @@
     kdePackages.ktorrent
   ];
 
-  # Whatever I use, keep using kwallet
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
-  security.pam.services.login.kwallet.enable = true;
-
   # services.desktopManager.cosmic.enable = true;
   # services.system76-scheduler.enable = true;
   # environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
@@ -164,8 +160,13 @@
       moonlight-qt
     ];
   };
+  # Force usage of OO7 for secrets
   services.oo7.enable = true;
   security.pam.services.mar.oo7.enable = true;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
+  security.pam.services.login.kwallet.enable = lib.mkForce false;
+  security.pam.services.kdewallet.enable = lib.mkForce false;
+
   programs.mosh.enable = true;
   security.pam.services.hyprlock = { };
   security.doas.enable = true;
