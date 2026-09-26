@@ -337,23 +337,26 @@
   # Backups
   systemd.services.services-backups = {
     description = "Backups";
+    confinement.enable = lib.mkForce false;
     serviceConfig = {
       Type = "oneshot";
       User = "root";
       MemoryHigh = "4G";
       MemoryMax = "6G";
+      ProtectHome = lib.mkForce false;
       ExecStart = pkgs.writeShellScript "backups" ''
         echo "Streaming deduplicated snapshot to Frigometri..."
-        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups backup --insecure-no-password \
+        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups-cubchoo -p /home/mar/resticpassword backup \
           "/cubchoo" \
           "/home/mar/.dotfiles" \
           "/var/lib/postgresql" \
           "/var/lib/navidrome" \
           "/var/lib/nextcloud/config" \
           "/var/lib/nextcloud/store-apps" \
-          -e "/cubchoo/nextcloud/data/*/files/Music/"
+          -e "/cubchoo/nextcloud/data/*/files/Music/" \
+          -e "/cubchoo/music/"
         echo "Pruning old snapshots..."
-        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
+        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups-cubchoo -p /home/mar/resticpassword forget --keep-daily 7 --keep-weekly 4 --prune 
 
         echo "Collecting music"
         mkdir -p /cubchoo/music/mar
