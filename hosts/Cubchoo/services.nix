@@ -344,7 +344,7 @@
       MemoryMax = "6G";
       ExecStart = pkgs.writeShellScript "backups" ''
         echo "Streaming deduplicated snapshot to Frigometri..."
-        ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups backup --insecure-no-password \
+        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups backup --insecure-no-password \
           "/cubchoo" \
           "/home/mar/.dotfiles" \
           "/var/lib/postgresql" \
@@ -353,7 +353,7 @@
           "/var/lib/nextcloud/store-apps" \
           -e "/cubchoo/nextcloud/data/*/files/Music/"
         echo "Pruning old snapshots..."
-        ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
+        ${pkgs.restic}/bin/restic -r sftp:mar@frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
 
         echo "Collecting music"
         mkdir -p /cubchoo/music/mar
