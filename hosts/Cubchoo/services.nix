@@ -349,17 +349,17 @@
           "/home/mar/.dotfiles" \
           "/var/lib/postgresql" \
           "/var/lib/navidrome" \
-          "/var/lib/nextcloud" \
-          "/var/lib/radicle"
+          "/var/lib/nextcloud/config" \
+          "/var/lib/nextcloud/store-apps" \
+          -e "/cubchoo/nextcloud/data/*/files/Music/"
         echo "Pruning old snapshots..."
         ${pkgs.restic}/bin/restic -r sftp:frigometri:/home/mar/backups forget --keep-daily 7 --keep-weekly 4 --prune --insecure-no-password
 
         echo "Collecting music"
-        mkdir -p /cubchoo/music
         mkdir -p /cubchoo/music/mar
         mkdir -p /cubchoo/music/lily
 
-        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music/* /cubchoo/music/mar
+        ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/mar/files/Music/* /cubchoo/music/mar/
         ${pkgs.rsync}/bin/rsync -hrvPt --update --size-only /cubchoo/nextcloud/data/Lily/files/Music/* /cubchoo/music/lily/
 
         chmod a+rwx -R /cubchoo/music/
