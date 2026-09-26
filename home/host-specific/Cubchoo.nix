@@ -11,4 +11,6 @@
   home.sessionVariables.RAD_HOME = "/var/lib/radicle";
 
   services.podman.enable = lib.mkForce false;
+
+  home.stateVersion = "26.05";
 }

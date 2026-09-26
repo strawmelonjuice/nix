@@ -22,17 +22,12 @@
       fsType = "none";
       options = [ "bind" ];
     };
-    "/var/lib/radicle/storage" = {
-      device = "/cubchoo/radicle-system-storage";
+    "/var/lib/radicle" = {
+      device = "/cubchoo/radicle";
       fsType = "none";
       options = [ "bind" ];
     };
 
-    # "/home/mar/.radicle/storage" = {
-    #   device = "/cubchoo/radicle-system-storage";
-    #   fsType = "none";
-    #   options = [ "bind" ];
-    # };
   };
 
   services = {
@@ -385,6 +380,11 @@
     path = [ pkgs.openssh ];
     confinement.enable = lib.mkForce false;
     serviceConfig = {
+      MemoryHigh = "600M";
+      MemoryMax = "1G";
+      CPUQuota = "85%";
+      CPUWeight = 20;
+      IOWeight = 20;
       User = lib.mkForce "mar";
       Group = lib.mkForce "users";
       ProtectHome = lib.mkForce false;
