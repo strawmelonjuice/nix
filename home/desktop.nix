@@ -102,7 +102,7 @@
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
   home.sessionVariables.BACKGROUND_LIGHT = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/chill.gif";
-  home.sessionVariables.BACKGROUND_DARK = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/retro-city.gif";
+  home.sessionVariables.BACKGROUND_DARK = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/retro_city.gif";
   home.sessionVariables.TERM_THEME_LIGHT = "rose_pine_dawn";
   home.sessionVariables.TERM_THEME_DARK = "tokyo_night_enhanced";
   home.sessionVariables.PREFERRED_MONO_FONT = "Maple Mono NF";
