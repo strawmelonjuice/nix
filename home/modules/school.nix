@@ -2,25 +2,19 @@
 
 {
   home.packages = with pkgs; [
-    # School: Python and Dbus to run their network script
-    # python312
-    # python312Packages.dbus-python
-    # python313Packages.pydbus
-    # dbus
-    # School: Run Windows software
+    # In case I may need to run something scary.
     wineWow64Packages.stable
     winetricks
-    # School: Uses Teams for direct communications.
-    # 'teams' exists but only for Darwin...
-    # teams-for-linux # does exist...
-    # Well I think this one makes sense.
-    libreoffice-stable
 
-    # # need to connect to a windows server
-    # remmina
-    # openvpn
-    # openconnect
-    # vpnc
-    # vpnc-scripts
+    # Writing stuff
+    obsidian
+    libreoffice-stable
+    tinymist
+    typstwriter
+    typst
+
+    # Using a Typst template themed after Fontys (https://typst.app/universe/package/unofficial-fhict-document-template)
+    # but it uses Roboto.
+    roboto
   ];
 }
