@@ -1,8 +1,8 @@
 {
   pkgs,
+  hostname,
   ...
 }:
-
 {
   config = {
     home.packages = [
@@ -29,22 +29,24 @@
       settings = [
         {
           layer = "top";
-          position = "top";
+          position = "bottom";
           height = 30;
           margin = "5 15 0 15";
           spacing = 5;
 
-          modules-left = [
+          modules-center = [
             "niri/workspaces"
             "niri/window"
           ];
-          modules-center = [
-            "clock"
+          modules-left = [
             "custom/media"
+            "clock"
+            "clock#ohio"
           ];
+
           modules-right = [
             "tray"
-            "custom/osktoggle"
+            (if hostname == "Fennekin" then "custom/osktoggle" else "")
             "pulseaudio"
             "network"
             "cpu"
@@ -117,8 +119,13 @@
 
           clock = {
             timezone = "Europe/Amsterdam";
-            format = "{:%H:%M}";
-            format-alt = "{:%A, %B %d, %Y (%R)}";
+            format = "🇳🇱 {:%H:%M}";
+            format-alt = "<big>{:%Y %B}</big>\n<tt><small>{%c}</small></tt>";
+          };
+          "clock#ohio" = {
+            "timezone" = "America/New_York";
+            "format" = "🇺🇸 💕 {:%H:%M}";
+            "tooltip-format" = "<big>Ohio, USA</big>\n<tt><small>{%c}</small></tt>";
           };
 
           cpu = {
