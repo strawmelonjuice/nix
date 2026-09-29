@@ -94,6 +94,11 @@
       "application/x-extension-ics" = "userapp-Thunderbird-FM1PS3.desktop";
       "x-scheme-handler/webcals" = "userapp-Thunderbird-FM1PS3.desktop";
 
+      # Directories in Dolphin
+      "inode/directory" = "org.kde.dolphin.desktop";
+
+      # Vesktop
+      "x-scheme-handler/discord" = "vesktop.desktop";
     };
   };
 

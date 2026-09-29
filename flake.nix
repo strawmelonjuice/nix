@@ -60,11 +60,11 @@
           if is_workstation then
             [
               ./home/desktop.nix
-              ./home/cli.nix
+              ./home/default.nix
             ]
           else
             [
-              ./home/cli.nix
+              ./home/default.nix
             ]
         )
         ++ [

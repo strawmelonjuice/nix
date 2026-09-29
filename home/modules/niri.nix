@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }:
 
@@ -26,7 +27,6 @@
     kdePackages.qttools
     gnome-console
     wl-mirror
-    nautilus
     pavucontrol
     btop
     wofi
@@ -75,6 +75,7 @@
     enable = true;
     package = pkgs.niri;
     settings = {
+      screenshot-path = "${config.xdg.userDirs.pictures}/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
       input = {
         keyboard = {
           xkb.layout = "us(altgr-intl)";
@@ -207,7 +208,6 @@
       ];
 
       prefer-no-csd = true;
-      screenshot-path = "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png";
 
       workspaces = {
         # Dedicated to conversation
@@ -313,9 +313,9 @@
           hotkey-overlay.title = "Open a Terminal: Gnome Console";
         };
         "Mod+e" = {
-          action.spawn = "nautilus";
+          action.spawn = "${pkgs.kdePackages.dolphin}/bin/dolphin";
 
-          hotkey-overlay.title = "Open that gnome file browser";
+          hotkey-overlay.title = "Open Dolphin file browser";
         };
         "Mod+B" = {
           action.spawn = "zen";
@@ -325,13 +325,17 @@
           action.spawn = "vivaldi";
           hotkey-overlay.title = "Open browser: Vivaldi";
         };
-        "Mod+Alt+Space" = {
-          action.spawn = [
-            "vivaldi"
-            "--app=chrome-extension://kghbmcgihmefcbjlfiafjcigdcbmecbf/globalSearch.html?searchString=&initiallyUnlocked="
-          ];
-          hotkey-overlay.title = "HeyLogin Quick Access";
+        "Mod+Space" = {
+          action.spawn = [ "${pkgs.anyrun}/bin/anyrun" ];
+          hotkey-overlay.title = "Anyrun (if it works...)";
         };
+        # "Mod+Alt+Space" = {
+        #   action.spawn = [
+        #     "vivaldi"
+        #     "--app=chrome-extension://kghbmcgihmefcbjlfiafjcigdcbmecbf/globalSearch.html?searchString=&initiallyUnlocked="
+        #   ];
+        #   hotkey-overlay.title = "HeyLogin Quick Access";
+        # };
         "Mod+D" = {
           action.spawn = [
             "wofi"
