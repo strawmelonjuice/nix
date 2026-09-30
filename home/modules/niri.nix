@@ -110,6 +110,10 @@
       };
 
       layout = {
+        default-column-display  = "tabbed";
+        tab-indicator = {
+          hide-when-single-tab = true;
+        };
         empty-workspace-above-first = true;
         gaps = 4;
         center-focused-column = "never";
@@ -127,10 +131,10 @@
           { proportion = 1.0; }
         ];
         default-column-width.proportion = 0.75;
-        focus-ring.enable = false;
-        border = {
+        border.enable = false;
+        focus-ring = {
           enable = true;
-          width = 2;
+          width = 3;
           active.color = "#85aaa0";
           inactive.color = "#4a4442";
           urgent.color = "#1e8b44";
@@ -140,7 +144,7 @@
           softness = 30;
           spread = 5;
           offset = {
-            x = 0;
+            x = 2;
             y = 5;
           };
           color = "#0007";
@@ -178,9 +182,8 @@
           ];
         }
         { command = [ "waybar" ]; }
-        # { command = [ "spotify" ]; }
         { command = [ "vesktop" ]; }
-        { command = [ "strawberry" ]; }
+        { command = [ "feishin" ]; }
         { command = [ "thunderbird" ]; }
         {
           command = [
@@ -581,17 +584,18 @@
         # Expand the focused column to space not taken up by other fully visible columns.
         # Makes the column "fill the rest of the space".
         "Mod+Shift+F".action.expand-column-to-available-width = [ ];
-        "Mod+C".action.center-column = [ ];
         # Center all fully visible columns on screen.
         "Mod+Ctrl+C".action.center-visible-columns = [ ];
+        # Center focused column
+        "Mod+Ctrl+C".action.center-column = [ ];
 
         "Mod+Minus".action.set-column-width = "-5%";
         "Mod+Equal".action.set-column-width = "+5%";
         "Mod+Shift+Minus".action.set-window-height = "-10%";
         "Mod+Shift+Equal".action.set-window-height = "+10%";
 
-        "Mod+X".action.toggle-window-floating = [ ];
-        "Mod+Shift+X".action.switch-focus-between-floating-and-tiling = [ ];
+        "Mod+Z".action.toggle-window-floating = [ ];
+        "Mod+Shift+Z".action.switch-focus-between-floating-and-tiling = [ ];
         "Mod+W".action.toggle-column-tabbed-display = [ ];
 
         "Mod+Shift+S".action.screenshot = [ ];
