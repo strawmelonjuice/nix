@@ -585,7 +585,7 @@
         # Makes the column "fill the rest of the space".
         "Mod+Shift+F".action.expand-column-to-available-width = [ ];
         # Center all fully visible columns on screen.
-        "Mod+Ctrl+C".action.center-visible-columns = [ ];
+        "Mod+C".action.center-visible-columns = [ ];
         # Center focused column
         "Mod+Ctrl+C".action.center-column = [ ];
 
