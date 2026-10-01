@@ -2,6 +2,8 @@
 
 {
   home.packages = with pkgs; [
+    teams-for-linux
+    
     # In case I may need to run something scary.
     wineWow64Packages.stable
     winetricks
