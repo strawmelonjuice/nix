@@ -2,23 +2,26 @@
   pkgs,
   inputs,
   config,
+  hostname,
   ...
 }:
 
 {
   imports = [
-    ./niri/waybar.nix
     # ./niri/noctalia.nix
-    ./niri/hyprlock.nix
-    ./niri/wlogout.nix
-
     inputs.niri.homeModules.niri
-
   ];
 
   programs.plasma.krunner.position = "center";
 
   home.packages = with pkgs; [
+    waybar
+    waybar-mpris
+    wlsunset
+    # networkmanagerapplet
+    pavucontrol
+    kdePackages.ksshaskpass
+
     wev
     kdePackages.krunner
     # Emoji's in KDE Runner
@@ -35,11 +38,25 @@
     wireplumber
     brightnessctl
     cliphist
-    fnott
     playerctl
     killall
     wvkbd
   ];
+
+  services.fnott = {
+    enable = true;
+    settings.main = {
+      anchor = "bottom-left";
+      default-timeout = 15;
+    };
+  };
+  systemd.user.services.fnott = {
+    Unit = {
+      Requisite = [ "niri.service" ];
+      After = [ "niri.service" ];
+    };
+  };
+
   xdg.configFile."niri/scripts/osk.sh" = {
     text = ''
       #!/run/current-system/sw/bin/bash
@@ -110,12 +127,12 @@
       };
 
       layout = {
-        default-column-display  = "tabbed";
+        default-column-display = "tabbed";
         tab-indicator = {
           hide-when-single-tab = true;
         };
         empty-workspace-above-first = true;
-        gaps = 4;
+        gaps = 6;
         center-focused-column = "never";
         always-center-single-column = true;
 
@@ -134,7 +151,7 @@
         border.enable = false;
         focus-ring = {
           enable = true;
-          width = 3;
+          width = 4;
           active.color = "#85aaa0";
           inactive.color = "#4a4442";
           urgent.color = "#1e8b44";
@@ -205,7 +222,6 @@
             "store"
           ];
         }
-        { command = [ "${pkgs.fnott}/bin/fnott" ]; }
         { command = [ "kdeconnectd" ]; }
         { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
       ];
@@ -296,7 +312,7 @@
           # This rule applies to all windows as it has no 'matches'
           geometry-corner-radius = {
             bottom-left = 5.0;
-            bottom-right = 5.0;
+            bottom-right = 0.0;
             top-left = 5.0;
             top-right = 5.0;
           };
@@ -624,5 +640,504 @@
       # --- Debug ---
       debug.honor-xdg-activation-with-invalid-serial = true;
     };
+  };
+
+  services.wlsunset = {
+    enable = true;
+    latitude = "51.4";
+    longitude = "5.4";
+    temperature.night = 4000;
+  };
+
+  programs.waybar = {
+    enable = true;
+    systemd.enable = false;
+    settings = [
+      {
+        layer = "top";
+        position = "bottom";
+        height = 30;
+        margin = "5 15 0 15";
+        spacing = 5;
+
+        modules-center = [
+          "niri/workspaces"
+          "niri/window"
+        ];
+        modules-left = [
+          "custom/media"
+          "clock"
+          "clock#ohio"
+          "clock#evie"
+        ];
+
+        modules-right = [
+          "tray"
+          (if hostname == "Fennekin" then "custom/osktoggle" else "")
+          "pulseaudio"
+          "network"
+          "cpu"
+          "memory"
+          "battery"
+          "custom/exit"
+        ];
+
+        "niri/workspaces" = {
+          rewrite = {
+            "(.*) - Discord" = "# Discord: $1";
+            "Element \\| (.*)" = "# Element: $1";
+            "(.*) - ArmCord" = "# Discord: $1";
+            "Revolt" = "# Revolt";
+            "(.*) — LibreWolf" = "$1";
+            "(.*) — Mozilla Firefox" = "$1";
+            "(.*) — Zen Browser" = "$1";
+            "(.*) - Chromium" = "$1";
+            "(.*) - Vivaldi" = "$1";
+            "Spotify (.*)" = "Spotify";
+            "(.*) - Tidal" = "Tidal";
+            "(.*) - TIDAL" = "Tidal";
+            "(.*) - Obsidian (.*)" = "Obsidian";
+          };
+          separate-outputs = true;
+        };
+
+        "custom/osktoggle" = {
+          format = "   ";
+          on-click = "~/.config/niri/scripts/osk.sh";
+          tooltip-format = "Toggle the on-screen keyboard (restarts the keyboard if needed.)";
+        };
+
+        "custom/media" = {
+          return-type = "json";
+          exec = ''
+            waybar-mpris --position --autofocus --play "" --pause "" --order "SYMBOL:TITLE:POSITION"
+            	    '';
+          on-click = "waybar-mpris --send toggle";
+          # This option will switch between players on right click.
+          on-click-right = "waybar-mpris --send player-next";
+          # The options below will switch the selected player on scroll
+          # on-scroll-up = "waybar-mpris --send player-next";
+          # on-scroll-down = "waybar-mpris --send player-prev";
+          # The options below will go to next/previous track on scroll
+          on-scroll-up = "waybar-mpris --send next";
+          on-scroll-down = "waybar-mpris --send prev";
+          escape = true;
+        };
+        "custom/exit" = {
+          format = "";
+          tooltip-format = "Powermenu";
+          on-click = "wlogout";
+          tooltip = false;
+        };
+
+        "keyboard-state" = {
+          numlock = true;
+          capslock = true;
+          format = "{name} {icon}";
+          format-icons = {
+            locked = "";
+            unlocked = "";
+          };
+        };
+
+        tray = {
+          spacing = 10;
+        };
+
+        clock = {
+          timezone = "Europe/Amsterdam";
+          format = "🇳🇱 {:%H:%M}";
+          format-alt = "<big>{:%Y %B}</big>\n<tt><small>{%c}</small></tt>";
+        };
+        "clock#ohio" = {
+          "timezone" = "America/New_York";
+          "format" = "🇺🇸 🫪 {:%H:%M}";
+          "tooltip-format" = "<big>Lily/Lena</big>\n<tt><small>{%c}</small></tt>";
+        };
+        "clock#evie" = {
+          "timezone" = "Europe/London";
+          "format" = "🏴󠁧󠁢󠁷󠁬󠁳󠁿🐸 {:%H:%M}";
+          "tooltip-format" = "<big>Evie</big>\n<tt><small>{%c}</small></tt>";
+        };
+
+        cpu = {
+          format = " {usage}% ";
+          on-click = "alacritty -e btop -p 1";
+        };
+
+        memory = {
+          format = " {}% ";
+          on-click = "alacritty -e btop -p 0";
+        };
+
+        network = {
+          format = "{ifname}";
+          format-wifi = " ";
+          format-ethernet = "  ";
+          format-disconnected = "Not connected";
+          tooltip-format = " {ifname} via {gwaddri}";
+          tooltip-format-wifi = "   {essid} ({signalStrength}%)";
+          tooltip-format-ethernet = "  {ifname} ({ipaddr}/{cidr})";
+          tooltip-format-disconnected = "Disconnected";
+          max-length = 50;
+          on-click = "nm-connection-editor";
+          on-click-right = "alacritty -e nmtui connect";
+
+        };
+
+        battery = {
+          "states" = {
+            "good" = 80;
+            "warning" = 30;
+            "critical" = 15;
+          };
+          "format" = "{icon} {capacity}%";
+          "format-alt" = "{icon}  {time}";
+          "format-charging" = "  {capacity}%";
+          "format-plugged" = "  {capacity}%";
+          "format-full" = "";
+          "format-icons" = [
+            " "
+            " "
+            " "
+            " "
+            " "
+          ];
+        };
+
+        pulseaudio = {
+          format = "{icon}  {volume}%";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = "{icon}";
+          format-muted = "";
+          format-source = "{volume}% ";
+          format-source-muted = "";
+          format-icons = {
+            headphone = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = [
+              ""
+              " "
+              " "
+            ];
+          };
+          on-click = "pavucontrol";
+        };
+      }
+    ];
+
+    style = ''
+      @define-color backgroundlight #6faa88;
+      @define-color backgrounddark #f4cccc;
+      @define-color workspacesbackground1 #67db98;
+      @define-color workspacesbackground2 #f4cccc;
+      @define-color workspacesbackground3 #fa8071;
+      @define-color bordercolor #f4cccc;
+      @define-color textcolor1 #000000;
+      @define-color textcolor2 #000000;
+      @define-color textcolor3 #f4cccc;
+      @define-color iconcolor #9b4457;
+
+      * {
+        font-family: Hermit, "Font Awesome 6 Free", FontAwesome, Ubuntu, Arial, sans-serif;
+        border: none;
+        border-radius: 0px;
+      }
+
+      window#waybar {
+        background-color: transparent;
+        transition-property: background-color;
+        transition-duration: 0.5s;
+      }
+
+      /* Common module styling */
+      #workspaces,
+      #window,
+      #custom-osktoggle,
+      #custom-exit,
+      #cpu,
+      #memory,
+      #disk,
+      #keyboard-state,
+      #clock,
+      #custom-media,
+      #pulseaudio,
+      #network,
+      #bluetooth,
+      #battery,
+      #tray {
+        margin: 3px 2px;
+        padding: 2px 8px;
+        border-radius: 8px;
+        background-color: @backgroundlight;
+        color: @textcolor1;
+        font-size: 13px;
+      }
+
+      /* -----------------------------------------------------
+       * Workspaces
+       * ----------------------------------------------------- */
+      #workspaces {
+        background-color: @workspacesbackground3;
+        padding: 0px 4px;
+      }
+
+      #workspaces button {
+        padding: 0px 4px;
+        margin: 2px 1px;
+        border-radius: 4px;
+        color: @textcolor1;
+        background: @workspacesbackground1;
+        min-width: 20px;
+        transition: all 0.2s ease-in-out;
+      }
+
+      #workspaces button.active, #workspaces button.focused {
+        background: @workspacesbackground2;
+        color: @textcolor1;
+        border: 1px solid rgb(255,77,77);
+        min-width: 30px;
+      }
+
+      /* -----------------------------------------------------
+       * Window
+       * ----------------------------------------------------- */
+      #window {
+        font-weight: normal;
+        font-size: 11px;
+      }
+
+      window#waybar.empty #window {
+        background-color: transparent;
+      }
+
+      /* -----------------------------------------------------
+       * Specific Module Overrides
+       * ----------------------------------------------------- */
+      #pulseaudio {
+        background-color: #e06666;
+        color: #000000;
+      }
+      #pulseaudio.muted {
+        background-color: #fadfb0;
+        color: #ffa07a;
+      }
+
+      #battery {
+        border: 1px dotted rgb(255,77,77);
+      }
+
+      #battery.critical:not(.charging) {
+        background-color: #fadfb0;
+        color: #ffa07a;
+        animation: blink 0.5s linear infinite alternate;
+      }
+
+      @keyframes blink {
+        to {
+          background-color: @backgroundlight;
+          color: @textcolor2;
+        }
+      }
+
+      #tray {
+        background-color: rgba(250, 128, 113, 0.3);
+        border: 1px dotted rgb(255,77,77);
+        padding: 0px 6px;
+      }
+
+      #clock {
+        font-weight: bold;
+      }
+
+      #custom-exit {
+        color: @iconcolor;
+        padding-right: 12px;
+      }
+
+      #cpu, #memory {
+        font-size: 10px;
+      }
+
+      tooltip {
+        border-radius: 10px;
+        background-color: @backgroundlight;
+        padding: 10px;
+      }
+      tooltip label {
+        color: @textcolor2;
+      }
+    '';
+  };
+
+  home.sessionVariables = {
+    SSH_ASKPASS = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+    GIT_ASKPASS = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-cosmic ];
+    config.common.default = [ "gtk" ];
+  };
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      background = [
+        {
+          path = "screenshot";
+          blur_passes = 3;
+          blur_size = 10;
+        }
+      ];
+      input-field = {
+        size = "300,300";
+        outline_thickness = 3;
+        dots_size = 0.33; # Scale of input-field height, 0.2 - 0.8
+        dots_spacing = 0.15; # Scale of dots' absolute size, 0.0 - 1.0
+        dots_center = true;
+        dots_rounding = -1; # -1 default circle, -2 follow input-field rounding
+        outer_color = "rgb(151515)";
+        inner_color = "rgb(FFFFFF)";
+        font_color = "rgb(10, 10, 10)";
+        fade_on_empty = false;
+        fade_timeout = 1000; # Milliseconds before fade_on_empty is triggered.
+        placeholder_text = "<i>  </i>"; # Text rendered in the input box when it's empty.
+        hide_input = true;
+        rounding = -1; # -1 means complete rounding (circle/oval)
+        check_color = "rgb(204, 136, 34)";
+        fail_color = "rgb(204, 34, 34)"; # if authentication failed, changes outer_color and fail message color
+        fail_text = ""; # can be set to empty
+        fail_transition = 300; # transition time in ms between normal outer_color and fail_color
+        capslock_color = -1;
+        numlock_color = -1;
+        bothlock_color = -1; # when both locks are active. -1 means don't change outer color (same for above)
+        invert_numlock = false; # change color if numlock is off
+        swap_font_color = false; # see below
+        position = "0, -20";
+        halign = "center";
+        valign = "center";
+      };
+    };
+  };
+
+  programs.wlogout = {
+    enable = true;
+    layout = [
+      {
+        label = "lock";
+        action = "hyprlock";
+        text = "Lock";
+        keybind = "l";
+      }
+      {
+        label = "logout";
+        action = "niri msg action quit --skip-confirmation";
+        text = "Logout";
+        keybind = "e";
+      }
+
+      {
+        label = "shutdown";
+        action = "poweroff";
+        text = "Shutdown";
+        keybind = "s";
+      }
+
+      {
+        label = "reboot";
+        action = "reboot";
+        text = "Reboot";
+        keybind = "r";
+      }
+
+      {
+        label = "hibernate";
+        action = "niri msg action open-overview; niri msg action spawn -- hyprlock && systemctl hibernate";
+        text = "Hibernate";
+        keybind = "h";
+      }
+
+      {
+        label = "suspend";
+        action = "niri msg action spawn -- hyprlock && systemctl suspend-then-hibernate";
+        text = "Sleep";
+        keybind = "z";
+      }
+    ];
+    style = ''
+
+      * {
+        font-family: "Lotion Black", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+      	background-image: none;
+      	transition: 20ms;
+      	box-shadow: none;
+      }
+
+      window {
+      	background-color: rgba(12, 12, 12, 0.8);
+      }
+
+      button {
+      	color: #FFFFFF;
+        font-size:20px;
+      	margin: 10px;
+      	border-radius: 20px;
+        background-repeat: no-repeat;
+      	background-position: center;
+      	background-size: 25%;
+        background-color: unset;
+      	border-style: solid;
+      	border: 3px solid #FFFFFF;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      #lock {
+      	background-image: image(url("icons/lock.png"));
+        background-color: #7facb3;
+      }
+
+      #logout {
+      	background-image: image(url("icons/logout.png"));
+        background-color: #ff4500;
+      }
+
+      #shutdown {
+      	background-image: image(url("icons/shutdown.png"));
+        background-color: #8b0000;
+      }
+
+      #reboot {
+      	background-image: image(url("icons/reboot.png"));
+        background-color: #556b2f;
+      }
+
+      #hibernate {
+      	background-image: image(url("icons/hibernate.png"));
+        background-color: #368cf9;
+      }
+      #suspend {
+      	background-image: image(url("icons/suspend.png"));
+        background-color: #f4d3a7;
+      }
+
+      button:focus,
+      button:active,
+      button:hover {
+        color: #FFFFFF;
+      	border: 3px solid #FFFFFF;
+        background-color: #ffffff;
+      }
+    '';
+  };
+
+  xdg.configFile."wlogout/icons" = {
+    source = ../../configs/wlogout-icons;
+    recursive = true;
   };
 }
