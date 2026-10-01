@@ -41,6 +41,8 @@
     playerctl
     killall
     wvkbd
+    blueman
+    anyrun
   ];
 
   services.fnott = {
@@ -199,6 +201,7 @@
           ];
         }
         { command = [ "waybar" ]; }
+        { command = [ "anyrun daemon" ]; }
         { command = [ "vesktop" ]; }
         { command = [ "feishin" ]; }
         { command = [ "thunderbird" ]; }
@@ -756,7 +759,7 @@
         };
         "clock#evie" = {
           "timezone" = "Europe/London";
-          "format" = "🏴󠁧󠁢󠁷󠁬󠁳󠁿🐸 {:%H:%M}";
+          "format" = "🇬🇧 🐸 {:%H:%M}";
           "tooltip-format" = "<big>Evie</big>\n<tt><small>{%c}</small></tt>";
         };
 
@@ -952,6 +955,7 @@
 
       #clock {
         font-weight: bold;
+        font-size: 16px;
       }
 
       #custom-exit {
@@ -1139,5 +1143,20 @@
   xdg.configFile."wlogout/icons" = {
     source = ../../configs/wlogout-icons;
     recursive = true;
+  };
+  programs.anyrun = {
+    enable = true;
+    config = {
+      plugins = [
+        "${pkgs.anyrun}/lib/libapplications.so"
+        "${pkgs.anyrun}/lib/librunner.so"
+        "${pkgs.anyrun}/lib/libsymbols.so"
+      ];
+      width.fraction = 0.4;
+      y.fraction = 0.3;
+      hideIcons = false;
+      closeOnClick = true;
+    };
+    extraCss = "/*todo*/";
   };
 }
