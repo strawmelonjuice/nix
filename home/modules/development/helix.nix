@@ -1,9 +1,19 @@
-{ ... }: {
+{
+  config,
+  inputs, pkgs,
+  ...
+}:
+{
   # Helix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   programs.helix = {
     enable = true;
+    package = inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
-      theme = "flatwhite";
+      theme = {
+        fallback = "flatwhite";
+        dark = "tokyonight_moon";
+        light = "flatwhite";
+      };
       editor.line-number = "relative";
       editor.mouse = true;
       editor.cursor-shape.insert = "bar";
@@ -13,10 +23,10 @@
       keys.normal = {
         "C-s" = ":write";
       };
-      keys.normal.space.M = {
-        l = ":theme flatwhite";
+      keys.normal.C-space = {
+        l = ":theme ${config.programs.helix.settings.theme.light}";
+        d = ":theme ${config.programs.helix.settings.theme.dark}";
         L = ":theme base16_default_light";
-        d = ":theme tokyonight_moon";
         D = ":theme iroaseta";
       };
       keys.insert = {

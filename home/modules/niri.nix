@@ -325,14 +325,14 @@
 
       binds = {
         "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
-
         "Mod+Return" = {
+          action.spawn = "${pkgs.contour}/bin/contour";
+          hotkey-overlay.title = "Open a Terminal: Contour";
+        };
+
+        "Mod+Shift+Return" = {
           action.spawn = "alacritty";
           hotkey-overlay.title = "Open a Terminal: Alacritty";
-        };
-        "Mod+Shift+Return" = {
-          action.spawn = "kgx";
-          hotkey-overlay.title = "Open a Terminal: Gnome Console";
         };
         "Mod+e" = {
           action.spawn = "${pkgs.kdePackages.dolphin}/bin/dolphin";

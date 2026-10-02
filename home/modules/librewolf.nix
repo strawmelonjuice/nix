@@ -79,7 +79,7 @@
           }
         ];
       };
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
         bitwarden
         # Or it's new contender:
         # heylogin # Not in firefox-addons (yet?)

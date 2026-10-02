@@ -22,6 +22,7 @@
     # Graphical terminal emulator ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ./modules/wezterm.nix
     ./modules/alacritty.nix
+    ./modules/contour.nix
 
     # Entertainment ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ./modules/entertainment/light-games.nix
@@ -74,6 +75,10 @@
       # Obsidian for obsidian
       "x-scheme-handler/obsidian" = "obsidian.desktop;md.Obsidian.desktop;";
 
+      # Kate for Typst
+      "text/vnd.typst" = [ "org.kde.kate.desktop" ];
+      "text/x-typst" = [ "org.kde.kate.desktop" ];
+
       #jetbrains for jetbrains ???
 
       "x-scheme-handler/jetbrains" = "jetbrainsd.desktop";
@@ -102,8 +107,8 @@
     };
   };
 
-  home.sessionVariables.TERMINAL = "alacritty";
-  home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.TERMINAL = "contour";
+  home.sessionVariables.EDITOR = "hx";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
   home.sessionVariables.BACKGROUND_LIGHT = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/chill.gif";
@@ -151,7 +156,7 @@
                                   # But we can just set it manually much better.
                                   ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_DARK}
 
-                        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
+                        	  ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
                 		  # KDE is in this episode too
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_DARK} || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
@@ -171,7 +176,7 @@
                                   # But we can just set it manually much better.
                                   ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_LIGHT}
 
-                        	  ${pkgs.dconf} write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
+                        	  ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
                 		  # KDE is in this episode too
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_LIGHT} || true
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
