@@ -287,13 +287,26 @@
     navidrome = {
       enable = true;
       settings = {
-        Scanner.Schedule = "@every 24h";
-        MusicFolder = "/cubchoo/music";
+        Scanner.Schedule = "@every 12h";
+        Scanner.PurgeMissing = "full";
+        Search.FullString = true;
+        PlaylistsPath = "/cubchoo/navidrome/playlists";
+        EnableSharing = true;
+        MusicFolder = "/cubchoo/navidrome/global-collection";
+        DataFolder = "/cubchoo/navidrome/data";
+        CacheFolder = "/var/lib/navidrome/cache";
         FFmpegPath = "${pkgs.ffmpeg}/bin/ffmpeg";
         LastFM.Enabled = false;
         EnableInsightsCollector = true;
+        DefaultTheme = "RosePineDawn";
+        EnableM3UExternalAlbumArt = true;
+        EnableStarRating = false;
+        EnableWebPEncoding = true;
+        Jellyfin.Enabled= true;
+        Jellyfin.AutoDiscovery = true;
       };
       plugins = with pkgs.navidromePlugins; [
+        apple-music
         discord-rich-presence
         listenbrainz-daily-playlist
       ];
@@ -350,7 +363,6 @@
           "/cubchoo" \
           "/home/mar/.dotfiles" \
           "/var/lib/postgresql" \
-          "/var/lib/navidrome" \
           "/var/lib/nextcloud/config" \
           "/var/lib/nextcloud/store-apps" \
           -e "/cubchoo/nextcloud/data/*/files/Music/" \
@@ -377,6 +389,31 @@
     timerConfig = {
       OnCalendar = "*-*-* 23:30:00";
       Persistent = true;
+    };
+  };
+  systemd.services.navidrome = {
+    confinement.enable = lib.mkForce false;
+    serviceConfig = {
+      MemoryHigh = "400M";
+      MemoryMax = "900M";
+      CPUQuota = "20%";
+      CPUWeight = 20;
+      IOWeight = 20;
+      ProtectHome = lib.mkForce false;
+      BindPaths = [
+        "/cubchoo/music"
+        "/cubchoo/navidrome/data/plugins"
+      ]
+      ++ lib.optional (
+        config.services.navidrome.settings ? DataFolder
+      ) config.services.navidrome.settings.DataFolder
+      ++ lib.optional (
+        config.services.navidrome.settings ? CacheFolder
+      ) config.services.navidrome.settings.CacheFolder
+      ++ lib.optional (
+        config.services.navidrome.settings ? Backup.Path
+      ) config.services.navidrome.settings.Backup.Path;
+
     };
   };
   systemd.services.radicle-node = {
