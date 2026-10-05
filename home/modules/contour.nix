@@ -1,16 +1,21 @@
-{ pkgs, ... }: {
-  home.packages = [ pkgs.contour ];
-  xdg.configFile."contour/contour.yml".text = ''
+{ pkgs, ... }:
+let
+
+  common = ''
     theme: system
 
     profiles:
       main:
-        colors:
-          light: rose-pine-dawn
-          dark: tokyo-night
+        colors: main
+  '';
 
+in
+{
+  home.packages = [ pkgs.contour ];
+  # rose-pine-dawn
+  xdg.configFile."contour/contour.yml.light".text = common + ''
     color_schemes:
-      rose-pine-dawn:
+      main:
         default:
           background: "#f7f3ee"
           foreground: "#575279"
@@ -54,8 +59,12 @@
           magenta: "#907aa9"
           cyan:    "#d7827e"
           white:   "#575279"
+  '';
 
-      tokyo-night:
+  # tokyo-night
+  xdg.configFile."contour/contour.yml.dark".text = common + ''
+    color_schemes:
+      main:
         default:
           background: "#1a1b26"
           foreground: "#a9b1d6"

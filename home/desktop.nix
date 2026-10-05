@@ -129,62 +129,59 @@
     Install.WantedBy = [ "graphical.target" ];
     Service = {
       ExecStart = pkgs.writeShellScript "swap-wall" ''
-                                # Since the timer sets up a bit faster 
-                                # than a desktop can load in, we give it a
-                                # minute to think before it acts.
-                                # sleep 60
-                                mkdir -p /home/mar/.local/share/wallpapers/slideshow
-                                if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
-                                  git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
-                                fi
+        mkdir -p /home/mar/.local/share/wallpapers/slideshow
+        if [ ! -d "/home/mar/.local/share/wallpapers/aesthetic-wallpapers" ]; then
+          git clone https://github.com/D3Ext/aesthetic-wallpapers.git /home/mar/.local/share/wallpapers/aesthetic-wallpapers
+        fi
 
 
-                                # Wait for awww-daemon to be ready
-                                until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
-                                  echo "Waiting for awww-daemon..."
-                                  sleep 1
-                                done
+        # Wait for awww-daemon to be ready
+        until ${pkgs.awww}/bin/awww query >/dev/null 2>&1; do
+          echo "Waiting for awww-daemon..."
+          sleep 1
+        done
 
-                                HOUR=$(date +%H)
-                                if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
-                                  # Night time: 19:00 to 07:59
-                                  echo "Good night!";
-                                  # Fake slideshow!
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/3
-                                  # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_DARK}
+        HOUR=$(date +%H)
+        if [ $HOUR -ge 19 ] || [ $HOUR -lt 8 ]; then
+          # Night time: 19:00 to 07:59
+          echo "Good night!";
+          # Fake slideshow!
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_DARK} /home/mar/.local/share/wallpapers/slideshow/3
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_DARK}
+          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
 
-                        	  ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-dark"'
-                		  # KDE is in this episode too
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_DARK} || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
+          # KDE is in this episode too
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_DARK} || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breezedark.desktop || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme KritaDarkOrange || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
 
+          ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_DARK}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
+          ln -f -s "${config.xdg.configHome}/contour/contour.yml.dark" "${config.xdg.configHome}/contour/contour.yml"
+        else
+          # Day time
+          echo "Good day~!";
+          ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
+          # Here too
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/1
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/2
+          cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/3
+          # But we can just set it manually much better.
+          ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_LIGHT}
+          ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
 
-        			  ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_DARK}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
-                                else
-                                  # Day time
-                                  echo "Good day~!";
-                                  ln -sf /home/mar/.local/share/wallpapers/aesthetic-wallpapers/images/pixel_big_city.png /home/mar/.local/share/wallpapers/current_wallpaper.png
-                                  # Here too
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/1
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/2
-                                  cp --update=all ${config.home.sessionVariables.BACKGROUND_LIGHT} /home/mar/.local/share/wallpapers/slideshow/3
-                                  # But we can just set it manually much better.
-                                  ${pkgs.awww}/bin/awww img ${config.home.sessionVariables.BACKGROUND_LIGHT}
+          # KDE is in this episode too
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_LIGHT} || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
+          ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
 
-                        	  ${pkgs.dconf}/bin/dconf write /org/gnome/desktop/interface/color-scheme '"prefer-light"'
-                		  # KDE is in this episode too
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-wallpaperimage ${config.home.sessionVariables.BACKGROUND_LIGHT} || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-lookandfeel --apply org.kde.breeze.desktop || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-colorscheme BreezeClassic || true
-                                  ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
-
-        			  ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_LIGHT}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
-                                fi
+          ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_LIGHT}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
+          ln -f -s "${config.xdg.configHome}/contour/contour.yml.light" "${config.xdg.configHome}/contour/contour.yml"
+        fi
       '';
     };
   };
