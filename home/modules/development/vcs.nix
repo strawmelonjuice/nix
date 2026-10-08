@@ -24,7 +24,7 @@
       signing = {
         backend = "ssh"; # Or gpg, both r fine w me!
         behaviour = "own";
-        key = "/home/mar/.ssh/id_ed25519.pub";
+        key = "/home/mar/.ssh/id_ed25519_sk_rk";
         gpg.key = "9FFA7AE8896DD236";
       };
       git = {
