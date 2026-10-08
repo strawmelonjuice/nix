@@ -6,6 +6,8 @@
 
     # ../modules/development/jetbrainspackages.nix
     ../modules/school.nix
+
+    ../modules/development/exercism.nix
   ];
 
   home.packages = with pkgs; [
