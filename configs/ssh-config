@@ -11,7 +11,7 @@
 Host forge.strawmelonjuice.nl
   Port 443
   User forgejo
-  IdentityFile ~/.ssh/id_ed25519_sk_rk #Rather uncommon for me to have per-device keys nowadays, so why not just make it my residence key
+  IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main #Rather uncommon for me to have per-device keys nowadays, so why not just make it my residence key
 
 # ------ Forges hosted by Others --------
 
@@ -25,10 +25,10 @@ Host knot.ollie.earth
   IdentityFile ~/.ssh/id_ed25519
 Host codeberg.org
   User git
-  IdentityFile ~/.ssh/id_ed25519
+  IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main
 Host github.com
   User git
-  IdentityFile ~/.ssh/id_ed25519
+  IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main
 
 
 
@@ -37,18 +37,18 @@ Host github.com
 
 Host tilde.town
     User strawmelonjuice
-    IdentityFile ~/.ssh/id_ed25519_sk_rk
+    IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main
 
 # ---- Cubchoo
 Host strawmelonservices
     HostName cubchoo.taild5b3d4.ts.net
         User root
         Port 22
-        IdentityFile ~/.ssh/id_ed25519_sk_rk
+        IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main
 Host strawmelonservices-temp
     RequestTTY yes
     RemoteCommand watch -n 1 "vcgencmd measure_temp && cat /sys/class/thermal/cooling_device0/cur_state"
     HostName cubchoo.taild5b3d4.ts.net
         User root
         Port 22
-        IdentityFile ~/.ssh/id_ed25519_sk_rk
+        IdentityFile ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main
