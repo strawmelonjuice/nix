@@ -48,7 +48,7 @@
   services.fnott = {
     enable = true;
     settings.main = {
-      anchor = "bottom-left";
+      anchor = "bottom-right";
       default-timeout = 15;
     };
   };
