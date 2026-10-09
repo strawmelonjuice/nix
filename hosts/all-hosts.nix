@@ -146,11 +146,12 @@
     isNormalUser = true;
     description = "MLC Bloeiman";
     openssh.authorizedKeys.keys = [
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJcIWHOpK3xwuCkqhqw+sTh++lVF2xLa4szixk81TWYRAAAAHHNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX21haW4= ssh:ssh_strawmelonjuice_main"
+      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJkLyzUpgECLzHslD8Bj0pSM9Mkqq7xam6c9XswlEmicAAAAIXNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX2JhY2t1cF8xRA== ssh:ssh_strawmelonjuice_backup_1D"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN00S7BhcmuvXgGrzIv2dLXGwMxVGL6y164oVAlNIDMf"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAyau8tCGMY2+JdzcGw3gav5Ioh59RVBMG22B1z8jn2K"
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKYFw1Pr1q/PXBRwBz9h0wiV4I4xjPd0BgzptTLECZDqAAAABHNzaDo= mar@strawmelonjuice.com's Yubikey 5C 1"
-      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBKmawcg4EArqnBiDPZhqHas8qm4R3n6f5wtoLKdowd4YQA6oQnTHKQ0ReKWZw/aMSoUgR5nuuMZObPy6bsdQS10AAAAEc3NoOg== mar@Samurott Yubikey 1"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAoQBb5B3iDgdRb+rFwK1t3C6nDW9JTpDGvATnxdTVXZ Backup server management key"
+
     ];
     shell = pkgs.fish;
     extraGroups = [

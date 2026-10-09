@@ -17,7 +17,8 @@ function _zap
         echo "📂 Opened $repo_type repository: "(pwd)
 
         if type -q rad
-            rad sync
+            # rad sync
+	    git fetch rad
         end
 
         if test -d .git
