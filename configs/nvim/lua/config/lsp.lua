@@ -5,10 +5,14 @@ vim.pack.add({
 	{ src = "https://github.com/mason-org/mason.nvim" },
 })
 local servers = {
-	"rust_analyzer",
+	-- Gleam & Erlang
 	"gleam",
 	"elp",
+
+	-- Z
 	"zls",
+
+	-- Lua
 	"lua_ls",
 
 	-- python
@@ -25,7 +29,7 @@ local servers = {
 	"prettier",
 	"biome",
 	"cssls",
-	-- "tailwindcss",
+	"tailwindcss",
 
 	-- rust
 	"rust_analyzer",
@@ -35,6 +39,9 @@ local servers = {
 
 	-- toml
 	"taplo",
+
+	-- C# & Razor
+	"csharp_ls",
 }
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -55,7 +62,7 @@ require("lazydev").setup({
 	},
 })
 
-require("mason").setup({})
+require("mason").setup()
 
 -- lsp setup ---------------------------------------
 vim.lsp.enable(servers)
