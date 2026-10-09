@@ -24,7 +24,7 @@
       signing = {
         backend = "ssh"; # Or gpg, both r fine w me!
         behaviour = "own";
-        key = "/home/mar/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_sign.pub";
+        key = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKYufw8vCkVohlLPvKxXTlSCcky5uNjV0nAmWXmwF7xNAAAAHHNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX3NpZ24= ssh:ssh_strawmelonjuice_sign";
         gpg.key = "9FFA7AE8896DD236";
       };
       git = {
