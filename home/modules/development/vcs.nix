@@ -3,7 +3,12 @@
   config,
   ...
 }:
+let
+  gpgkey = "B278044AB3B50ADC0090FDC5D982294C0247929F";
+  name = "MLC Bloeiman (Mar)";
+  email = "strawmelonjuice@proton.me";
 
+in
 {
   imports = [
     ./vcs/radicle.nix
@@ -11,8 +16,12 @@
   programs.git = {
     enable = true;
     settings = {
-      user.name = "MLC Bloeiman";
-      user.email = "strawmelonjuice@proton.me";
+      user = {
+        inherit name;
+        inherit email;
+        signingkey = gpgkey;
+      };
+      commit.gpgsign = true;
       core.excludesfile = "${config.home.homeDirectory}/.config/jj/ignore";
     };
   };
@@ -20,13 +29,26 @@
     enable = true;
     package = pkgs.jujutsu;
     settings = {
-      inherit (config.programs.git.settings) user;
-      signing = {
-        backend = "ssh"; # Or gpg, both r fine w me!
-        behaviour = "own";
-        key = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKYufw8vCkVohlLPvKxXTlSCcky5uNjV0nAmWXmwF7xNAAAAHHNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX3NpZ24= ssh:ssh_strawmelonjuice_sign";
-        gpg.key = "9FFA7AE8896DD236";
+      user = {
+        inherit name;
+        inherit email;
       };
+
+      signing =
+
+        let
+          signing-backend = "gpg";
+        in
+        {
+          backend = signing-backend;
+          behaviour = "own";
+          key =
+            if signing-backend == "ssh" then
+              "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKYufw8vCkVohlLPvKxXTlSCcky5uNjV0nAmWXmwF7xNAAAAHHNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX3NpZ24= ssh:ssh_strawmelonjuice_sign"
+            else
+              gpgkey;
+          # gpg.key = gpgkey;
+        };
       git = {
         private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
         write-change-id-header = true;

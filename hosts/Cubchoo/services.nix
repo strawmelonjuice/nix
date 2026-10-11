@@ -87,7 +87,7 @@
             # Which repositories to pin
             "rad:z3KozhW4C7ykQoe65DX8yUUGEHcdA" # Lumina
             "rad:z3tXbjDQGe7hWmCzmTMQWCPDtJhdP" # Homepage
-            "rad:z3gXgvgtCPVevRbiNgAMvrHbCswhn" # Dotfiles
+            # "rad:z3gXgvgtCPVevRbiNgAMvrHbCswhn" # Dotfiles
           ];
         };
       };
@@ -302,7 +302,7 @@
         EnableM3UExternalAlbumArt = true;
         EnableStarRating = false;
         EnableWebPEncoding = true;
-        Jellyfin.Enabled= true;
+        Jellyfin.Enabled = true;
         Jellyfin.AutoDiscovery = true;
       };
       plugins = with pkgs.navidromePlugins; [

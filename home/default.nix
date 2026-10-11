@@ -3,7 +3,6 @@
   config,
   lib,
   inputs,
-  hostname,
   ...
 }:
 
@@ -28,17 +27,14 @@
   home.username = "mar";
   home.homeDirectory = "/home/mar";
 
+  home.packages = with pkgs; [
+    home-manager
+  ];
+
   nix.package = lib.mkForce pkgs.lixPackageSets.stable.lix;
   nix.extraOptions = "experimental-features = nix-command flakes";
 
   services.podman.enable = true;
-  services.gpg-agent = {
-    enable = true;
-    pinentry.package = pkgs.pinentry-qt;
-
-    defaultCacheTtl = 28800;
-    maxCacheTtl = 28800;
-  };
 
   xdg.userDirs = {
     enable = true;

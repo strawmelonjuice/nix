@@ -39,6 +39,7 @@
     # GUI Apps
     vivaldi
     crosspipe
+    yubioath-flutter
     nextcloud-client
     kdePackages.filelight
 

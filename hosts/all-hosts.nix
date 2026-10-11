@@ -94,6 +94,18 @@
 
   services.tailscale.enable = true;
   services.radicle.node.openFirewall = true;
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = false;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
+  # programs.ssh.startAgent = false;
+
+  environment.shellInit = ''
+    export GPG_TTY=$(tty)
+  '';
 
   # Enable fish
   programs.fish.enable = true;

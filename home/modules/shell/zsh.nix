@@ -21,6 +21,7 @@
           # Have to have ssh-agent running now for yubikey sk-ed25519
           eval $(ssh-agent)
           ssh-add ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_main ~/.ssh/id_ed25519_sk_rk_ssh_strawmelonjuice_sign
+          curl https://strawmelonjuice.nl/me.asc | gpg --import
           clear
           ${pkgs.hyfetch}/bin/hyfetch
         '';
