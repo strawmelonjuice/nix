@@ -62,7 +62,9 @@ in
           "$right"
         ];
 
-        editor = "${pkgs.neovim}/bin/nvim";
+        editor = "${config.programs.helix.package}/bin/hx";
+        # editor = "${pkgs.neovim}/bin/nvim";
+
         streampager.wrapping = "none";
         movement.edit = true;
         default-command = [

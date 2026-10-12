@@ -1,5 +1,3 @@
-set -gx EDITOR nvim
-
 # Function: zap
 function _zap
     if test -d .jj -o -d .git
