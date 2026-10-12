@@ -205,7 +205,7 @@
         { command = [ "vesktop" ]; }
         { command = [ "fluffychat" ]; }
         { command = [ "feishin" ]; }
-        { command = [ "thunderbird" ]; }
+        # { command = [ "thunderbird" ]; }
         {
           command = [
             "wl-paste"
