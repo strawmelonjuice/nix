@@ -203,6 +203,7 @@
         { command = [ "waybar" ]; }
         { command = [ "anyrun daemon" ]; }
         { command = [ "vesktop" ]; }
+        { command = [ "fluffychat" ]; }
         { command = [ "feishin" ]; }
         { command = [ "thunderbird" ]; }
         {
@@ -225,8 +226,10 @@
             "store"
           ];
         }
-        { command = [ "kdeconnectd" ]; }
-        { sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher"; }
+        # { command = [ "kdeconnectd" ]; }
+        {
+          sh = "sleep 5s; niri msg action focus-workspace 1 && systemctl --user start wallpaper-switcher; krunner";
+        }
       ];
 
       prefer-no-csd = true;
