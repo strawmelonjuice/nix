@@ -423,8 +423,8 @@
       MemoryHigh = "600M";
       MemoryMax = "1G";
       CPUQuota = "85%";
-      CPUWeight = 20;
-      IOWeight = 20;
+      CPUWeight = 15;
+      IOWeight = 15;
       User = lib.mkForce "mar";
       Group = lib.mkForce "users";
       ProtectHome = lib.mkForce false;

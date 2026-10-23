@@ -56,7 +56,7 @@
         }
 
         # un-anubised traffic
-        reverse_proxy /svg/* localhost:7008
+        reverse_proxy /svg/* http://localhost:7044
 
         # proxy through anubis
         reverse_proxy localhost:17044 {
