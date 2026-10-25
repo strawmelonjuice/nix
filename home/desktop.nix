@@ -109,7 +109,7 @@
   };
 
   home.sessionVariables.TERMINAL = "contour";
-  home.sessionVariables.EDITOR = "hx";
+  home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.PASSWORD_STORE_TYPE = "basic";
 
   home.sessionVariables.BACKGROUND_LIGHT = "${config.home.homeDirectory}/.local/share/wallpapers/aesthetic-wallpapers/images/chill.gif";

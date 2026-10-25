@@ -16,12 +16,11 @@ in
   # Helix ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   programs.helix = {
     enable = true;
-    package =
-      # pkgs.steelix;
-      inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    # package =
+    #   inputs.helix.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
-      # theme = theme.fallback;
-      inherit theme;
+      theme = theme.fallback;
+      # inherit theme;
 
       editor.line-number = "relative";
       editor.mouse = true;
