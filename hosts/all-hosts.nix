@@ -23,6 +23,8 @@
 
   nixpkgs.config = {
     permittedInsecurePackages = [
+      # I don't have private repositories
+      "radicle-node-1.10.3"
     ];
 
     joypixels.acceptLicense = true;
