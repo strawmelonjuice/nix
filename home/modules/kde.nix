@@ -87,9 +87,9 @@
               General = {
                 launchers = [
                   "applications:zen.desktop"
-                  "applications:Alacritty.desktop"
+                  "applications:org.contourterminal.Contour.desktop"
                   "applications:obsidian.desktop"
-                  "applications:element-desktop.desktop"
+                  "applications:Fluffychat.desktop"
                 ]
                 ++ (
                   if hostname == "Fennekin" then

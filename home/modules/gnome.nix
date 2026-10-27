@@ -19,15 +19,17 @@
         pkgs.gnomeExtensions."night-theme-switcher".extensionUuid
         pkgs.gnomeExtensions."blur-my-shell".extensionUuid
         pkgs.gnomeExtensions."search-light".extensionUuid
-        pkgs.gnomeExtensions."all-in-one-clipboard".extensionUuid
+        pkgs.gnomeExtensions."clipboard-history-2".extensionUuid
+        pkgs.gnomeExtensions."runcat".extensionUuid
+        pkgs.gnomeExtensions."raccoon-launcher".extensionUuid
       ];
     };
     "org/gnome/shell" = {
       favorite-apps = [
         "zen.desktop"
-        "Alacritty.desktop"
+        "org.contourterminal.Contour.desktop"
         "obsidian.desktop"
-        "element-desktop.desktop"
+        "Fluffychat.desktop"
       ]
       ++ (
         if hostname == "Fennekin" then
@@ -41,6 +43,32 @@
           [ ]
       );
     };
+    "org/gnome/desktop/interface" = {
+      monospace-font-name = "Maple Mono NF 11";
+      accent-color = "green";
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+
+      switch-to-workspace-right = ([
+        "<Super>Page_Down"
+        "<Super>KP_Next"
+        "<Super><Alt>Right"
+        "<Control><Alt>Right"
+        "<Super>K"
+      ]);
+
+      switch-to-workspace-left = ([
+        "<Super>Page_Up"
+        "<Super>KP_Prior"
+        "<Super><Alt>Left"
+        "<Control><Alt>Left"
+        "<Super>J"
+      ]);
+    };
+    "org/gnome/shell/extensions/raccoonlauncher".toggle-launcher = [
+      "<Alt>space"
+      "<Control>space"
+    ];
     "org/gnome/shell/extensions/dash-to-dock" = {
       always-center-icons = true;
       apply-custom-theme = true;
@@ -80,7 +108,7 @@
     };
     "org/gnome/shell/extensions/nightthemeswitcher/time" = {
       nightthemeswitcher-ondemand-keybinding = [
-        (lib.hm.gvariant.mkString "<Shift><Super>t")
+        "<Shift><Super>t"
       ];
     };
     "org/gnome/system/location".enabled = true;
@@ -91,7 +119,9 @@
     gnomeExtensions.night-theme-switcher
     gnomeExtensions.appindicator
     gnomeExtensions.blur-my-shell
-    gnomeExtensions.all-in-one-clipboard
+    gnomeExtensions.clipboard-history-2
     gnomeExtensions.search-light
+    gnomeExtensions.runcat
+    gnomeExtensions.raccoon-launcher
   ];
 }

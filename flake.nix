@@ -127,6 +127,9 @@
               ];
               joypixels.acceptLicense = true;
               allowUnfree = true;
+              permittedInsecurePackages = [
+                "radicle-node-1.10.3"
+              ];
             };
 
           };

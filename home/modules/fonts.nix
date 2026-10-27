@@ -27,8 +27,15 @@ in
 {
   fonts.fontconfig.enable = true;
   fonts.fontconfig.defaultFonts = {
-    emoji = [ "FrankMojiBeta0012" "joypixels" ];
-    monospace = [ "Maple Mono NF" "Lilex Nerd Font Mono" "Hermit" ];
+    emoji = [
+      "FrankMojiBeta0012"
+      "joypixels"
+    ];
+    monospace = [
+      "Maple Mono NF"
+      "Lilex Nerd Font Mono"
+      "Hermit"
+    ];
   };
 
   home.packages = with pkgs; [
