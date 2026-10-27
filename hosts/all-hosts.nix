@@ -128,14 +128,19 @@
     banner = "Property of MLC Bloeiman.\n\nHai :3\n";
   };
 
-  environment.plasma6.excludePackages = with pkgs; [
-    kdePackages.elisa # We got strawberry
-    kdePackages.kdepim-runtime
-    kdePackages.konversation # IRC client
-    kdePackages.kpat # Solitaire
-    kdePackages.ksudoku
-    kdePackages.discover
-    kdePackages.ktorrent
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    elisa
+    konversation
+    kpat # Solitaire
+    ksudoku
+    discover
+    ktorrent
+    merkuro
+    kontact
+    ktnef
+    kdepim-runtime
+    korganizer
+
   ];
 
   # services.desktopManager.cosmic.enable = true;
