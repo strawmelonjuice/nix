@@ -54,7 +54,7 @@
         "<Super>KP_Next"
         "<Super><Alt>Right"
         "<Control><Alt>Right"
-        "<Super>K"
+        "<Super>J"
       ]);
 
       switch-to-workspace-left = ([
@@ -62,7 +62,7 @@
         "<Super>KP_Prior"
         "<Super><Alt>Left"
         "<Control><Alt>Left"
-        "<Super>J"
+        "<Super>K"
       ]);
     };
     "org/gnome/shell/extensions/raccoonlauncher".toggle-launcher = [
