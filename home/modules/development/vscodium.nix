@@ -20,9 +20,7 @@
           ms-dotnettools.csharp
           ms-dotnettools.vscode-dotnet-runtime
           csharpier.csharpier-vscode
-          JetBrains.resharper-code
           myriad-dreamin.tinymist
-          globalart.discord-vscode-rpc
         ];
         userSettings = {
           editor.fontFamily = "'Maple Mono NF','Hermit', 'Droid Sans Mono', monospace";
