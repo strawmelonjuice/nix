@@ -17,9 +17,15 @@
           jjk.jjk
           nefrob.vscode-just-syntax
           mkhl.direnv
+          ms-dotnettools.csharp
+          ms-dotnettools.vscode-dotnet-runtime
+          csharpier.csharpier-vscode
+          JetBrains.resharper-code
+          myriad-dreamin.tinymist
+          globalart.discord-vscode-rpc
         ];
         userSettings = {
-          editor.fontFamily = "'Hermit', 'Droid Sans Mono', monospace";
+          editor.fontFamily = "'Maple Mono NF','Hermit', 'Droid Sans Mono', monospace";
           window = {
             autoDetectColorScheme = true;
             newWindowProfile = "Default";
@@ -33,6 +39,8 @@
           security.workspace.trust.enabled = false;
           workbench.startupEditor = "none";
           git.enabled = false;
+
+          resharper.region.region = "Europe";
         };
       };
     };
