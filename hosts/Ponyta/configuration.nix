@@ -50,6 +50,8 @@
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
 
+  services.displayManager.defaultSession = "gnome";
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -75,8 +77,6 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  # (defined upstreamily)
-  services.displayManager.defaultSession = "niri";
 
   # Install firefox.
   programs.firefox.enable = true;

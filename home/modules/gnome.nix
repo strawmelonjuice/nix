@@ -27,7 +27,7 @@
     "org/gnome/shell" = {
       favorite-apps = [
         "zen.desktop"
-        "org.contourterminal.Contour.desktop"
+        "com.mitchellh.ghostty.desktop"
         "obsidian.desktop"
         "Fluffychat.desktop"
       ]

@@ -87,7 +87,7 @@
               General = {
                 launchers = [
                   "applications:zen.desktop"
-                  "applications:org.contourterminal.Contour.desktop"
+                  "applications:com.mitchellh.ghostty.desktop"
                   "applications:obsidian.desktop"
                   "applications:Fluffychat.desktop"
                 ]

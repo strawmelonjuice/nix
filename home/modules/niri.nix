@@ -329,8 +329,8 @@
       binds = {
         "Mod+Shift+Slash".action.show-hotkey-overlay = [ ];
         "Mod+Return" = {
-          action.spawn = "${pkgs.contour}/bin/contour";
-          hotkey-overlay.title = "Open a Terminal: Contour";
+          action.spawn = "${pkgs.ghostty}/bin/ghostty";
+          hotkey-overlay.title = "Open a Terminal: Ghostty";
         };
 
         "Mod+Shift+Return" = {
