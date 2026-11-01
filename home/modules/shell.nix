@@ -61,12 +61,6 @@ in
     enableZshIntegration = false;
   };
 
-  programs.direnv-instant = {
-    enable = true;
-    enableZshIntegration = true;
-    enableFishIntegration = true;
-  };
-
   programs.hyfetch = {
     enable = true;
     settings = {

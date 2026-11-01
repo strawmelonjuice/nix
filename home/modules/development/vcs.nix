@@ -10,9 +10,6 @@ let
 
 in
 {
-  imports = [
-    ./vcs/radicle.nix
-  ];
   programs.git = {
     enable = true;
     settings = {

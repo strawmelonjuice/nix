@@ -156,7 +156,6 @@
   ];
 
   # Set a password on the image generated with `nix build .#nixosConfigurations.Cubchoo.config.system.build.sdImage`.
-  users.users.root.initialPassword = "nixos";
   sdImage.compressImage = false;
 
   system.stateVersion = "26.05";

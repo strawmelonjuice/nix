@@ -11,6 +11,7 @@
     # Development
     ./modules/development.nix
     ./modules/development/vcs.nix
+    ./modules/development/vcs/radicle.nix
     ./modules/development/neovim.nix
     ./modules/development/helix.nix
 
@@ -35,6 +36,12 @@
   nix.extraOptions = "experimental-features = nix-command flakes";
 
   services.podman.enable = true;
+
+  programs.direnv-instant = {
+    enable = true;
+    enableZshIntegration = true;
+    enableFishIntegration = true;
+  };
 
   xdg.userDirs = {
     enable = true;

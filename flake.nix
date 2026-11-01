@@ -61,15 +61,18 @@
       getHomeModules =
         hostname: is_workstation:
         (
-          if is_workstation then
-            [
-              ./home/desktop.nix
-              ./home/default.nix
-            ]
+          if hostname != "Cubchoo" then
+            if is_workstation then
+              [
+                ./home/desktop.nix
+                ./home/default.nix
+              ]
+            else
+              [
+                ./home/default.nix
+              ]
           else
-            [
-              ./home/default.nix
-            ]
+            [ ]
         )
         ++ [
           ./home/host-specific/${hostname}.nix
@@ -85,6 +88,7 @@
             # inputs.noctalia.nixosModules.default
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager
+
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

@@ -250,9 +250,9 @@
       maxUploadSize = "2G";
       extraApps = {
         inherit (config.services.nextcloud.package.packages.apps)
-          news
-          contacts
-          calendar
+          # news
+          # contacts
+          # calendar
           tasks
           whiteboard
           # richdocuments
