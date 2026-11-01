@@ -2,7 +2,7 @@
   description = "Mar's dotfiles for nix :3";
 
   inputs = {
-    nixpkgs-stable = {
+    nixpkgs-2605 = {
       url = "github:nixos/nixpkgs/nixos-26.05";
     };
     nixpkgs = {
@@ -36,7 +36,7 @@
     # };
     puppy-toetaps = {
       url = "git+https://forge.strawmelonjuice.nl/lillianrose/citrine.git?rev=af460c22980f6c276762aa9de36ca1fb0bd195d1";
-      inputs.nixpkgs.follows = "nixpkgs-stable";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
     };
     zen-browser = {
       url = "github:youwen5/zen-browser-flake";

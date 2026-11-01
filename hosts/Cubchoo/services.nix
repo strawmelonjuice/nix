@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  inputs,
   config,
   ...
 }:
@@ -262,8 +263,8 @@
       config = {
         # Postgres trust-based auth doesn't work, so deciding to use SQLite
         dbtype = "sqlite";
-        adminpassFile = "/etc/nextcloud-admin-pass";
-        adminuser = "mar";
+        # adminpassFile = "/etc/nextcloud-admin-pass";
+        # adminuser = "mar";
       };
       settings = {
         preview_format = "webp";
@@ -305,11 +306,13 @@
         Jellyfin.Enabled = true;
         Jellyfin.AutoDiscovery = true;
       };
-      plugins = with pkgs.navidromePlugins; [
-        apple-music
-        discord-rich-presence
-        listenbrainz-daily-playlist
-      ];
+
+      #these stopped working for me so I await more time to figure that out.
+      # plugins = with pkgs.navidromePlugins; [
+      #   apple-music
+      #   discord-rich-presence
+      #   listenbrainz-daily-playlist
+      # ];
     };
   };
   virtualisation.containers.enable = true;

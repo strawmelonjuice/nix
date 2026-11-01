@@ -25,8 +25,9 @@
     ];
     config = {
       permittedInsecurePackages = [
+        "radicle-node-1.10.3"
       ];
-
+      allowUnsupportedSystem = true;
       allowUnfree = true;
       packageOverrides = pkgs: {
         stable = import <nixpkgs-stable> {
