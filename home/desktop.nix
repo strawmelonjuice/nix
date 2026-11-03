@@ -188,7 +188,7 @@
                                   ${pkgs.kdePackages.plasma-workspace}/bin/plasma-apply-cursortheme "layan-cursors" || true
 
                                   ln -f -s ${pkgs.alacritty-theme}/share/alacritty-theme/${config.home.sessionVariables.TERM_THEME_LIGHT}.toml "${config.home.homeDirectory}/.local/share/wallpapers/alacritty-theme.toml"
-                                  ln -f -s "${config.xdg.configHome}/ghostty/config.light" "${config.xdg.configHome}/ghostty/config"
+                                  ln -f -s "${config.xdg.configHome}/ghostty/config.light" "${config.xdg.configHome}/ghostty/config.ghostty"
                                 fi
       '';
     };
