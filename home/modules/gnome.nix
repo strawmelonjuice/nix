@@ -28,16 +28,13 @@
       favorite-apps = [
         "zen.desktop"
         "com.mitchellh.ghostty.desktop"
-        "obsidian.desktop"
+        "md.obsidian.Obsidian.desktop"
         "Fluffychat.desktop"
       ]
       ++ (
         if hostname == "Fennekin" then
           [
             "com.github.xournalpp.xournalpp.desktop"
-          ]
-        else if hostname == "Ponyta" then
-          [
           ]
         else
           [ ]
