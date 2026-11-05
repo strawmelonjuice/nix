@@ -99,6 +99,11 @@ function rb
     end
 end
 
+# If RAD_HOME is still living on my Samsung T5, and that being disconnected now... well!
+if set -q RAD_HOME; and not test -d "$RAD_HOME"
+    set -e RAD_HOME
+end
+
 function rad-init-cubchoo
 	set -l rid (rad inspect --rid)
 	echo "Seeding local repository $rid from Cubchoo"
