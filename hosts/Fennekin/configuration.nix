@@ -93,11 +93,12 @@
 
   ];
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
+  # programs.steam = {
+  #   enable = true;
+  #   remotePlay.openFirewall = true;
+  #   localNetworkGameTransfers.openFirewall = true;
+  # };
+
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
