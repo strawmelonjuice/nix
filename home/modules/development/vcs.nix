@@ -68,16 +68,11 @@ in
         streampager.wrapping = "none";
         movement.edit = true;
         default-command = [
-          "util"
-          "exec"
-          "--"
-          "sh"
-          "-c"
-          ''
-            jj show --template builtin_log_oneline --stat
-            jj bookmark list
-          ''
-
+          "log"
+          "--template"
+          "builtin_log_oneline"
+          "--reversed"
+          "--summary"
         ];
         show-cryptographic-signatures = true;
 
