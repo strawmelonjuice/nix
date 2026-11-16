@@ -1,9 +1,13 @@
 let
   mine = [
     "z6MkfJTnV1rGvGaykrPQzLMSQN7zB2bB7nNuYZyPL5QrdDB7@seed.strawmelonjuice.nl:8776"
+
+    # Well, this one is now on a portable SSD!
+    "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
+
+    # Leaving these two likely unmanned.
     "z6MkqWHpFf8SoFQxJQPRw4xvKYrXTcUkRTzaeFio352xwYiA@samurott:8776"
     "z6MkjEcgs2bLEYMQDDSrCjVxzcZens5D3vFz9AxhyHbSjSo9@fennekin:8776"
-    "z6MkozXoRQG2zosyFTGSmtxbxqj1y4sdBevhnsAQH6xbJQxz@ponyta:8776"
   ];
   default = [
     "z6MkrLMMsiPWUcNPHcRajuMi9mDfYckSoJyPwwnknocNYPm7@iris.radicle.network:8776"
