@@ -204,4 +204,5 @@
     }
   ];
 
+  security.polkit.enable = true;
 }
