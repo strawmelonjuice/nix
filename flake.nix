@@ -24,6 +24,7 @@
     niri = {
       url = "github:sodiboo/niri-flake";
     };
+    rad-portable.url = "git+https://seed.strawmelonjuice.nl/z2nwKQD8V1bhozD9ZiZi8SGifbYmx.git";
     # ./home/modules/niri/noctalia.nix is not in use.
     # noctalia = {
     #   url = "github:noctalia-dev/noctalia-shell";
@@ -52,112 +53,295 @@
     {
       self,
       nixpkgs,
+      nixpkgs-2605,
       home-manager,
       ...
     }@inputs:
     let
+      mkPkgs =
+        system:
+        import nixpkgs {
+          inherit system;
+          config = {
+            permittedInsecurePackages = [
+              # I don't have private repositories
+              "radicle-node-1.10.3"
+            ];
+            allowUnfree = true;
+          };
+          overlays = [
+            (final: prev: {
+              stable = import nixpkgs-2605 {
+                inherit system;
+                config = {
+                  allowUnfree = true;
+                };
+              };
+              inherit (prev.lixPackageSets.stable)
+                nixpkgs-review
+                nix-eval-jobs
+                nix-fast-build
+                colmena
+                ;
+            })
+          ];
+        };
+
+      # This config truly applies to all systems.
+      globalNixOsConfig =
+        { pkgs, ... }:
+        {
+          nixpkgs = {
+            inherit (pkgs) config overlays;
+          };
+          nix = {
+            package = nixpkgs.lib.mkForce pkgs.lixPackageSets.stable.lix;
+            settings.experimental-features = [
+              "nix-command"
+              "flakes"
+            ];
+            gc = {
+              automatic = true;
+              dates = "daily";
+              options = "--delete-older-than 7d";
+            };
+            settings.auto-optimise-store = true;
+          };
+          boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+          environment = {
+            systemPackages = with pkgs; [
+              jj
+              # coreutils
+              uutils-coreutils-noprefix
+              git
+            ];
+            shellInit = ''
+              export GPG_TTY=$(tty)
+            '';
+
+            pathsToLink = [
+              "/share/zsh"
+              "/share/fish"
+            ];
+          };
+          services.tailscale.enable = true;
+          users.users = {
+            mar = {
+              isNormalUser = true;
+              description = "MLC Bloeiman";
+              openssh.authorizedKeys.keys = [
+                "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJcIWHOpK3xwuCkqhqw+sTh++lVF2xLa4szixk81TWYRAAAAHHNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX21haW4= ssh:ssh_strawmelonjuice_main"
+                "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIJkLyzUpgECLzHslD8Bj0pSM9Mkqq7xam6c9XswlEmicAAAAIXNzaDpzc2hfc3RyYXdtZWxvbmp1aWNlX2JhY2t1cF8xRA== ssh:ssh_strawmelonjuice_backup_1D"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN00S7BhcmuvXgGrzIv2dLXGwMxVGL6y164oVAlNIDMf"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAyau8tCGMY2+JdzcGw3gav5Ioh59RVBMG22B1z8jn2K"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAoQBb5B3iDgdRb+rFwK1t3C6nDW9JTpDGvATnxdTVXZ Backup server management key"
+              ];
+              shell = pkgs.fish;
+              extraGroups = [
+                "networkmanager"
+                "wheel"
+              ];
+              packages = with pkgs; [
+                obsidian
+                moonlight-qt
+                yubioath-flutter
+                vlc
+              ];
+            };
+          };
+          programs = {
+            fish.enable = true;
+            nix-ld.enable = true;
+            nix-ld.libraries = with pkgs; [
+              # Add any missing dynamic libraries for unpackaged programs
+              # here, NOT in environment.systemPackages
+              gcc
+            ];
+            mosh.enable = true;
+          };
+          security = {
+            doas.enable = true;
+            sudo.enable = false;
+            doas.extraRules = [
+              {
+                users = [
+                  "mar"
+                  "root"
+                ];
+                keepEnv = true;
+                persist = true;
+              }
+            ];
+          };
+        };
 
       # Helper function to get home modules
       getHomeModules =
-        hostname: is_workstation:
-        (
-          if hostname != "Cubchoo" then
-            if is_workstation then
-              [
-                ./home/desktop.nix
-                ./home/default.nix
-              ]
-            else
-              [
-                ./home/default.nix
-              ]
-          else
-            [ ]
-        )
-        ++ [
-          ./home/host-specific/${hostname}.nix
-        ];
+        configName: hostname:
+        if configName == "hostname" || configName == "default" then
+          [
+            # System brings it's own mixture of configs.
+            ./systems/configurations/${hostname}/hm.nix
+          ]
+        else
+          [
+            # A mixture has been selected:
+            ./home-manager/configurations/${configName}.nix
+          ]
+          # And the system can tweak it if needed:
+          ++ nixpkgs.lib.optional (builtins.pathExists ./systems/configurations/${hostname}/hm.nix) ./systems/configurations/${hostname}/hm.nix;
 
       # Helper function to create system configs easily
       defineSystem =
-        hostname: architecture: is_workstation:
+        {
+          HMconfigName,
+          hostName,
+          architecture,
+        }:
+        let
+          hostname = hostName;
+          pkgs = mkPkgs architecture;
+        in
         nixpkgs.lib.nixosSystem {
           system = architecture;
           specialArgs = { inherit inputs hostname; };
-          modules = [
-            # inputs.noctalia.nixosModules.default
-            ./hosts/${hostname}/configuration.nix
-            home-manager.nixosModules.home-manager
 
+          modules = [
+            ./systems/configurations/${hostname}/system.nix
+            globalNixOsConfig
+          ]
+          ++ nixpkgs.lib.optionals (HMconfigName != "disable") [
+            home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = {
-                inherit inputs hostname;
-              };
-              home-manager.users.mar = {
-                imports = getHomeModules hostname is_workstation;
-
-              };
+              home-manager.extraSpecialArgs = { inherit inputs hostname; };
+              home-manager.users.mar.imports = getHomeModules HMconfigName hostname;
             }
           ];
         };
 
       # Helper function for standalone Home Manager
       defineHome =
-        hostname: architecture: is_workstation:
+        {
+          configName,
+          hostName,
+          architecture,
+        }:
+        let
+          hostname = hostName;
+          pkgs = mkPkgs architecture;
+        in
         home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            overlays = [
-              (final: prev: {
-                inherit (prev.lixPackageSets.stable)
-                  nixpkgs-review
-                  nix-eval-jobs
-                  nix-fast-build
-                  colmena
-                  ;
-              })
-            ];
-
-            system = architecture;
-            config = {
-              nix.package = nixpkgs.lixPackageSets.stable.lix;
-              nix.settings = {
-                experimental-features = "flakes nix-command";
-              };
-              allowUnfreePackages = [
-                "joypixels"
-              ];
-              joypixels.acceptLicense = true;
-              allowUnfree = true;
-              permittedInsecurePackages = [
-                "radicle-node-1.10.3"
-              ];
-            };
-
-          };
+          inherit pkgs;
           extraSpecialArgs = { inherit inputs hostname; };
-          modules = getHomeModules hostname is_workstation;
+          modules = getHomeModules configName hostname;
         };
     in
     {
       nixosConfigurations = {
-        Fennekin = (defineSystem "Fennekin" "x86_64-linux" true);
-        Samurott = (defineSystem "Samurott" "x86_64-linux" true);
-        Ponyta = (defineSystem "Ponyta" "x86_64-linux" true);
-        frigometri = (defineSystem "frigometri" "x86_64-linux" false);
-        Tepig = (defineSystem "Tepig" "x86_64-linux" true);
-        Cubchoo = (defineSystem "Cubchoo" "aarch64-linux" false);
+        Fennekin = (
+          defineSystem {
+            hostName = "Fennekin";
+            architecture = "x86_64-linux";
+            HMconfigName = "workstation";
+          }
+        );
+        Samurott = (
+          defineSystem {
+            hostName = "Samurott";
+            architecture = "x86_64-linux";
+            HMconfigName = "workstation";
+          }
+        );
+        Ponyta = (
+          defineSystem {
+            hostName = "Ponyta";
+            architecture = "x86_64-linux";
+            HMconfigName = "workstation";
+          }
+        );
+        frigometri = (
+          defineSystem {
+            hostName = "frigometri";
+            architecture = "x86_64-linux";
+            HMconfigName = "default";
+          }
+        );
+        Tepig = (
+          defineSystem {
+            hostName = "Tepig";
+            architecture = "x86_64-linux";
+            HMconfigName = "workstation";
+          }
+        );
+        Cubchoo = (
+          defineSystem {
+            hostName = "Cubchoo";
+            architecture = "aarch64-linux";
+            HMconfigName = "default";
+          }
+        );
       };
 
       homeConfigurations = {
-        Fennekin = (defineHome "Fennekin" "x86_64-linux" true);
-        Samurott = (defineHome "Samurott" "x86_64-linux" true);
-        Ponyta = (defineHome "Ponyta" "x86_64-linux" true);
-        frigometri = (defineHome "frigometri" "x86_64-linux" false);
-        Cubchoo = (defineHome "Cubchoo" "aarch64-linux" false);
-        Tepig = (defineHome "Tepig" "x86_64-linux" true);
+        Fennekin = (
+          defineHome {
+            hostName = "Fennekin";
+            architecture = "x86_64-linux";
+            configName = "workstation";
+          }
+        );
+        Samurott = (
+          defineHome {
+            hostName = "Samurott";
+            architecture = "x86_64-linux";
+            configName = "workstation";
+          }
+        );
+        Ponyta = (
+          defineHome {
+            hostName = "Ponyta";
+            architecture = "x86_64-linux";
+            configName = "workstation";
+          }
+        );
+        frigometri = (
+          defineHome {
+            hostName = "frigometri";
+            architecture = "x86_64-linux";
+            configName = "default";
+          }
+        );
+        Cubchoo = (
+          defineHome {
+            hostName = "Cubchoo";
+            architecture = "aarch64-linux";
+            configName = "default";
+          }
+        );
+        Tepig = (
+          defineHome {
+            hostName = "Tepig";
+            architecture = "x86_64-linux";
+            configName = "workstation";
+          }
+        );
+
+        Samurott-win = (
+          defineHome {
+            hostName = "Samurott-win";
+            architecture = "x86_64-linux";
+            configName = "wsl";
+          }
+        );
+        Ponyta-win = (
+          defineHome {
+            hostName = "Ponyta-win";
+            architecture = "x86_64-linux";
+            configName = "wsl";
+          }
+        );
       };
     };
 }
