@@ -240,7 +240,7 @@
     nextcloud = {
       enable = true;
       webserver = "caddy";
-      package = pkgs.nextcloud34;
+      package = pkgs.nextcloud35;
       imaginary.enable = true;
       home = "/var/lib/nextcloud";
       datadir = "/var/lib/nextcloud";
