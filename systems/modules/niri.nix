@@ -12,6 +12,7 @@
   ];
   home-manager.users.mar = {
     imports = [
+      ../../home-manager/configurations/workstation.nix
       inputs.niri.homeModules.niri
     ];
     # programs.plasma.krunner = {
@@ -56,12 +57,12 @@
         default-timeout = 15;
       };
     };
-    systemd.user.services.fnott = {
-      Unit = {
-        Requisite = [ "niri.service" ];
-        After = [ "niri.service" ];
-      };
-    };
+    # systemd.user.services.fnott = {
+    #   Unit = {
+    #     Requisite = [ "niri.service" ];
+    #     After = [ "niri.service" ];
+    #   };
+    # };
 
     xdg.configFile."niri/scripts/osk.sh" = {
       text = ''
@@ -1179,11 +1180,7 @@
     xwayland-satellite
   ];
 
-  services.oo7.enable = true;
-  security.pam.services.mar.oo7.enable = true;
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
-  security.pam.services.login.kwallet.enable = lib.mkForce false;
-  security.pam.services.kdewallet.enable = lib.mkForce false;
+  services.gnome.gnome-keyring.enable = true;
   security.pam.services.hyprlock = { };
 
   security.polkit.enable = true;

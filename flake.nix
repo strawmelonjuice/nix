@@ -58,33 +58,37 @@
       ...
     }@inputs:
     let
+      nixpkgsConfig = {
+        permittedInsecurePackages = [
+          # I don't have private repositories
+          "radicle-node-1.10.3"
+        ];
+        allowUnfree = true;
+      };
+
+      nixpkgsOverlays = [
+        (final: prev: {
+          stable = import nixpkgs-2605 {
+            system = prev.stdenv.hostPlatform.system;
+            config = {
+              allowUnfree = true;
+            };
+          };
+          inherit (prev.lixPackageSets.stable)
+            nixpkgs-review
+            nix-eval-jobs
+            nix-fast-build
+            colmena
+            ;
+        })
+      ];
+
       mkPkgs =
         system:
         import nixpkgs {
           inherit system;
-          config = {
-            permittedInsecurePackages = [
-              # I don't have private repositories
-              "radicle-node-1.10.3"
-            ];
-            allowUnfree = true;
-          };
-          overlays = [
-            (final: prev: {
-              stable = import nixpkgs-2605 {
-                inherit system;
-                config = {
-                  allowUnfree = true;
-                };
-              };
-              inherit (prev.lixPackageSets.stable)
-                nixpkgs-review
-                nix-eval-jobs
-                nix-fast-build
-                colmena
-                ;
-            })
-          ];
+          config = nixpkgsConfig;
+          overlays = nixpkgsOverlays;
         };
 
       # This config truly applies to all systems.
@@ -92,7 +96,8 @@
         { pkgs, ... }:
         {
           nixpkgs = {
-            inherit (pkgs) config overlays;
+            config = nixpkgsConfig;
+            overlays = nixpkgsOverlays;
           };
           nix = {
             package = nixpkgs.lib.mkForce pkgs.lixPackageSets.stable.lix;
@@ -200,7 +205,6 @@
         }:
         let
           hostname = hostName;
-          pkgs = mkPkgs architecture;
         in
         nixpkgs.lib.nixosSystem {
           system = architecture;

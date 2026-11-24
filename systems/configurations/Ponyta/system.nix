@@ -8,8 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../../modules/gnome.nix
-    ../../../modules/niri.nix
+    ../../modules/cosmic.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -52,8 +51,6 @@
   services.desktopManager.gnome.enable = true;
 
   services.displayManager.defaultSession = "gnome";
-
-  programs.sway.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {

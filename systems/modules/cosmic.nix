@@ -2647,7 +2647,7 @@
       force = true;
       text = ''
         {
-            Terminal: "alacritty start --cwd .",
+            Terminal: "ghostty",
         }
       '';
     };
@@ -2742,7 +2742,7 @@
       text = ''
         [
          "zen"
-         "Alacritty"
+         "ghostty"
          "obsidian"
          "element-desktop"
         ]

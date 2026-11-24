@@ -1,9 +1,7 @@
 {
-  lib,
   pkgs,
   config,
   inputs,
-  home-manager,
   ...
 }:
 {
@@ -14,6 +12,7 @@
   # https://nix-community.github.io/plasma-manager/options.xhtml
   home-manager.users.mar = {
     imports = [
+      ../../home-manager/configurations/workstation.nix
       inputs.plasma-manager.homeModules.plasma-manager
     ];
     home = {
