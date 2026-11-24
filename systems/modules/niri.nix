@@ -1172,7 +1172,6 @@
   programs.niri.enable = true;
 
   environment.systemPackages = with pkgs; [
-    pinentry-qt
     polkit_gnome
     wayland-utils
     wl-clipboard

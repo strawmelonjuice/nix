@@ -147,6 +147,9 @@
                 "wheel"
               ];
               packages = with pkgs; [
+                # Yubikey :3
+                pinentry-qt
+
                 obsidian
                 moonlight-qt
                 yubioath-flutter
