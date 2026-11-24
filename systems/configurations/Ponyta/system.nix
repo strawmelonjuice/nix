@@ -11,6 +11,8 @@
     ../../modules/cosmic.nix
   ];
 
+  # services.displayManager.defaultSession = "cosmic";
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -45,12 +47,6 @@
     LC_TELEPHONE = "nl_NL.UTF-8";
     LC_TIME = "nl_NL.UTF-8";
   };
-
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  services.displayManager.defaultSession = "gnome";
 
   # Configure keymap in X11
   services.xserver.xkb = {
