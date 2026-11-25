@@ -1172,7 +1172,6 @@
   programs.niri.enable = true;
 
   environment.systemPackages = with pkgs; [
-    polkit_gnome
     wayland-utils
     wl-clipboard
     xclip

@@ -149,6 +149,7 @@
               packages = with pkgs; [
                 # Yubikey :3
                 pinentry-qt
+                polkit_gnome
 
                 obsidian
                 moonlight-qt
@@ -166,6 +167,7 @@
               gcc
             ];
             mosh.enable = true;
+            gnome-disks.enable = true;
           };
           security = {
             doas.enable = true;
